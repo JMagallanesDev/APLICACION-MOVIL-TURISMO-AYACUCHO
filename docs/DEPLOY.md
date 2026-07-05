@@ -4,6 +4,15 @@ Estrategia "deploy temprano del esqueleto" (plan v8.0, sección 7.3): cada push
 a `main` despliega frontend (Vercel) y backend (Railway) automáticamente.
 Flyway aplica las migraciones contra Supabase en el primer arranque.
 
+## Estado: DESPLEGADO (5 jul 2026)
+
+| Componente | URL / detalle |
+|---|---|
+| API (Railway) | https://web-production-616c6.up.railway.app/api/v1/health |
+| Frontend (Vercel) | https://aplicacion-movil-turismo-ayacucho-w.vercel.app |
+| BD (Supabase) | São Paulo, Session pooler 5432, PostGIS 3.3.7, migraciones V1–V6 aplicadas |
+| Redis (Upstash) | sa-east-1, TLS (`rediss://`) |
+
 ## 1. Supabase (base de datos)
 
 1. Crear proyecto nuevo → región `South America (São Paulo)` (la más cercana a Perú).
@@ -44,6 +53,21 @@ REDIS_URL=rediss://default:<password>@<host>.upstash.io:6379
 4. En **Settings → Networking → Generate Domain** para obtener la URL pública.
 5. Verificar: `https://<dominio>.up.railway.app/api/v1/health` debe responder
    `{"database":"UP","redis":"UP","status":"UP"}`.
+
+> ⚠️ **Incidencia conocida (resuelta el 5 jul 2026):** al conectar el repo,
+> Railway autodetecta el frontend del monorepo y configura start command
+> `pnpm start`, build command `pnpm --filter web build` y watch paths
+> `/apps/web/**`. El build del Dockerfile pasa, pero el deploy falla con
+> `The executable 'pnpm' could not be found`. Solución: **borrar el
+> start/build command** en Settings (para que use el ENTRYPOINT del
+> Dockerfile) y cambiar los watch paths a `/apps/api/**` (así los cambios
+> del frontend o docs no re-despliegan el backend).
+
+> ⚠️ **Latencia conocida:** el trial de Railway no permite elegir región y
+> el servicio quedó en US West, mientras BD y Redis están en São Paulo
+> (~150-180 ms extra por query). Funciona, pero es un punto a favor del
+> plan B: Koyeb/Fly.io sí permiten Sudamérica/us-east en free tier.
+> Gracias al RNF-39 migrar es mover variables de entorno.
 
 > Plan B (sección 7.6): si el crédito de Railway no alcanza, el MISMO
 > Dockerfile se despliega en Koyeb o Fly.io cambiando solo dónde se pegan
