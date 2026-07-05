@@ -1,0 +1,20 @@
+{
+  "name": "turismo-huamanga",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sistema de Turismo Inteligente Huamanga - PWA mobile-first (Next.js 15 + Spring Boot 3 + PostgreSQL/PostGIS)",
+  "scripts": {
+    "dev": "concurrently -n web,api -c cyan,yellow \"pnpm --filter web dev\" \"pnpm api:dev\"",
+    "api:dev": "cd apps/api && mvnw.cmd spring-boot:run",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "build": "pnpm --filter web build",
+    "test": "pnpm --filter web test && cd apps/api && mvnw.cmd test"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

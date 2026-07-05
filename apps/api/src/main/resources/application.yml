@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: tourism
+
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/huamanga}
+    username: ${DATABASE_USER:huamanga}
+    password: ${DATABASE_PASSWORD:huamanga_dev}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate # el esquema lo gobierna Flyway, nunca Hibernate
+    open-in-view: false
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  data:
+    redis:
+      url: ${REDIS_URL:redis://localhost:6379}
+
+server:
+  port: ${PORT:8080}
+  servlet:
+    context-path: /api/v1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always

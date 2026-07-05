@@ -1,0 +1,60 @@
+/*
+ * Design tokens centralizados (RF-89) — Paleta Ayacucho (RF-90)
+ * Única fuente de color del proyecto: PROHIBIDO usar hex en componentes.
+ * Paleta inspirada en los retablos ayacuchanos; valores provisionales del
+ * Sprint 1, se ajustan con los 5 colores oficiales al definir identidad visual.
+ */
+:root {
+  /* Paleta Ayacucho (5 colores base) */
+  --ayacucho-guinda: #7b1e3c;      /* granate de retablo / fachadas coloniales */
+  --ayacucho-dorado: #c9942a;      /* pan de oro de altares */
+  --ayacucho-tierra: #8a5a3b;      /* adobe y cerámica */
+  --ayacucho-azul: #2b4c7e;        /* azul añil textil */
+  --ayacucho-marfil: #f7f1e6;      /* piedra de Huamanga */
+
+  /* Tokens semánticos — tema claro */
+  --background: var(--ayacucho-marfil);
+  --foreground: #241a17;
+  --primary: var(--ayacucho-guinda);
+  --primary-foreground: #ffffff;
+  --secondary: var(--ayacucho-azul);
+  --accent: var(--ayacucho-dorado);
+  --muted: #e8dfd0;
+  --border: #d9cbb5;
+}
+
+/* Tema oscuro completo (RF-94) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #1b1114;
+    --foreground: #f3e9e9;
+    --primary: #a84a66;
+    --primary-foreground: #ffffff;
+    --secondary: #5b7cab;
+    --accent: #d9ad4f;
+    --muted: #2a1c20;
+    --border: #3d2a30;
+  }
+}
+
+:root[data-theme="dark"] {
+  --background: #1b1114;
+  --foreground: #f3e9e9;
+  --primary: #a84a66;
+  --primary-foreground: #ffffff;
+  --secondary: #5b7cab;
+  --accent: #d9ad4f;
+  --muted: #2a1c20;
+  --border: #3d2a30;
+}
+
+:root[data-theme="light"] {
+  --background: var(--ayacucho-marfil);
+  --foreground: #241a17;
+  --primary: var(--ayacucho-guinda);
+  --primary-foreground: #ffffff;
+  --secondary: var(--ayacucho-azul);
+  --accent: var(--ayacucho-dorado);
+  --muted: #e8dfd0;
+  --border: #d9cbb5;
+}
