@@ -4,7 +4,6 @@ PWA mobile-first para descubrir lugares patrimoniales de Huamanga (Ayacucho, Per
 recomendaciones contextuales, mapa 3D, clima, agenda cultural, directorio de negocios
 y reporte ciudadano de atentados al patrimonio.
 
-**Tesis** — Universidad Nacional de San Cristóbal de Huamanga · Ingeniería de Sistemas.
 
 ## Stack
 
@@ -58,5 +57,5 @@ docker-compose.yml   PostgreSQL+PostGIS (5432) y Redis (6379)
 ## Convenciones
 
 - Ramas: `feature/{RF}-descripcion`, `fix/descripcion`; Conventional Commits en español.
-- Secrets solo en `.env.local` (nunca en Git — RNF-17).
+- Secrets solo en `.env.local`.
 - Cero hex en componentes (solo `tokens.css`), cero textos hardcodeados (next-intl).
