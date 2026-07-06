@@ -42,8 +42,11 @@ public class SecurityConfig {
                         .requestMatchers("/health", "/actuator/health").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register", "/auth/login",
                                          "/auth/refresh", "/auth/logout").permitAll()
-                        // Todo lo demás requiere autenticación (los endpoints
-                        // públicos de lugares/eventos se permitirán al crearse)
+                        // Documentación del API (Swagger UI)
+                        .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
+                        // Catálogo público de lugares (RF-01, RF-09); escribir exige ADMIN (@PreAuthorize)
+                        .requestMatchers(HttpMethod.GET, "/lugares/**").permitAll()
+                        // Todo lo demás requiere autenticación
                         .anyRequest().authenticated())
                 .exceptionHandling(e -> e.authenticationEntryPoint((req, res, ex) -> {
                     res.setStatus(401);

@@ -130,6 +130,26 @@ public class AuthService {
         }
     }
 
+    /**
+     * Cambio de contraseña propio: exige la actual, guarda la nueva con
+     * BCrypt cost 12 e invalida TODAS las sesiones abiertas (refresh tokens).
+     */
+    @Transactional
+    public void cambiarPassword(UsuarioAutenticado autenticado, String passwordActual,
+                                String passwordNueva) {
+        Usuario usuario = usuarioRepository.findById(autenticado.id())
+                .filter(u -> u.getDeletedAt() == null)
+                .orElseThrow(this::sesionExpirada);
+
+        if (!passwordEncoder.matches(passwordActual, usuario.getPasswordHash())) {
+            throw new NegocioException(HttpStatus.UNAUTHORIZED, "PASSWORD_ACTUAL_INCORRECTA",
+                    "La contraseña actual no es correcta.");
+        }
+        usuario.setPasswordHash(passwordEncoder.encode(passwordNueva));
+        usuarioRepository.save(usuario);
+        refreshTokenRepository.deleteByUsuarioId(usuario.getId());
+    }
+
     @Transactional(readOnly = true)
     public UsuarioResponse me(UsuarioAutenticado autenticado) {
         Usuario usuario = usuarioRepository.findById(autenticado.id())

@@ -1,5 +1,6 @@
 package com.huamanga.tourism.auth.controller;
 
+import com.huamanga.tourism.auth.dto.CambioPasswordRequest;
 import com.huamanga.tourism.auth.dto.LoginRequest;
 import com.huamanga.tourism.auth.dto.RegisterRequest;
 import com.huamanga.tourism.auth.dto.TokenResponse;
@@ -16,6 +17,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -79,6 +81,17 @@ public class AuthController {
     @GetMapping("/me")
     public UsuarioResponse me(@AuthenticationPrincipal UsuarioAutenticado autenticado) {
         return authService.me(autenticado);
+    }
+
+    /** Cambia la contraseña propia e invalida todas las sesiones abiertas. */
+    @PutMapping("/password")
+    public ResponseEntity<Void> cambiarPassword(
+            @AuthenticationPrincipal UsuarioAutenticado autenticado,
+            @Valid @RequestBody CambioPasswordRequest request) {
+        authService.cambiarPassword(autenticado, request.passwordActual(), request.passwordNueva());
+        return ResponseEntity.noContent()
+                .header(HttpHeaders.SET_COOKIE, cookieBorrado().toString())
+                .build();
     }
 
     // ------------------------------------------------------------------
