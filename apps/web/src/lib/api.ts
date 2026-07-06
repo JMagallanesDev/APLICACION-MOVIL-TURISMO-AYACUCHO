@@ -12,10 +12,11 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080/api/v1
  * cubre la ventana típica de swap de contenedores.
  */
 async function fetchConReintento(url: string, init: RequestInit): Promise<Response> {
+  const esperasMs = [0, 800, 2000];
   let ultimoError: unknown;
-  for (let intento = 0; intento < 2; intento++) {
-    if (intento > 0) {
-      await new Promise((r) => setTimeout(r, 700));
+  for (let intento = 0; intento < esperasMs.length; intento++) {
+    if (esperasMs[intento] > 0) {
+      await new Promise((r) => setTimeout(r, esperasMs[intento]));
     }
     try {
       const res = await fetch(url, init);

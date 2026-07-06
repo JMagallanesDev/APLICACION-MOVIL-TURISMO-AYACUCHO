@@ -63,6 +63,14 @@ REDIS_URL=rediss://default:<password>@<host>.upstash.io:6379
 > Dockerfile) y cambiar los watch paths a `/apps/api/**` (así los cambios
 > del frontend o docs no re-despliegan el backend).
 
+> ⚠️ **Zero-downtime (6 jul 2026):** `apps/api/railway.json` define
+> `healthcheckPath: /api/v1/health` + `overlapSeconds: 60` para que el
+> contenedor viejo siga sirviendo hasta que el nuevo pase el healthcheck.
+> **Verificar además en el dashboard**: Settings → Deploy → Healthcheck Path
+> debe mostrar `/api/v1/health` (cinturón y tirantes: si el config-as-code
+> no se aplicara, el valor del panel manda). Cada deploy debe mostrar el
+> paso "Healthcheck" en su log antes de pasar a Active.
+
 > ⚠️ **Latencia conocida:** el trial de Railway no permite elegir región y
 > el servicio quedó en US West, mientras BD y Redis están en São Paulo
 > (~150-180 ms extra por query). Funciona, pero es un punto a favor del
