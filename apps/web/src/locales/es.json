@@ -77,5 +77,26 @@
   "Footer": {
     "hechoEn": "Hecho en Ayacucho, Perú",
     "proyecto": "Proyecto de tesis — UNSCH, Ingeniería de Sistemas"
+  },
+  "Mapa": {
+    "titulo": "Mapa de Huamanga",
+    "subtitulo": "Explora los lugares por categoría; toca un punto para ver su ficha.",
+    "verListado": "Ver como lista",
+    "abierto": "Abierto ahora",
+    "cerrado": "Cerrado ahora",
+    "verFicha": "Ver ficha",
+    "sinKey": "Mapa base de demostración — configura NEXT_PUBLIC_MAPTILER_KEY para el mapa 3D completo"
+  },
+  "Recomendaciones": {
+    "titulo": "¿Qué hago ahora?",
+    "razones": {
+      "LLUVIA_TECHADO": "Ideal con lluvia",
+      "IDEAL_MANANA": "Perfecto esta mañana",
+      "IDEAL_MEDIODIA": "Ideal al mediodía",
+      "IDEAL_TARDE": "Perfecto esta tarde",
+      "IDEAL_NOCHE": "Ideal esta noche",
+      "IDEAL_MADRUGADA": "Abierto a esta hora",
+      "ABIERTO_AHORA": "Abierto ahora"
+    }
   }
 }

@@ -108,8 +108,12 @@ export async function obtenerLugares(opciones: {
   categoria?: string;
   q?: string;
   pagina?: number;
+  tamano?: number;
 }): Promise<PaginaLugares> {
-  const params = new URLSearchParams({ idioma: opciones.idioma, tamano: "12" });
+  const params = new URLSearchParams({
+    idioma: opciones.idioma,
+    tamano: String(opciones.tamano ?? 12),
+  });
   if (opciones.categoria) params.set("categoria", opciones.categoria);
   if (opciones.q) params.set("q", opciones.q);
   if (opciones.pagina) params.set("pagina", String(opciones.pagina));

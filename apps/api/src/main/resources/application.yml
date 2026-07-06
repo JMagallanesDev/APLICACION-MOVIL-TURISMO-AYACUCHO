@@ -38,6 +38,23 @@ seguridad:
   cors-allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000}
   rate-limit-por-minuto: ${RATE_LIMIT_POR_MINUTO:100}
 
+# Clima (RF-25): OpenWeatherMap sobre la Plaza Mayor de Huamanga,
+# caché Redis 30 min + fallback al último dato conocido si el proveedor cae
+clima:
+  api-key: ${OPENWEATHER_API_KEY:}
+  latitud: -13.16307
+  longitud: -74.22357
+  cache-minutos: 30
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      clima:
+        slidingWindowSize: 6
+        minimumNumberOfCalls: 3
+        failureRateThreshold: 50
+        waitDurationInOpenState: 60s
+
 management:
   endpoints:
     web:

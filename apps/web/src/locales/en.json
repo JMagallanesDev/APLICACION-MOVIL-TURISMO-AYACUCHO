@@ -77,5 +77,26 @@
   "Footer": {
     "hechoEn": "Made in Ayacucho, Peru",
     "proyecto": "Thesis project — UNSCH, Systems Engineering"
+  },
+  "Mapa": {
+    "titulo": "Huamanga Map",
+    "subtitulo": "Explore places by category; tap a point to see its page.",
+    "verListado": "View as list",
+    "abierto": "Open now",
+    "cerrado": "Closed now",
+    "verFicha": "View details",
+    "sinKey": "Demo base map — set NEXT_PUBLIC_MAPTILER_KEY for the full 3D map"
+  },
+  "Recomendaciones": {
+    "titulo": "What can I do right now?",
+    "razones": {
+      "LLUVIA_TECHADO": "Great for rainy weather",
+      "IDEAL_MANANA": "Perfect this morning",
+      "IDEAL_MEDIODIA": "Great at midday",
+      "IDEAL_TARDE": "Perfect this afternoon",
+      "IDEAL_NOCHE": "Great tonight",
+      "IDEAL_MADRUGADA": "Open at this hour",
+      "ABIERTO_AHORA": "Open now"
+    }
   }
 }

@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { use } from "react";
 import { Link } from "@/i18n/navigation";
+import QueHagoAhora from "@/components/QueHagoAhora";
 import SelectorIdioma from "@/components/SelectorIdioma";
 
 export default function Home({
@@ -38,23 +39,31 @@ export default function Home({
           >
             {t("explorarLugares")}
           </Link>
-          <span className="inline-flex min-h-11 cursor-not-allowed items-center rounded-full border border-border px-6 font-medium opacity-80">
+          <Link
+            href="/mapa"
+            className="inline-flex min-h-11 items-center rounded-full border border-border px-6 font-medium transition-colors hover:bg-muted"
+          >
             {t("verMapa")}
-          </span>
+          </Link>
         </div>
 
-        <section className="mt-10 max-w-md rounded-2xl border border-border bg-muted p-6">
-          <h2 className="font-semibold text-secondary">
-            {t("seccionDiferenciador")}
-          </h2>
-          <p className="mt-2 text-sm opacity-80">{t("textoDiferenciador")}</p>
-        </section>
+        <div className="mt-10 flex w-full justify-center">
+          <QueHagoAhora />
+        </div>
 
-        <nav aria-hidden className="mt-6 flex gap-4 text-sm opacity-50">
-          <span>{nav("lugares")}</span>
-          <span>{nav("mapa")}</span>
-          <span>{nav("eventos")}</span>
-          <span>{nav("reportar")}</span>
+        <nav className="mt-6 flex gap-4 text-sm">
+          <Link href="/lugares" className="opacity-70 hover:opacity-100 hover:underline">
+            {nav("lugares")}
+          </Link>
+          <Link href="/mapa" className="opacity-70 hover:opacity-100 hover:underline">
+            {nav("mapa")}
+          </Link>
+          <span aria-hidden className="opacity-40">
+            {nav("eventos")}
+          </span>
+          <span aria-hidden className="opacity-40">
+            {nav("reportar")}
+          </span>
         </nav>
       </main>
 
