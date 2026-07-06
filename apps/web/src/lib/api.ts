@@ -6,6 +6,34 @@
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080/api/v1";
 
+/**
+ * Fetch con reintento ante fallos transitorios (red caída o 5xx/404 de
+ * plataforma durante un redeploy de Railway). Un reintento con espera corta
+ * cubre la ventana típica de swap de contenedores.
+ */
+async function fetchConReintento(url: string, init: RequestInit): Promise<Response> {
+  let ultimoError: unknown;
+  for (let intento = 0; intento < 2; intento++) {
+    if (intento > 0) {
+      await new Promise((r) => setTimeout(r, 700));
+    }
+    try {
+      const res = await fetch(url, init);
+      // 404 del API real trae JSON ({error:...}); un 404 HTML es la
+      // plataforma sin app detrás (deploy en curso): se reintenta.
+      const es404DePlataforma =
+        res.status === 404 && !res.headers.get("content-type")?.includes("json");
+      if (res.ok || (!es404DePlataforma && res.status < 500)) {
+        return res;
+      }
+      ultimoError = new Error(`HTTP ${res.status}`);
+    } catch (e) {
+      ultimoError = e;
+    }
+  }
+  throw ultimoError instanceof Error ? ultimoError : new Error("API no disponible");
+}
+
 export interface LugarResumen {
   id: string;
   slug: string;
@@ -85,7 +113,7 @@ export async function obtenerLugares(opciones: {
   if (opciones.q) params.set("q", opciones.q);
   if (opciones.pagina) params.set("pagina", String(opciones.pagina));
 
-  const res = await fetch(`${API_URL}/lugares?${params}`, {
+  const res = await fetchConReintento(`${API_URL}/lugares?${params}`, {
     ...(opciones.q ? { cache: "no-store" } : { next: { revalidate: 300 } }),
   });
   if (!res.ok) {
@@ -95,9 +123,11 @@ export async function obtenerLugares(opciones: {
 }
 
 export async function obtenerLugar(slug: string): Promise<LugarDetalle | null> {
-  const res = await fetch(`${API_URL}/lugares/${encodeURIComponent(slug)}`, {
+  const res = await fetchConReintento(`${API_URL}/lugares/${encodeURIComponent(slug)}`, {
     next: { revalidate: 3600 },
   });
+  // Solo el 404 JSON del API significa "lugar no existe"; cualquier otro
+  // fallo lanza (y el error boundary evita cachear un falso not-found)
   if (res.status === 404) {
     return null;
   }

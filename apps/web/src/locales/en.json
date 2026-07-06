@@ -68,7 +68,11 @@
     "cuantoCaminando": "How far on foot?",
     "calculando": "Calculating…",
     "distanciaAPie": "~{min} min walking ({km} km)",
-    "errorUbicacion": "We couldn't get your location. Check your browser permissions."
+    "errorUbicacion": "We couldn't get your location. Check your browser permissions.",
+    "errorCargaTitulo": "We couldn't load the places",
+    "errorCargaTexto": "The server did not respond. This is usually temporary — try again in a few seconds.",
+    "reintentar": "Try again",
+    "irAlInicio": "Go home"
   },
   "Footer": {
     "hechoEn": "Made in Ayacucho, Peru",

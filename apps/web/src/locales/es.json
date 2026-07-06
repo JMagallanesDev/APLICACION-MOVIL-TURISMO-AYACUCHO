@@ -68,7 +68,11 @@
     "cuantoCaminando": "¿A cuánto está caminando?",
     "calculando": "Calculando…",
     "distanciaAPie": "A ~{min} min caminando ({km} km)",
-    "errorUbicacion": "No pudimos obtener tu ubicación. Revisa los permisos del navegador."
+    "errorUbicacion": "No pudimos obtener tu ubicación. Revisa los permisos del navegador.",
+    "errorCargaTitulo": "No pudimos cargar los lugares",
+    "errorCargaTexto": "El servidor no respondió. Suele ser algo momentáneo: vuelve a intentarlo en unos segundos.",
+    "reintentar": "Reintentar",
+    "irAlInicio": "Ir al inicio"
   },
   "Footer": {
     "hechoEn": "Hecho en Ayacucho, Perú",
