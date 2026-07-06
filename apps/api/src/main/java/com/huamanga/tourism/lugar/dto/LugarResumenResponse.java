@@ -18,6 +18,9 @@ public record LugarResumenResponse(
         double longitud,
         BigDecimal precioEntradaPen,
         Integer duracionVisitaMin,
-        Boolean abiertoAhora
+        Boolean abiertoAhora,
+        /** De la vista materializada (RF-06); null si aún no hay refresh. */
+        BigDecimal calificacionPromedio,
+        Long totalResenas
 ) {
 }

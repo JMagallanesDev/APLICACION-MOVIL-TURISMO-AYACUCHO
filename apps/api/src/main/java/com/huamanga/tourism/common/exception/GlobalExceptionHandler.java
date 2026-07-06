@@ -34,6 +34,12 @@ public class GlobalExceptionHandler {
                 .body(ApiError.de("ACCESO_DENEGADO", "No tienes permisos para realizar esta acción."));
     }
 
+    @ExceptionHandler(org.springframework.web.multipart.MaxUploadSizeExceededException.class)
+    public ResponseEntity<ApiError> archivoMuyGrande(Exception ex) {
+        return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
+                .body(ApiError.de("ARCHIVO_MUY_GRANDE", "La imagen no puede superar 5 MB."));
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> inesperado(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

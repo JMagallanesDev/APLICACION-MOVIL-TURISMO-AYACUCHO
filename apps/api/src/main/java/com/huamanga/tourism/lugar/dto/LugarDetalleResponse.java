@@ -27,6 +27,8 @@ public record LugarDetalleResponse(
         Boolean requiereGuia,
         EstadoLugar estado,
         Boolean abiertoAhora,
+        BigDecimal calificacionPromedio,
+        Long totalResenas,
         List<TraduccionLugarDto> traducciones,
         List<HorarioDto> horarios
 ) {

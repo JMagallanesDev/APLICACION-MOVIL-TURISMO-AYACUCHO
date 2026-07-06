@@ -7,6 +7,7 @@ import com.huamanga.tourism.lugar.dto.HorarioDto;
 import com.huamanga.tourism.lugar.dto.LugarDetalleResponse;
 import com.huamanga.tourism.lugar.dto.LugarResumenResponse;
 import com.huamanga.tourism.lugar.dto.TraduccionLugarDto;
+import com.huamanga.tourism.lugar.service.EstadisticaLugarService.Estadistica;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,7 +20,8 @@ import java.util.List;
 public class LugarMapper {
 
     public LugarResumenResponse aResumen(Lugar lugar, LugarTraduccion traduccion,
-                                         String categoriaCodigo, Boolean abiertoAhora) {
+                                         String categoriaCodigo, Boolean abiertoAhora,
+                                         Estadistica estadistica) {
         return new LugarResumenResponse(
                 lugar.getId(),
                 lugar.getSlug(),
@@ -30,11 +32,13 @@ public class LugarMapper {
                 lugar.getUbicacion().getX(),
                 lugar.getPrecioEntradaPen(),
                 lugar.getDuracionVisitaMin(),
-                abiertoAhora);
+                abiertoAhora,
+                estadistica != null ? estadistica.calificacionPromedio() : null,
+                estadistica != null ? estadistica.totalResenas() : null);
     }
 
     public LugarDetalleResponse aDetalle(Lugar lugar, String categoriaCodigo,
-                                         Boolean abiertoAhora,
+                                         Boolean abiertoAhora, Estadistica estadistica,
                                          List<LugarTraduccion> traducciones,
                                          List<HorarioLugar> horarios) {
         return new LugarDetalleResponse(
@@ -57,6 +61,8 @@ public class LugarMapper {
                 lugar.getRequiereGuia(),
                 lugar.getEstado(),
                 abiertoAhora,
+                estadistica != null ? estadistica.calificacionPromedio() : null,
+                estadistica != null ? estadistica.totalResenas() : null,
                 traducciones.stream()
                         .map(t -> new TraduccionLugarDto(t.getIdioma(), t.getNombre(),
                                 t.getDescripcion(), t.getHistoria(), t.getConsejos()))

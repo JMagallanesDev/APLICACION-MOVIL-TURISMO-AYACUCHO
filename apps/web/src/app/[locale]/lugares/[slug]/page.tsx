@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { obtenerLugar, traduccionDe, type Horario } from "@/lib/api";
+import { obtenerLugar, obtenerResenas, traduccionDe, type Horario } from "@/lib/api";
 import BadgeAbierto from "@/components/BadgeAbierto";
 import DistanciaAPie from "@/components/DistanciaAPie";
+import Estrellas from "@/components/Estrellas";
 import SelectorIdioma from "@/components/SelectorIdioma";
 
 export async function generateMetadata({
@@ -51,6 +52,7 @@ export default async function PaginaLugar({
   if (!lugar) {
     notFound();
   }
+  const resenas = await obtenerResenas(slug);
   const traduccion = traduccionDe(lugar, locale);
   const dias = turnosPorDia(lugar.horarios);
   const antesDeIr: Array<[string, boolean | null]> = [
@@ -85,6 +87,10 @@ export default async function PaginaLugar({
         </div>
 
         <h1 className="mt-2 text-3xl font-bold">{traduccion.nombre}</h1>
+
+        <div className="mt-1">
+          <Estrellas promedio={lugar.calificacionPromedio} total={lugar.totalResenas} />
+        </div>
 
         {lugar.direccion && <p className="mt-1 text-sm opacity-70">{lugar.direccion}</p>}
 
@@ -176,6 +182,32 @@ export default async function PaginaLugar({
               💡 {traduccion.consejos}
             </p>
           )}
+        </section>
+
+        {/* Reseñas de la comunidad (RF-37) */}
+        <section className="mt-8">
+          <h2 className="text-xl font-semibold">{t("resenasTitulo")}</h2>
+          {resenas.length === 0 ? (
+            <p className="mt-2 text-sm opacity-70">{t("sinResenas")}</p>
+          ) : (
+            <ul className="mt-3 space-y-3">
+              {resenas.map((resena) => (
+                <li key={resena.id} className="rounded-2xl border border-border p-4">
+                  <div className="flex items-center justify-between gap-3 text-sm">
+                    <span className="font-medium">{resena.autorNombre}</span>
+                    <span aria-label={`${resena.calificacion}/5`} className="text-accent">
+                      {"★".repeat(resena.calificacion)}
+                      <span className="opacity-30">{"★".repeat(5 - resena.calificacion)}</span>
+                    </span>
+                  </div>
+                  {resena.comentario && (
+                    <p className="mt-2 text-sm opacity-85">{resena.comentario}</p>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+          <p className="mt-3 text-xs opacity-60">{t("resenasProximamente")}</p>
         </section>
       </article>
     </div>

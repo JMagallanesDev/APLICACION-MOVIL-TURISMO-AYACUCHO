@@ -20,6 +20,12 @@ spring:
     redis:
       url: ${REDIS_URL:redis://localhost:6379}
 
+  # RNF-15: el contenedor corta archivos > 5 MB antes de llegar al service
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 6MB
+
 server:
   port: ${PORT:8080}
   servlet:

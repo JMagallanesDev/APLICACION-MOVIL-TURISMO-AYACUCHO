@@ -46,6 +46,8 @@ export interface LugarResumen {
   precioEntradaPen: number | null;
   duracionVisitaMin: number | null;
   abiertoAhora: boolean | null;
+  calificacionPromedio: number | null;
+  totalResenas: number | null;
 }
 
 export interface PaginaLugares {
@@ -87,8 +89,30 @@ export interface LugarDetalle {
   costoTaxiDesdePlazaPen: number | null;
   requiereGuia: boolean | null;
   abiertoAhora: boolean | null;
+  calificacionPromedio: number | null;
+  totalResenas: number | null;
   traducciones: TraduccionLugar[];
   horarios: Horario[];
+}
+
+export interface Resena {
+  id: string;
+  calificacion: number;
+  comentario: string | null;
+  autorNombre: string;
+  creadaEn: string;
+}
+
+export async function obtenerResenas(slug: string): Promise<Resena[]> {
+  const res = await fetchConReintento(
+    `${API_URL}/lugares/${encodeURIComponent(slug)}/resenas?tamano=10`,
+    { next: { revalidate: 60 } },
+  );
+  if (!res.ok) {
+    return [];
+  }
+  const pagina = await res.json();
+  return pagina.content ?? [];
 }
 
 /** Códigos del catálogo seed (V5); las etiquetas viven en los JSON de i18n. */

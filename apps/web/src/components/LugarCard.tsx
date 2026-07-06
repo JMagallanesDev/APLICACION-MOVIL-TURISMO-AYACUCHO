@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { LugarResumen } from "@/lib/api";
 import BadgeAbierto from "./BadgeAbierto";
+import Estrellas from "./Estrellas";
 
 /** Card del listado (RF-01) con badge abierto/cerrado (RF-09b). */
 export default function LugarCard({ lugar }: { lugar: LugarResumen }) {
@@ -22,6 +23,8 @@ export default function LugarCard({ lugar }: { lugar: LugarResumen }) {
       <h3 className="text-lg font-semibold group-hover:text-primary">
         {lugar.nombre}
       </h3>
+
+      <Estrellas promedio={lugar.calificacionPromedio} total={lugar.totalResenas} />
 
       {lugar.descripcion && (
         <p className="line-clamp-2 text-sm opacity-75">{lugar.descripcion}</p>

@@ -53,6 +53,7 @@ public class LugarService {
     private final LugarMapper mapper;
     private final RevalidacionIsrService revalidacion;
     private final HorarioService horarioService;
+    private final EstadisticaLugarService estadisticaService;
 
     public LugarService(LugarRepository lugarRepository,
                         LugarTraduccionRepository traduccionRepository,
@@ -61,7 +62,8 @@ public class LugarService {
                         DistritoRepository distritoRepository,
                         LugarMapper mapper,
                         RevalidacionIsrService revalidacion,
-                        HorarioService horarioService) {
+                        HorarioService horarioService,
+                        EstadisticaLugarService estadisticaService) {
         this.lugarRepository = lugarRepository;
         this.traduccionRepository = traduccionRepository;
         this.horarioRepository = horarioRepository;
@@ -70,6 +72,7 @@ public class LugarService {
         this.mapper = mapper;
         this.revalidacion = revalidacion;
         this.horarioService = horarioService;
+        this.estadisticaService = estadisticaService;
     }
 
     /**
@@ -103,12 +106,15 @@ public class LugarService {
                         // preferir el idioma solicitado; fallback al que llegue primero (es en seed)
                         (a, b) -> idioma.equals(a.getIdioma()) ? a : b));
         Map<UUID, Boolean> abiertos = horarioService.abiertosAhora(ids);
+        Map<UUID, EstadisticaLugarService.Estadistica> estadisticas =
+                estadisticaService.porLugares(ids);
 
         return pagina.map(lugar -> mapper.aResumen(
                 lugar,
                 traducciones.get(lugar.getId()),
                 categorias.get(lugar.getCategoriaLugarId()).getCodigo(),
-                abiertos.get(lugar.getId())));
+                abiertos.get(lugar.getId()),
+                estadisticas.get(lugar.getId())));
     }
 
     /** Ficha completa por slug (RF-09). */
@@ -241,7 +247,9 @@ public class LugarService {
         List<HorarioLugar> horarios =
                 horarioRepository.findByLugarIdOrderByDiaSemanaAscHoraAperturaAsc(lugar.getId());
         Boolean abiertoAhora = horarios.isEmpty() ? null : horarioService.estaAbierto(horarios);
-        return mapper.aDetalle(lugar, categoriaCodigo, abiertoAhora,
+        EstadisticaLugarService.Estadistica estadistica =
+                estadisticaService.porLugares(List.of(lugar.getId())).get(lugar.getId());
+        return mapper.aDetalle(lugar, categoriaCodigo, abiertoAhora, estadistica,
                 traduccionRepository.findByLugarId(lugar.getId()),
                 horarios);
     }

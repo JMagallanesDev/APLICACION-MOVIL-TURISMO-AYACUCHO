@@ -72,7 +72,11 @@
     "errorCargaTitulo": "We couldn't load the places",
     "errorCargaTexto": "The server did not respond. This is usually temporary — try again in a few seconds.",
     "reintentar": "Try again",
-    "irAlInicio": "Go home"
+    "irAlInicio": "Go home",
+    "calificacion": "{promedio} out of 5 ({total} reviews)",
+    "resenasTitulo": "Visitor reviews",
+    "sinResenas": "No reviews yet. Be the first to share your visit!",
+    "resenasProximamente": "Writing a review will require signing in — coming to the web very soon."
   },
   "Footer": {
     "hechoEn": "Made in Ayacucho, Peru",
