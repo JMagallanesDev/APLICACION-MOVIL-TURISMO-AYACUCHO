@@ -1,0 +1,26 @@
+{
+  "Metadata": {
+    "titulo": "Huamanga Tourism",
+    "descripcion": "Discover the heritage sites of Huamanga, Ayacucho: churches, viewpoints, museums, cultural agenda and more."
+  },
+  "Nav": {
+    "inicio": "Home",
+    "lugares": "Places",
+    "mapa": "Map",
+    "eventos": "Events",
+    "reportar": "Report",
+    "idioma": "Language"
+  },
+  "Home": {
+    "titulo": "Discover Huamanga",
+    "subtitulo": "Colonial churches, viewpoints, retablos and Ayacucho's living cultural agenda — all in one place.",
+    "explorarLugares": "Explore places",
+    "verMapa": "View the map",
+    "seccionDiferenciador": "What can I do today, right now, right here?",
+    "textoDiferenciador": "Recommendations based on the time, the weather and what is open right now."
+  },
+  "Footer": {
+    "hechoEn": "Made in Ayacucho, Peru",
+    "proyecto": "Thesis project — UNSCH, Systems Engineering"
+  }
+}

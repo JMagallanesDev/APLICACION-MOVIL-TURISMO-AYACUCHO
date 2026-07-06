@@ -1,6 +1,7 @@
 package com.huamanga.tourism.lugar.service;
 
 import com.huamanga.tourism.common.exception.NegocioException;
+import com.huamanga.tourism.common.integration.RevalidacionIsrService;
 import com.huamanga.tourism.common.security.UsuarioAutenticado;
 import com.huamanga.tourism.geografia.repository.DistritoRepository;
 import com.huamanga.tourism.horario.dominio.HorarioLugar;
@@ -49,19 +50,22 @@ public class LugarService {
     private final CategoriaLugarRepository categoriaRepository;
     private final DistritoRepository distritoRepository;
     private final LugarMapper mapper;
+    private final RevalidacionIsrService revalidacion;
 
     public LugarService(LugarRepository lugarRepository,
                         LugarTraduccionRepository traduccionRepository,
                         HorarioLugarRepository horarioRepository,
                         CategoriaLugarRepository categoriaRepository,
                         DistritoRepository distritoRepository,
-                        LugarMapper mapper) {
+                        LugarMapper mapper,
+                        RevalidacionIsrService revalidacion) {
         this.lugarRepository = lugarRepository;
         this.traduccionRepository = traduccionRepository;
         this.horarioRepository = horarioRepository;
         this.categoriaRepository = categoriaRepository;
         this.distritoRepository = distritoRepository;
         this.mapper = mapper;
+        this.revalidacion = revalidacion;
     }
 
     /** Listado público paginado (RF-01) con filtro por categoría (RF-04). */
@@ -117,6 +121,7 @@ public class LugarService {
         lugarRepository.save(lugar);
 
         guardarTraduccionesYHorarios(lugar.getId(), request, admin);
+        revalidacion.revalidarLugar(lugar.getSlug());
         return detalleDe(lugar);
     }
 
@@ -140,6 +145,7 @@ public class LugarService {
         horarioRepository.deleteByLugarId(id);
         guardarTraduccionesYHorarios(id, request, admin);
 
+        revalidacion.revalidarLugar(lugar.getSlug());
         return detalleDe(lugar);
     }
 
@@ -151,6 +157,7 @@ public class LugarService {
         lugar.setDeletedAt(Instant.now());
         lugar.setUpdatedBy(admin.id());
         lugarRepository.save(lugar);
+        revalidacion.revalidarLugar(lugar.getSlug());
     }
 
     // ------------------------------------------------------------------

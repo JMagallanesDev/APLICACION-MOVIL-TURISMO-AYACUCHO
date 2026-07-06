@@ -1,0 +1,26 @@
+{
+  "Metadata": {
+    "titulo": "Turismo Huamanga",
+    "descripcion": "Descubre los lugares patrimoniales de Huamanga, Ayacucho: iglesias, miradores, museos, agenda cultural y más."
+  },
+  "Nav": {
+    "inicio": "Inicio",
+    "lugares": "Lugares",
+    "mapa": "Mapa",
+    "eventos": "Eventos",
+    "reportar": "Reportar",
+    "idioma": "Idioma"
+  },
+  "Home": {
+    "titulo": "Descubre Huamanga",
+    "subtitulo": "Iglesias coloniales, miradores, retablos y la agenda viva de Ayacucho — todo en un solo lugar.",
+    "explorarLugares": "Explorar lugares",
+    "verMapa": "Ver el mapa",
+    "seccionDiferenciador": "¿Qué hago hoy, ahora, aquí?",
+    "textoDiferenciador": "Recomendaciones según la hora, el clima y lo que está abierto en este momento."
+  },
+  "Footer": {
+    "hechoEn": "Hecho en Ayacucho, Perú",
+    "proyecto": "Proyecto de tesis — UNSCH, Ingeniería de Sistemas"
+  }
+}
