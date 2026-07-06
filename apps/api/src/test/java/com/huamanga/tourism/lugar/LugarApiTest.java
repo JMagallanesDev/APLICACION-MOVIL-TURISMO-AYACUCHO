@@ -84,6 +84,44 @@ class LugarApiTest {
     }
 
     @Test
+    @Order(3)
+    @DisplayName("Búsqueda full-text ?q= encuentra en es y en (RF-02)")
+    void busquedaFullText() {
+        // "mirador" aparece en la descripción es del Mirador de Acuchimay
+        ResponseEntity<Map> es = rest.getForEntity("/lugares?q=mirador", Map.class);
+        assertThat(es.getStatusCode()).isEqualTo(HttpStatus.OK);
+        List<Map<String, Object>> contenidoEs = (List<Map<String, Object>>) es.getBody().get("content");
+        assertThat(contenidoEs).extracting(l -> l.get("slug")).contains("mirador-de-acuchimay");
+
+        // "cathedral" solo existe en la traducción en inglés
+        ResponseEntity<Map> en = rest.getForEntity("/lugares?q=cathedral", Map.class);
+        List<Map<String, Object>> contenidoEn = (List<Map<String, Object>>) en.getBody().get("content");
+        assertThat(contenidoEn).extracting(l -> l.get("slug")).contains("catedral-de-ayacucho");
+
+        // sin resultados razonables
+        ResponseEntity<Map> nada = rest.getForEntity("/lugares?q=xyznoexiste", Map.class);
+        assertThat(nada.getBody().get("totalElements")).isEqualTo(0);
+    }
+
+    @Test
+    @Order(3)
+    @DisplayName("abiertoAhora presente (RF-09b): Plaza 24h siempre true")
+    void abiertoAhoraEnCards() {
+        ResponseEntity<Map> res = rest.getForEntity("/lugares", Map.class);
+        List<Map<String, Object>> contenido = (List<Map<String, Object>>) res.getBody().get("content");
+
+        Map<String, Object> plaza = contenido.stream()
+                .filter(l -> "plaza-mayor-de-ayacucho".equals(l.get("slug")))
+                .findFirst().orElseThrow();
+        // La Plaza abre 00:00-23:59 todos los días: abierta a cualquier hora del test
+        assertThat(plaza.get("abiertoAhora")).isEqualTo(true);
+
+        // Y el detalle también expone el campo
+        ResponseEntity<Map> detalle = rest.getForEntity("/lugares/plaza-mayor-de-ayacucho", Map.class);
+        assertThat(detalle.getBody().get("abiertoAhora")).isEqualTo(true);
+    }
+
+    @Test
     @Order(4)
     @DisplayName("GET slug inexistente: 404 con mensaje claro")
     void detalleNoExiste() {

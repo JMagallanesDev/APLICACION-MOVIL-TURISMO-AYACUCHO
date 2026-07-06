@@ -18,7 +18,8 @@ import java.util.List;
 @Component
 public class LugarMapper {
 
-    public LugarResumenResponse aResumen(Lugar lugar, LugarTraduccion traduccion, String categoriaCodigo) {
+    public LugarResumenResponse aResumen(Lugar lugar, LugarTraduccion traduccion,
+                                         String categoriaCodigo, Boolean abiertoAhora) {
         return new LugarResumenResponse(
                 lugar.getId(),
                 lugar.getSlug(),
@@ -28,10 +29,12 @@ public class LugarMapper {
                 lugar.getUbicacion().getY(),
                 lugar.getUbicacion().getX(),
                 lugar.getPrecioEntradaPen(),
-                lugar.getDuracionVisitaMin());
+                lugar.getDuracionVisitaMin(),
+                abiertoAhora);
     }
 
     public LugarDetalleResponse aDetalle(Lugar lugar, String categoriaCodigo,
+                                         Boolean abiertoAhora,
                                          List<LugarTraduccion> traducciones,
                                          List<HorarioLugar> horarios) {
         return new LugarDetalleResponse(
@@ -53,6 +56,7 @@ public class LugarMapper {
                 lugar.getCostoTaxiDesdePlazaPen(),
                 lugar.getRequiereGuia(),
                 lugar.getEstado(),
+                abiertoAhora,
                 traducciones.stream()
                         .map(t -> new TraduccionLugarDto(t.getIdioma(), t.getNombre(),
                                 t.getDescripcion(), t.getHistoria(), t.getConsejos()))

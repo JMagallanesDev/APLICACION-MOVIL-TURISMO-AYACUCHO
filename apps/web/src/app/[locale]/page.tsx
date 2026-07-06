@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { use } from "react";
+import { Link } from "@/i18n/navigation";
 import SelectorIdioma from "@/components/SelectorIdioma";
 
 export default function Home({
@@ -18,7 +19,7 @@ export default function Home({
   return (
     <div className="flex min-h-screen flex-col">
       <header className="flex items-center justify-between px-6 py-4">
-        <span className="text-lg font-semibold text-[var(--primary)]">
+        <span className="text-lg font-semibold text-primary">
           Turismo Huamanga
         </span>
         <SelectorIdioma />
@@ -31,16 +32,19 @@ export default function Home({
         <p className="max-w-xl text-lg opacity-80">{t("subtitulo")}</p>
 
         <div className="mt-2 flex flex-wrap items-center justify-center gap-3">
-          <span className="inline-flex min-h-11 cursor-not-allowed items-center rounded-full bg-[var(--primary)] px-6 font-medium text-[var(--primary-foreground)] opacity-90">
+          <Link
+            href="/lugares"
+            className="inline-flex min-h-11 items-center rounded-full bg-primary px-6 font-medium text-primary-foreground transition-opacity hover:opacity-90"
+          >
             {t("explorarLugares")}
-          </span>
-          <span className="inline-flex min-h-11 cursor-not-allowed items-center rounded-full border border-[var(--border)] px-6 font-medium opacity-80">
+          </Link>
+          <span className="inline-flex min-h-11 cursor-not-allowed items-center rounded-full border border-border px-6 font-medium opacity-80">
             {t("verMapa")}
           </span>
         </div>
 
-        <section className="mt-10 max-w-md rounded-2xl border border-[var(--border)] bg-[var(--muted)] p-6">
-          <h2 className="font-semibold text-[var(--secondary)]">
+        <section className="mt-10 max-w-md rounded-2xl border border-border bg-muted p-6">
+          <h2 className="font-semibold text-secondary">
             {t("seccionDiferenciador")}
           </h2>
           <p className="mt-2 text-sm opacity-80">{t("textoDiferenciador")}</p>

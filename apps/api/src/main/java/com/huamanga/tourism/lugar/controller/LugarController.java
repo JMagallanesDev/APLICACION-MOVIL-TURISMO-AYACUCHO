@@ -45,17 +45,18 @@ public class LugarController {
     }
 
     @GetMapping
-    @Operation(summary = "Listado público paginado, filtrable por categoría (RF-01, RF-04)")
+    @Operation(summary = "Listado público paginado con filtro por categoría y búsqueda full-text (RF-01, RF-02, RF-04)")
     public Page<LugarResumenResponse> listar(
             @RequestParam(defaultValue = "es") String idioma,
             @RequestParam(required = false) String categoria,
+            @RequestParam(required = false) String q,
             @RequestParam(defaultValue = "0") int pagina,
             @RequestParam(defaultValue = "12") int tamano) {
         PageRequest pageable = PageRequest.of(
                 Math.max(0, pagina),
                 Math.min(Math.max(1, tamano), TAMANO_MAXIMO),
                 Sort.by("slug"));
-        return lugarService.listar(idioma, categoria, pageable);
+        return lugarService.listar(idioma, categoria, q, pageable);
     }
 
     @GetMapping("/{slug}")

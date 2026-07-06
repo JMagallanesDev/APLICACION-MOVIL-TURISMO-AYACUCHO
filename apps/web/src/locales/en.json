@@ -19,6 +19,57 @@
     "seccionDiferenciador": "What can I do today, right now, right here?",
     "textoDiferenciador": "Recommendations based on the time, the weather and what is open right now."
   },
+  "Lugares": {
+    "titulo": "Places to discover",
+    "buscarPlaceholder": "Search churches, viewpoints, museums…",
+    "todas": "All",
+    "categorias": {
+      "IGLESIAS": "Churches",
+      "MIRADORES": "Viewpoints",
+      "MUSEOS": "Museums",
+      "PLAZAS": "Squares",
+      "SITIOS_ARQUEOLOGICOS": "Archaeological sites",
+      "CASONAS": "Colonial mansions",
+      "TALLERES_ARTESANALES": "Artisan workshops",
+      "NATURALEZA": "Nature"
+    },
+    "resultados": "{total, plural, =0 {No results} one {# place} other {# places}}",
+    "sinResultados": "We couldn't find places matching your search. Try something else.",
+    "abiertoAhora": "Open now",
+    "cerradoAhora": "Closed now",
+    "gratis": "Free entry",
+    "duracionMin": "~{min} min visit",
+    "anterior": "Previous",
+    "siguiente": "Next",
+    "paginaDe": "Page {actual} of {total}",
+    "volverAlListado": "Back to places",
+    "historia": "History",
+    "horarios": "Opening hours",
+    "cerrado": "Closed",
+    "dias": {
+      "0": "Sunday",
+      "1": "Monday",
+      "2": "Tuesday",
+      "3": "Wednesday",
+      "4": "Thursday",
+      "5": "Friday",
+      "6": "Saturday"
+    },
+    "antesDeIr": "Before you go",
+    "practicos": {
+      "aceptaTarjeta": "Cards accepted",
+      "tieneBanos": "Restrooms available",
+      "accesibleSillaRuedas": "Wheelchair accessible",
+      "aptoNinos": "Kid-friendly",
+      "requiereGuia": "Guide required"
+    },
+    "taxiDesdePlaza": "Taxi from the Main Square: ~S/ {costo}",
+    "comoLlegar": "Get directions",
+    "cuantoCaminando": "How far on foot?",
+    "calculando": "Calculating…",
+    "distanciaAPie": "~{min} min walking ({km} km)",
+    "errorUbicacion": "We couldn't get your location. Check your browser permissions."
+  },
   "Footer": {
     "hechoEn": "Made in Ayacucho, Peru",
     "proyecto": "Thesis project — UNSCH, Systems Engineering"

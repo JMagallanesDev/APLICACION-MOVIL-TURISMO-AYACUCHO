@@ -3,7 +3,11 @@ package com.huamanga.tourism.lugar.dto;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-/** Card del listado (RF-01): nombre ya resuelto al idioma solicitado. */
+/**
+ * Card del listado (RF-01): nombre ya resuelto al idioma solicitado.
+ * abiertoAhora (RF-09b): true/false calculado con hora de Lima sobre
+ * HorarioLugar; null si el lugar no tiene horarios registrados.
+ */
 public record LugarResumenResponse(
         UUID id,
         String slug,
@@ -13,6 +17,7 @@ public record LugarResumenResponse(
         double latitud,
         double longitud,
         BigDecimal precioEntradaPen,
-        Integer duracionVisitaMin
+        Integer duracionVisitaMin,
+        Boolean abiertoAhora
 ) {
 }

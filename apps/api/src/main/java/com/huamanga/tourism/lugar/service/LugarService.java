@@ -6,6 +6,7 @@ import com.huamanga.tourism.common.security.UsuarioAutenticado;
 import com.huamanga.tourism.geografia.repository.DistritoRepository;
 import com.huamanga.tourism.horario.dominio.HorarioLugar;
 import com.huamanga.tourism.horario.repository.HorarioLugarRepository;
+import com.huamanga.tourism.horario.service.HorarioService;
 import com.huamanga.tourism.lugar.dominio.CategoriaLugar;
 import com.huamanga.tourism.lugar.dominio.EstadoLugar;
 import com.huamanga.tourism.lugar.dominio.Lugar;
@@ -51,6 +52,7 @@ public class LugarService {
     private final DistritoRepository distritoRepository;
     private final LugarMapper mapper;
     private final RevalidacionIsrService revalidacion;
+    private final HorarioService horarioService;
 
     public LugarService(LugarRepository lugarRepository,
                         LugarTraduccionRepository traduccionRepository,
@@ -58,7 +60,8 @@ public class LugarService {
                         CategoriaLugarRepository categoriaRepository,
                         DistritoRepository distritoRepository,
                         LugarMapper mapper,
-                        RevalidacionIsrService revalidacion) {
+                        RevalidacionIsrService revalidacion,
+                        HorarioService horarioService) {
         this.lugarRepository = lugarRepository;
         this.traduccionRepository = traduccionRepository;
         this.horarioRepository = horarioRepository;
@@ -66,16 +69,23 @@ public class LugarService {
         this.distritoRepository = distritoRepository;
         this.mapper = mapper;
         this.revalidacion = revalidacion;
+        this.horarioService = horarioService;
     }
 
-    /** Listado público paginado (RF-01) con filtro por categoría (RF-04). */
+    /**
+     * Listado público paginado (RF-01) con filtro por categoría (RF-04) y
+     * búsqueda full-text (RF-02). Cada card incluye abiertoAhora (RF-09b).
+     */
     @Transactional(readOnly = true)
-    public Page<LugarResumenResponse> listar(String idioma, String categoriaCodigo, Pageable pageable) {
+    public Page<LugarResumenResponse> listar(String idioma, String categoriaCodigo,
+                                             String q, Pageable pageable) {
         Page<Lugar> pagina;
         Map<UUID, CategoriaLugar> categorias = categoriaRepository.findAll().stream()
                 .collect(Collectors.toMap(CategoriaLugar::getId, Function.identity()));
 
-        if (categoriaCodigo != null && !categoriaCodigo.isBlank()) {
+        if (q != null && !q.isBlank()) {
+            pagina = lugarRepository.buscarPublicados(q.trim(), pageable);
+        } else if (categoriaCodigo != null && !categoriaCodigo.isBlank()) {
             CategoriaLugar categoria = categoriaRepository.findByCodigo(categoriaCodigo)
                     .orElseThrow(() -> new NegocioException(HttpStatus.NOT_FOUND,
                             "CATEGORIA_NO_EXISTE", "La categoría indicada no existe."));
@@ -85,17 +95,20 @@ public class LugarService {
             pagina = lugarRepository.findByEstadoAndDeletedAtIsNull(EstadoLugar.PUBLICADO, pageable);
         }
 
-        // Traducciones de toda la página en una sola consulta (evita N+1)
+        // Traducciones y estado abierto/cerrado de toda la página en una
+        // consulta cada uno (evita N+1)
         List<UUID> ids = pagina.getContent().stream().map(Lugar::getId).toList();
         Map<UUID, LugarTraduccion> traducciones = traduccionRepository.findByLugarIdIn(ids).stream()
                 .collect(Collectors.toMap(LugarTraduccion::getLugarId, Function.identity(),
                         // preferir el idioma solicitado; fallback al que llegue primero (es en seed)
                         (a, b) -> idioma.equals(a.getIdioma()) ? a : b));
+        Map<UUID, Boolean> abiertos = horarioService.abiertosAhora(ids);
 
         return pagina.map(lugar -> mapper.aResumen(
                 lugar,
                 traducciones.get(lugar.getId()),
-                categorias.get(lugar.getCategoriaLugarId()).getCodigo()));
+                categorias.get(lugar.getCategoriaLugarId()).getCodigo(),
+                abiertos.get(lugar.getId())));
     }
 
     /** Ficha completa por slug (RF-09). */
@@ -225,9 +238,12 @@ public class LugarService {
         String categoriaCodigo = categoriaRepository.findById(lugar.getCategoriaLugarId())
                 .map(CategoriaLugar::getCodigo)
                 .orElse(null);
-        return mapper.aDetalle(lugar, categoriaCodigo,
+        List<HorarioLugar> horarios =
+                horarioRepository.findByLugarIdOrderByDiaSemanaAscHoraAperturaAsc(lugar.getId());
+        Boolean abiertoAhora = horarios.isEmpty() ? null : horarioService.estaAbierto(horarios);
+        return mapper.aDetalle(lugar, categoriaCodigo, abiertoAhora,
                 traduccionRepository.findByLugarId(lugar.getId()),
-                horarioRepository.findByLugarIdOrderByDiaSemanaAscHoraAperturaAsc(lugar.getId()));
+                horarios);
     }
 
     private NegocioException lugarNoEncontrado() {

@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
-/** Ficha completa (RF-09) con traducciones y horarios estructurados. */
+/** Ficha completa (RF-09) con traducciones, horarios y estado abierto/cerrado. */
 public record LugarDetalleResponse(
         UUID id,
         String slug,
@@ -26,6 +26,7 @@ public record LugarDetalleResponse(
         BigDecimal costoTaxiDesdePlazaPen,
         Boolean requiereGuia,
         EstadoLugar estado,
+        Boolean abiertoAhora,
         List<TraduccionLugarDto> traducciones,
         List<HorarioDto> horarios
 ) {

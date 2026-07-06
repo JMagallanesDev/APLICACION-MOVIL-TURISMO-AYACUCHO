@@ -18,7 +18,7 @@ export default function SelectorIdioma() {
     <div
       role="group"
       aria-label="Idioma / Language"
-      className="inline-flex rounded-full border border-[var(--border)] p-1"
+      className="inline-flex rounded-full border border-border p-1"
     >
       {routing.locales.map((idioma) => (
         <button
@@ -28,8 +28,8 @@ export default function SelectorIdioma() {
           aria-pressed={idioma === locale}
           className={`min-w-11 min-h-8 rounded-full px-3 text-sm font-medium transition-colors ${
             idioma === locale
-              ? "bg-[var(--primary)] text-[var(--primary-foreground)]"
-              : "text-[var(--foreground)] hover:bg-[var(--muted)]"
+              ? "bg-primary text-primary-foreground"
+              : "text-foreground hover:bg-muted"
           }`}
         >
           {idioma.toUpperCase()}
