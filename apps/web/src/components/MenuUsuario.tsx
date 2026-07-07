@@ -40,6 +40,14 @@ export default function MenuUsuario() {
 
   return (
     <div className="flex items-center gap-3">
+      {usuario.rol === "ADMIN" && (
+        <Link
+          href="/admin"
+          className="min-h-9 rounded-full border border-primary px-4 text-sm font-medium text-primary hover:bg-primary/10"
+        >
+          {t("panel")}
+        </Link>
+      )}
       <span className="hidden text-sm sm:inline" title={usuario.email}>
         {t("hola", { nombre: usuario.nombre.split(" ")[0] })}
       </span>

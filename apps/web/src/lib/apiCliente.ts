@@ -86,7 +86,7 @@ export async function cerrarSesion(): Promise<void> {
  * Petición autenticada con reintento transparente: si el access token
  * expiró (401), rota el refresh y reintenta una vez (plan, sección 5.3).
  */
-async function conAutenticacion(ruta: string, init: RequestInit): Promise<Response> {
+export async function conAutenticacion(ruta: string, init: RequestInit): Promise<Response> {
   const { accessToken, establecerSesion, limpiarSesion } = useSesion.getState();
   const ejecutar = (token: string | null) =>
     fetch(`${API}${ruta}`, {

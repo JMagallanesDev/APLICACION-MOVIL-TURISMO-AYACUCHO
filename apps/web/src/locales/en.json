@@ -123,7 +123,8 @@
     "enviando": "Submitting…",
     "hola": "Hi, {nombre}",
     "salir": "Sign out",
-    "errorGenerico": "Could not complete the request. Please try again."
+    "errorGenerico": "Could not complete the request. Please try again.",
+    "panel": "Admin"
   },
   "Reportar": {
     "titulo": "Report heritage damage",

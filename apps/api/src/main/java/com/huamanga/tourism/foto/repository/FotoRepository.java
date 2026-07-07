@@ -21,4 +21,6 @@ public interface FotoRepository extends JpaRepository<Foto, UUID> {
 
     long countByUsuarioIdAndLugarIdAndEstadoIn(
             UUID usuarioId, UUID lugarId, Collection<EstadoFoto> estados);
+
+    long countByEstado(EstadoFoto estado);
 }

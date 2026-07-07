@@ -18,4 +18,6 @@ public interface ResenaRepository extends JpaRepository<Resena, UUID> {
     Page<Resena> findByEstadoOrderByCreatedAtDesc(EstadoResena estado, Pageable pageable);
 
     boolean existsByUsuarioIdAndLugarId(UUID usuarioId, UUID lugarId);
+
+    long countByEstado(EstadoResena estado);
 }

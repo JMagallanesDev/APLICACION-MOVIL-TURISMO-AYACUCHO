@@ -123,7 +123,8 @@
     "enviando": "Enviando…",
     "hola": "Hola, {nombre}",
     "salir": "Salir",
-    "errorGenerico": "No se pudo completar la operación. Intenta de nuevo."
+    "errorGenerico": "No se pudo completar la operación. Intenta de nuevo.",
+    "panel": "Panel"
   },
   "Reportar": {
     "titulo": "Reportar un atentado al patrimonio",

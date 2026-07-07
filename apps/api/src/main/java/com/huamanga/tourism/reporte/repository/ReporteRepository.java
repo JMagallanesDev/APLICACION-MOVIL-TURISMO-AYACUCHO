@@ -19,4 +19,6 @@ public interface ReporteRepository extends JpaRepository<Reporte, UUID> {
 
     /** Bandeja de moderación (RF-76). */
     Page<Reporte> findByEstadoOrderByCreatedAtAsc(EstadoReporte estado, Pageable pageable);
+
+    long countByEstado(EstadoReporte estado);
 }
