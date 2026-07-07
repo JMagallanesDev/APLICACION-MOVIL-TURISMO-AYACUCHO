@@ -76,7 +76,14 @@
     "calificacion": "{promedio} de 5 ({total} reseñas)",
     "resenasTitulo": "Reseñas de visitantes",
     "sinResenas": "Aún no hay reseñas. ¡Sé el primero en compartir tu visita!",
-    "resenasProximamente": "Para escribir una reseña necesitarás iniciar sesión — disponible muy pronto en la web."
+    "iniciaSesionParaResenar": "Inicia sesión para escribir una reseña →",
+    "resenaEnviada": "¡Gracias! Tu reseña se publicó.",
+    "eligeCalificacion": "Elige una calificación de 1 a 5 estrellas.",
+    "errorResena": "No se pudo publicar tu reseña. Intenta de nuevo.",
+    "tuCalificacion": "Tu calificación",
+    "comentarioPlaceholder": "Cuenta tu experiencia (opcional)…",
+    "publicarResena": "Publicar reseña",
+    "enviando": "Enviando…"
   },
   "Footer": {
     "hechoEn": "Hecho en Ayacucho, Perú",
@@ -102,5 +109,19 @@
       "IDEAL_MADRUGADA": "Abierto a esta hora",
       "ABIERTO_AHORA": "Abierto ahora"
     }
+  },
+  "Cuenta": {
+    "titulo": "Tu cuenta",
+    "subtitulo": "Inicia sesión para reseñar lugares, subir fotos y guardar favoritos.",
+    "iniciarSesion": "Iniciar sesión",
+    "crearCuenta": "Crear cuenta",
+    "nombre": "Nombre",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "passwordAyuda": "Mínimo 8 caracteres, con al menos una letra y un número.",
+    "enviando": "Enviando…",
+    "hola": "Hola, {nombre}",
+    "salir": "Salir",
+    "errorGenerico": "No se pudo completar la operación. Intenta de nuevo."
   }
 }

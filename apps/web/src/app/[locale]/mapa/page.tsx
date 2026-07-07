@@ -1,8 +1,8 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { obtenerLugares } from "@/lib/api";
+import Encabezado from "@/components/Encabezado";
 import Mapa from "@/components/Mapa";
-import SelectorIdioma from "@/components/SelectorIdioma";
 
 /**
  * Mapa interactivo (RF-17/18/19/22b) con todos los lugares publicados.
@@ -24,12 +24,7 @@ export default async function PaginaMapa({
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-6">
-      <header className="flex items-center justify-between gap-4">
-        <Link href="/" className="text-lg font-semibold text-primary">
-          Turismo Huamanga
-        </Link>
-        <SelectorIdioma />
-      </header>
+      <Encabezado />
 
       <div className="mt-8 flex items-end justify-between gap-4">
         <div>

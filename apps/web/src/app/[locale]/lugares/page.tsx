@@ -2,8 +2,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { CATEGORIAS, obtenerLugares } from "@/lib/api";
 import Buscador from "@/components/Buscador";
+import Encabezado from "@/components/Encabezado";
 import LugarCard from "@/components/LugarCard";
-import SelectorIdioma from "@/components/SelectorIdioma";
 
 /** Listado público de lugares (RF-01) con búsqueda (RF-02) y filtros (RF-04). */
 export default async function PaginaLugares({
@@ -28,12 +28,7 @@ export default async function PaginaLugares({
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-6">
-      <header className="flex items-center justify-between gap-4">
-        <Link href="/" className="text-lg font-semibold text-primary">
-          Turismo Huamanga
-        </Link>
-        <SelectorIdioma />
-      </header>
+      <Encabezado />
 
       <h1 className="mt-8 text-3xl font-bold">{t("titulo")}</h1>
 

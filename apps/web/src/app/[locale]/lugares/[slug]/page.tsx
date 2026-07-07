@@ -5,8 +5,9 @@ import { Link } from "@/i18n/navigation";
 import { obtenerLugar, obtenerResenas, traduccionDe, type Horario } from "@/lib/api";
 import BadgeAbierto from "@/components/BadgeAbierto";
 import DistanciaAPie from "@/components/DistanciaAPie";
+import Encabezado from "@/components/Encabezado";
 import Estrellas from "@/components/Estrellas";
-import SelectorIdioma from "@/components/SelectorIdioma";
+import FormularioResena from "@/components/FormularioResena";
 
 export async function generateMetadata({
   params,
@@ -65,12 +66,7 @@ export default async function PaginaLugar({
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-6">
-      <header className="flex items-center justify-between gap-4">
-        <Link href="/" className="text-lg font-semibold text-primary">
-          Turismo Huamanga
-        </Link>
-        <SelectorIdioma />
-      </header>
+      <Encabezado />
 
       <nav className="mt-6 text-sm opacity-70">
         <Link href="/lugares" className="hover:underline">
@@ -187,10 +183,11 @@ export default async function PaginaLugar({
         {/* Reseñas de la comunidad (RF-37) */}
         <section className="mt-8">
           <h2 className="text-xl font-semibold">{t("resenasTitulo")}</h2>
+          <FormularioResena slug={slug} />
           {resenas.length === 0 ? (
-            <p className="mt-2 text-sm opacity-70">{t("sinResenas")}</p>
+            <p className="mt-4 text-sm opacity-70">{t("sinResenas")}</p>
           ) : (
-            <ul className="mt-3 space-y-3">
+            <ul className="mt-4 space-y-3">
               {resenas.map((resena) => (
                 <li key={resena.id} className="rounded-2xl border border-border p-4">
                   <div className="flex items-center justify-between gap-3 text-sm">
@@ -207,7 +204,6 @@ export default async function PaginaLugar({
               ))}
             </ul>
           )}
-          <p className="mt-3 text-xs opacity-60">{t("resenasProximamente")}</p>
         </section>
       </article>
     </div>

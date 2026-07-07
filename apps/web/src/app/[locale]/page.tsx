@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { use } from "react";
 import { Link } from "@/i18n/navigation";
+import MenuUsuario from "@/components/MenuUsuario";
 import QueHagoAhora from "@/components/QueHagoAhora";
 import SelectorIdioma from "@/components/SelectorIdioma";
 
@@ -23,7 +24,10 @@ export default function Home({
         <span className="text-lg font-semibold text-primary">
           Turismo Huamanga
         </span>
-        <SelectorIdioma />
+        <div className="flex items-center gap-3">
+          <MenuUsuario />
+          <SelectorIdioma />
+        </div>
       </header>
 
       <main className="flex flex-1 flex-col items-center justify-center gap-6 px-6 text-center">

@@ -76,7 +76,14 @@
     "calificacion": "{promedio} out of 5 ({total} reviews)",
     "resenasTitulo": "Visitor reviews",
     "sinResenas": "No reviews yet. Be the first to share your visit!",
-    "resenasProximamente": "Writing a review will require signing in — coming to the web very soon."
+    "iniciaSesionParaResenar": "Sign in to write a review →",
+    "resenaEnviada": "Thanks! Your review has been published.",
+    "eligeCalificacion": "Pick a rating from 1 to 5 stars.",
+    "errorResena": "Could not publish your review. Please try again.",
+    "tuCalificacion": "Your rating",
+    "comentarioPlaceholder": "Share your experience (optional)…",
+    "publicarResena": "Publish review",
+    "enviando": "Submitting…"
   },
   "Footer": {
     "hechoEn": "Made in Ayacucho, Peru",
@@ -102,5 +109,19 @@
       "IDEAL_MADRUGADA": "Open at this hour",
       "ABIERTO_AHORA": "Open now"
     }
+  },
+  "Cuenta": {
+    "titulo": "Your account",
+    "subtitulo": "Sign in to review places, upload photos and save favorites.",
+    "iniciarSesion": "Sign in",
+    "crearCuenta": "Create account",
+    "nombre": "Name",
+    "email": "Email",
+    "password": "Password",
+    "passwordAyuda": "At least 8 characters, with one letter and one number.",
+    "enviando": "Submitting…",
+    "hola": "Hi, {nombre}",
+    "salir": "Sign out",
+    "errorGenerico": "Could not complete the request. Please try again."
   }
 }
