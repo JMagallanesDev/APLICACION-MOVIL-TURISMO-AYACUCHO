@@ -55,18 +55,21 @@ export default function Home({
           <QueHagoAhora />
         </div>
 
-        <nav className="mt-6 flex gap-4 text-sm">
+        <nav className="mt-6 flex flex-wrap justify-center gap-4 text-sm">
           <Link href="/lugares" className="opacity-70 hover:opacity-100 hover:underline">
             {nav("lugares")}
           </Link>
           <Link href="/mapa" className="opacity-70 hover:opacity-100 hover:underline">
             {nav("mapa")}
           </Link>
+          <Link href="/reportar" className="opacity-70 hover:opacity-100 hover:underline">
+            {nav("reportar")}
+          </Link>
+          <Link href="/mapa-incidentes" className="opacity-70 hover:opacity-100 hover:underline">
+            {nav("mapaIncidentes")}
+          </Link>
           <span aria-hidden className="opacity-40">
             {nav("eventos")}
-          </span>
-          <span aria-hidden className="opacity-40">
-            {nav("reportar")}
           </span>
         </nav>
       </main>

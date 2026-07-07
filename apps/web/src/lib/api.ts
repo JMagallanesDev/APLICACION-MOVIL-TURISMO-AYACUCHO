@@ -103,6 +103,38 @@ export interface Resena {
   creadaEn: string;
 }
 
+export interface TipoIncidente {
+  id: string;
+  codigo: string;
+  nombre: string;
+  icono: string | null;
+  colorHex: string | null;
+}
+
+export interface IncidenteMapa {
+  id: string;
+  tipoIncidenteCodigo: string;
+  icono: string | null;
+  colorHex: string | null;
+  latitud: number;
+  longitud: number;
+  estado: string;
+}
+
+export async function obtenerTiposIncidente(idioma: string): Promise<TipoIncidente[]> {
+  const res = await fetchConReintento(`${API_URL}/tipos-incidente?idioma=${idioma}`, {
+    next: { revalidate: 3600 },
+  });
+  return res.ok ? res.json() : [];
+}
+
+export async function obtenerIncidentesMapa(): Promise<IncidenteMapa[]> {
+  const res = await fetchConReintento(`${API_URL}/reportes/mapa`, {
+    next: { revalidate: 120 },
+  });
+  return res.ok ? res.json() : [];
+}
+
 export async function obtenerResenas(slug: string): Promise<Resena[]> {
   const res = await fetchConReintento(
     `${API_URL}/lugares/${encodeURIComponent(slug)}/resenas?tamano=10`,

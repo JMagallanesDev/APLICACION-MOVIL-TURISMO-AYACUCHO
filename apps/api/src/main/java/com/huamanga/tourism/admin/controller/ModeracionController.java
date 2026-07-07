@@ -3,6 +3,9 @@ package com.huamanga.tourism.admin.controller;
 import com.huamanga.tourism.foto.dominio.EstadoFoto;
 import com.huamanga.tourism.foto.dto.FotoResponse;
 import com.huamanga.tourism.foto.service.FotoService;
+import com.huamanga.tourism.reporte.dominio.EstadoReporte;
+import com.huamanga.tourism.reporte.dto.ReporteResponse;
+import com.huamanga.tourism.reporte.service.ReporteService;
 import com.huamanga.tourism.resena.dominio.EstadoResena;
 import com.huamanga.tourism.resena.dto.ResenaResponse;
 import com.huamanga.tourism.resena.service.ResenaService;
@@ -37,12 +40,18 @@ public class ModeracionController {
     public record ModeracionResenaRequest(EstadoResena estado) {
     }
 
+    public record ModeracionReporteRequest(EstadoReporte estado, String notasAdmin) {
+    }
+
     private final FotoService fotoService;
     private final ResenaService resenaService;
+    private final ReporteService reporteService;
 
-    public ModeracionController(FotoService fotoService, ResenaService resenaService) {
+    public ModeracionController(FotoService fotoService, ResenaService resenaService,
+                                ReporteService reporteService) {
         this.fotoService = fotoService;
         this.resenaService = resenaService;
+        this.reporteService = reporteService;
     }
 
     @GetMapping("/fotos")
@@ -77,6 +86,24 @@ public class ModeracionController {
     public ResponseEntity<Void> moderarResena(@PathVariable UUID id,
                                               @RequestBody ModeracionResenaRequest request) {
         resenaService.moderar(id, request.estado());
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/reportes")
+    @Operation(summary = "Bandeja de reportes ciudadanos por estado (RF-76)")
+    public Page<ReporteResponse> reportes(
+            @RequestParam(defaultValue = "RECIBIDO") EstadoReporte estado,
+            @RequestParam(defaultValue = "0") int pagina,
+            @RequestParam(defaultValue = "20") int tamano) {
+        return reporteService.bandeja(estado,
+                PageRequest.of(Math.max(0, pagina), Math.min(Math.max(1, tamano), 50)));
+    }
+
+    @PatchMapping("/reportes/{id}")
+    @Operation(summary = "Cambiar estado del reporte con notas internas (RF-76)")
+    public ResponseEntity<Void> moderarReporte(@PathVariable UUID id,
+                                               @RequestBody ModeracionReporteRequest request) {
+        reporteService.moderar(id, request.estado(), request.notasAdmin());
         return ResponseEntity.noContent().build();
     }
 }

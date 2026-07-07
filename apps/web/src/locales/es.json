@@ -9,7 +9,8 @@
     "mapa": "Mapa",
     "eventos": "Eventos",
     "reportar": "Reportar",
-    "idioma": "Idioma"
+    "idioma": "Idioma",
+    "mapaIncidentes": "Incidentes"
   },
   "Home": {
     "titulo": "Descubre Huamanga",
@@ -123,5 +124,51 @@
     "hola": "Hola, {nombre}",
     "salir": "Salir",
     "errorGenerico": "No se pudo completar la operación. Intenta de nuevo."
+  },
+  "Reportar": {
+    "titulo": "Reportar un atentado al patrimonio",
+    "subtitulo": "Ayuda a preservar Huamanga. Tu reporte llega a los responsables en menos de un minuto — sin necesidad de cuenta.",
+    "tipoIncidente": "¿Qué está pasando?",
+    "eligeTipo": "Elige el tipo de incidente.",
+    "descripcion": "Descripción",
+    "descripcionPlaceholder": "Cuéntanos qué observaste…",
+    "describeMas": "Describe el incidente con un poco más de detalle.",
+    "ubicacion": "Ubicación",
+    "usarMiUbicacion": "📍 Usar mi ubicación",
+    "ayudaPin": "Toca el mapa o arrastra el pin para marcar el lugar exacto.",
+    "referenciaPlaceholder": "Referencia o dirección (opcional)",
+    "fotos": "Fotos (opcional, hasta 5)",
+    "fotosSeleccionadas": "{n} foto(s) seleccionada(s)",
+    "reportarAnonimo": "Reportar de forma anónima",
+    "tuNombre": "Tu nombre (opcional)",
+    "privacidad": "Tu privacidad está protegida: no guardamos tu dirección IP ni datos de ubicación tuya, solo la del incidente.",
+    "enviarReporte": "Enviar reporte",
+    "enviando": "Enviando…",
+    "errorEnvio": "No se pudo enviar el reporte. Intenta de nuevo.",
+    "graciasTitulo": "¡Gracias por cuidar Huamanga!",
+    "graciasTexto": "Tu reporte fue recibido y será revisado por el equipo. Una vez aprobado aparecerá en el mapa público de incidentes.",
+    "verMapaIncidentes": "Ver mapa de incidentes"
+  },
+  "MapaIncidentes": {
+    "titulo": "Mapa de incidentes",
+    "subtitulo": "{total} incidente(s) aprobado(s) en Huamanga.",
+    "reportar": "+ Reportar",
+    "sinIncidentes": "Aún no hay incidentes aprobados en el mapa.",
+    "tipos": {
+      "VANDALISMO": "Vandalismo",
+      "GRAFITI": "Grafiti",
+      "DANO_ESTRUCTURAL": "Daño estructural",
+      "BASURA_ACUMULADA": "Basura acumulada",
+      "COMERCIO_INFORMAL": "Comercio informal",
+      "CONSTRUCCION_ILEGAL": "Construcción ilegal",
+      "OTRO": "Otro"
+    },
+    "estados": {
+      "RECIBIDO": "Recibido",
+      "EN_REVISION": "En revisión",
+      "APROBADO": "Aprobado",
+      "DESCARTADO": "Descartado",
+      "RESUELTO": "Resuelto"
+    }
   }
 }

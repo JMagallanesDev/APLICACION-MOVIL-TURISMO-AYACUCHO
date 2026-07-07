@@ -42,7 +42,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
         try {
-            String ip = ipRealDelCliente(request);
+            String ip = ClienteIp.resolver(request);
             String clave = "rl:" + ip + ":" + (System.currentTimeMillis() / 60_000);
             Long total = redis.opsForValue().increment(clave);
             if (total != null && total == 1L) {
@@ -59,17 +59,5 @@ public class RateLimitFilter extends OncePerRequestFilter {
             log.warn("Rate limit no disponible (Redis caído): se permite la petición. {}", e.getMessage());
         }
         chain.doFilter(request, response);
-    }
-
-    private String ipRealDelCliente(HttpServletRequest request) {
-        String xff = request.getHeader("X-Forwarded-For");
-        if (xff != null && !xff.isBlank()) {
-            // Primer valor = IP original del cliente; validación básica de formato
-            String primera = xff.split(",")[0].trim();
-            if (primera.matches("[0-9a-fA-F:.]{3,45}")) {
-                return primera;
-            }
-        }
-        return request.getRemoteAddr();
     }
 }

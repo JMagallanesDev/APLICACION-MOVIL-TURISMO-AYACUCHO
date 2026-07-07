@@ -9,7 +9,8 @@
     "mapa": "Map",
     "eventos": "Events",
     "reportar": "Report",
-    "idioma": "Language"
+    "idioma": "Language",
+    "mapaIncidentes": "Incidents"
   },
   "Home": {
     "titulo": "Discover Huamanga",
@@ -123,5 +124,51 @@
     "hola": "Hi, {nombre}",
     "salir": "Sign out",
     "errorGenerico": "Could not complete the request. Please try again."
+  },
+  "Reportar": {
+    "titulo": "Report heritage damage",
+    "subtitulo": "Help preserve Huamanga. Your report reaches the authorities in under a minute — no account needed.",
+    "tipoIncidente": "What is happening?",
+    "eligeTipo": "Choose the incident type.",
+    "descripcion": "Description",
+    "descripcionPlaceholder": "Tell us what you saw…",
+    "describeMas": "Please describe the incident in a bit more detail.",
+    "ubicacion": "Location",
+    "usarMiUbicacion": "📍 Use my location",
+    "ayudaPin": "Tap the map or drag the pin to mark the exact spot.",
+    "referenciaPlaceholder": "Reference or address (optional)",
+    "fotos": "Photos (optional, up to 5)",
+    "fotosSeleccionadas": "{n} photo(s) selected",
+    "reportarAnonimo": "Report anonymously",
+    "tuNombre": "Your name (optional)",
+    "privacidad": "Your privacy is protected: we never store your IP address or your location — only the incident location.",
+    "enviarReporte": "Send report",
+    "enviando": "Sending…",
+    "errorEnvio": "Could not send the report. Please try again.",
+    "graciasTitulo": "Thank you for protecting Huamanga!",
+    "graciasTexto": "Your report was received and will be reviewed by the team. Once approved it will appear on the public incidents map.",
+    "verMapaIncidentes": "View incidents map"
+  },
+  "MapaIncidentes": {
+    "titulo": "Incidents map",
+    "subtitulo": "{total} approved incident(s) in Huamanga.",
+    "reportar": "+ Report",
+    "sinIncidentes": "No approved incidents on the map yet.",
+    "tipos": {
+      "VANDALISMO": "Vandalism",
+      "GRAFITI": "Graffiti",
+      "DANO_ESTRUCTURAL": "Structural damage",
+      "BASURA_ACUMULADA": "Accumulated garbage",
+      "COMERCIO_INFORMAL": "Informal commerce",
+      "CONSTRUCCION_ILEGAL": "Illegal construction",
+      "OTRO": "Other"
+    },
+    "estados": {
+      "RECIBIDO": "Received",
+      "EN_REVISION": "Under review",
+      "APROBADO": "Approved",
+      "DESCARTADO": "Dismissed",
+      "RESUELTO": "Resolved"
+    }
   }
 }
