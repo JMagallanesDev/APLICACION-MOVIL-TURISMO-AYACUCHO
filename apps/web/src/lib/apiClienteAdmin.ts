@@ -112,3 +112,63 @@ export function moderarReporte(id: string, estado: string, notas?: string): Prom
     body: JSON.stringify({ estado, notasAdmin: notas ?? null }),
   }).then(() => undefined);
 }
+
+// ---- Gestión de eventos (RF-86) ----
+
+// Distrito Ayacucho (seed V5): destino por defecto del MVP (solo Huamanga)
+export const DISTRITO_AYACUCHO = "01980000-0000-7000-8000-000000000301";
+
+export interface NuevoEvento {
+  tipo: string;
+  fechaInicio: string;
+  fechaFin: string;
+  recurrenteAnual: boolean;
+  estado: string;
+  nombreEs: string;
+  descripcionEs: string;
+  nombreEn: string;
+  descripcionEn: string;
+  organizador: string;
+}
+
+export async function crearEvento(e: NuevoEvento): Promise<void> {
+  const traducciones = [
+    { idioma: "es", nombre: e.nombreEs, descripcion: e.descripcionEs || null, organizador: e.organizador || null },
+  ];
+  if (e.nombreEn.trim()) {
+    traducciones.push({
+      idioma: "en",
+      nombre: e.nombreEn,
+      descripcion: e.descripcionEn || null,
+      organizador: e.organizador || null,
+    });
+  }
+  const res = await conAutenticacion("/eventos", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      tipo: e.tipo,
+      distritoId: DISTRITO_AYACUCHO,
+      lugarId: null,
+      fechaInicio: e.fechaInicio,
+      fechaFin: e.fechaFin,
+      recurrenteAnual: e.recurrenteAnual,
+      estado: e.estado,
+      traducciones,
+    }),
+  });
+  if (!res.ok) {
+    const cuerpo = await res.json().catch(() => null);
+    throw new Error(cuerpo?.mensaje ?? `HTTP ${res.status}`);
+  }
+}
+
+export function clonarEvento(id: string, anios: number): Promise<void> {
+  return conAutenticacion(`/eventos/${id}/clonar?anios=${anios}`, { method: "POST" }).then(
+    () => undefined,
+  );
+}
+
+export function eliminarEvento(id: string): Promise<void> {
+  return conAutenticacion(`/eventos/${id}`, { method: "DELETE" }).then(() => undefined);
+}

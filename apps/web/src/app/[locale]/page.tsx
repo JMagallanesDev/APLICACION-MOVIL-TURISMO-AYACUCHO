@@ -65,12 +65,12 @@ export default function Home({
           <Link href="/reportar" className="opacity-70 hover:opacity-100 hover:underline">
             {nav("reportar")}
           </Link>
+          <Link href="/eventos" className="opacity-70 hover:opacity-100 hover:underline">
+            {nav("eventos")}
+          </Link>
           <Link href="/mapa-incidentes" className="opacity-70 hover:opacity-100 hover:underline">
             {nav("mapaIncidentes")}
           </Link>
-          <span aria-hidden className="opacity-40">
-            {nav("eventos")}
-          </span>
         </nav>
       </main>
 

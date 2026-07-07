@@ -121,6 +121,73 @@ export interface IncidenteMapa {
   estado: string;
 }
 
+export interface EventoResumen {
+  id: string;
+  tipo: string;
+  nombre: string;
+  fechaInicio: string;
+  fechaFin: string;
+  portadaUrl: string | null;
+}
+
+export interface TraduccionEvento {
+  idioma: string;
+  nombre: string;
+  descripcion: string | null;
+  organizador: string | null;
+}
+
+export interface EventoDetalle {
+  id: string;
+  tipo: string;
+  distritoId: string;
+  lugarId: string | null;
+  lugarSlug: string | null;
+  fechaInicio: string;
+  fechaFin: string;
+  recurrenteAnual: boolean;
+  portadaUrl: string | null;
+  traducciones: TraduccionEvento[];
+}
+
+export const TIPOS_EVENTO = [
+  "FESTIVIDAD_RELIGIOSA",
+  "CONCIERTO",
+  "FERIA",
+  "GASTRONOMICO",
+  "CULTURAL",
+  "DEPORTIVO",
+  "OTRO",
+] as const;
+
+export async function obtenerProximosEventos(idioma: string, limite = 6): Promise<EventoResumen[]> {
+  const res = await fetchConReintento(
+    `${API_URL}/eventos/proximos?idioma=${idioma}&limite=${limite}`,
+    { next: { revalidate: 300 } },
+  );
+  return res.ok ? res.json() : [];
+}
+
+export async function obtenerEventosEnRango(
+  idioma: string,
+  desde: string,
+  hasta: string,
+): Promise<EventoResumen[]> {
+  const res = await fetchConReintento(
+    `${API_URL}/eventos?idioma=${idioma}&desde=${desde}&hasta=${hasta}`,
+    { cache: "no-store" },
+  );
+  return res.ok ? res.json() : [];
+}
+
+export async function obtenerEvento(id: string): Promise<EventoDetalle | null> {
+  const res = await fetchConReintento(`${API_URL}/eventos/${encodeURIComponent(id)}`, {
+    next: { revalidate: 300 },
+  });
+  if (res.status === 404) return null;
+  return res.ok ? res.json() : null;
+}
+
 export async function obtenerTiposIncidente(idioma: string): Promise<TipoIncidente[]> {
   const res = await fetchConReintento(`${API_URL}/tipos-incidente?idioma=${idioma}`, {
     next: { revalidate: 3600 },

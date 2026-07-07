@@ -31,6 +31,12 @@ export default async function AdminLayout({
           >
             Moderación
           </Link>
+          <Link
+            href="/admin/eventos"
+            className="rounded-full border border-border px-4 py-2 hover:bg-muted"
+          >
+            Eventos
+          </Link>
         </nav>
         <div className="mt-6">{children}</div>
       </GuardAdmin>

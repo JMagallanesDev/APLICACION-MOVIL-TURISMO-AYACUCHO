@@ -51,6 +51,8 @@ public class SecurityConfig {
                         // Preservación ciudadana: reporte anónimo y mapa público (RF-69/72/74)
                         .requestMatchers(HttpMethod.GET, "/tipos-incidente", "/reportes/mapa").permitAll()
                         .requestMatchers(HttpMethod.POST, "/reportes").permitAll()
+                        // Agenda cultural pública (RF-79/80/84/84b); escribir exige ADMIN
+                        .requestMatchers(HttpMethod.GET, "/eventos/**").permitAll()
                         // Todo lo demás requiere autenticación
                         .anyRequest().authenticated())
                 .exceptionHandling(e -> e.authenticationEntryPoint((req, res, ex) -> {

@@ -171,5 +171,33 @@
       "DESCARTADO": "Descartado",
       "RESUELTO": "Resuelto"
     }
+  },
+  "Eventos": {
+    "titulo": "Agenda cultural",
+    "subtitulo": "Festividades, ferias y conciertos que dan vida a Huamanga durante todo el año.",
+    "proximos": "Próximos eventos",
+    "todos": "Todos",
+    "sinEventos": "No hay eventos de este tipo por ahora.",
+    "tipos": {
+      "FESTIVIDAD_RELIGIOSA": "Festividad religiosa",
+      "CONCIERTO": "Concierto",
+      "FERIA": "Feria",
+      "GASTRONOMICO": "Gastronómico",
+      "CULTURAL": "Cultural",
+      "DEPORTIVO": "Deportivo",
+      "OTRO": "Otro"
+    },
+    "enDias": "en {dias, plural, one {# día} other {# días}}",
+    "duranteMiVisita": "Durante mi visita",
+    "duranteMiVisitaAyuda": "Ingresa las fechas de tu viaje y descubre qué eventos coinciden con tu estadía.",
+    "desde": "Desde",
+    "hasta": "Hasta",
+    "buscarEventos": "Ver eventos",
+    "limpiar": "Limpiar",
+    "sinEventosEnFechas": "No hay eventos en esas fechas. ¡Igual hay mucho que descubrir!",
+    "volver": "Volver a la agenda",
+    "verLugar": "Ver el lugar",
+    "organiza": "Organiza",
+    "recurrente": "Este evento se celebra cada año."
   }
 }

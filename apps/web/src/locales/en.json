@@ -171,5 +171,33 @@
       "DESCARTADO": "Dismissed",
       "RESUELTO": "Resolved"
     }
+  },
+  "Eventos": {
+    "titulo": "Cultural agenda",
+    "subtitulo": "Festivities, fairs and concerts that bring Huamanga to life all year round.",
+    "proximos": "Upcoming events",
+    "todos": "All",
+    "sinEventos": "No events of this type for now.",
+    "tipos": {
+      "FESTIVIDAD_RELIGIOSA": "Religious festivity",
+      "CONCIERTO": "Concert",
+      "FERIA": "Fair",
+      "GASTRONOMICO": "Gastronomic",
+      "CULTURAL": "Cultural",
+      "DEPORTIVO": "Sports",
+      "OTRO": "Other"
+    },
+    "enDias": "in {dias, plural, one {# day} other {# days}}",
+    "duranteMiVisita": "During my visit",
+    "duranteMiVisitaAyuda": "Enter your travel dates and discover which events match your stay.",
+    "desde": "From",
+    "hasta": "To",
+    "buscarEventos": "See events",
+    "limpiar": "Clear",
+    "sinEventosEnFechas": "No events on those dates. There is still plenty to discover!",
+    "volver": "Back to the agenda",
+    "verLugar": "View the place",
+    "organiza": "Organized by",
+    "recurrente": "This event takes place every year."
   }
 }
