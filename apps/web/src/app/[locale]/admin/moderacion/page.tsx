@@ -3,12 +3,15 @@
 import { useCallback, useEffect, useState } from "react";
 import {
   listarFotosPendientes,
+  listarNegociosPendientes,
   listarResenasEnRevision,
   listarReportes,
   moderarFoto,
+  moderarNegocio,
   moderarResena,
   moderarReporte,
   type FotoModeracion,
+  type NegocioModeracion,
   type ResenaModeracion,
   type ReporteModeracion,
 } from "@/lib/apiClienteAdmin";
@@ -16,7 +19,7 @@ import { useSesion } from "@/stores/sesion";
 
 /** Colas de moderación (RF-49 fotos, RF-50 reseñas, RF-76 reportes). Panel interno en español. */
 
-type Pestana = "reportes" | "fotos" | "resenas";
+type Pestana = "reportes" | "fotos" | "resenas" | "negocios";
 
 const TIPO_INCIDENTE: Record<string, string> = {
   VANDALISMO: "Vandalismo",
@@ -32,7 +35,18 @@ const PESTANAS: { clave: Pestana; etiqueta: string }[] = [
   { clave: "reportes", etiqueta: "Reportes ciudadanos" },
   { clave: "fotos", etiqueta: "Fotos" },
   { clave: "resenas", etiqueta: "Reseñas" },
+  { clave: "negocios", etiqueta: "Negocios" },
 ];
+
+const CATEGORIA_NEGOCIO: Record<string, string> = {
+  RESTAURANTES: "Restaurantes",
+  HOSPEDAJES: "Hospedajes",
+  ARTESANIAS: "Artesanías",
+  CAFETERIAS: "Cafeterías",
+  AGENCIAS_TURISMO: "Agencias de turismo",
+  TRANSPORTE: "Transporte",
+  ENTRETENIMIENTO: "Entretenimiento",
+};
 
 export default function ModeracionAdmin() {
   const usuario = useSesion((s) => s.usuario);
@@ -40,6 +54,7 @@ export default function ModeracionAdmin() {
   const [reportes, setReportes] = useState<ReporteModeracion[]>([]);
   const [fotos, setFotos] = useState<FotoModeracion[]>([]);
   const [resenas, setResenas] = useState<ResenaModeracion[]>([]);
+  const [negocios, setNegocios] = useState<NegocioModeracion[]>([]);
   const [cargando, setCargando] = useState(true);
 
   const recargar = useCallback(async () => {
@@ -47,6 +62,7 @@ export default function ModeracionAdmin() {
     try {
       if (pestana === "reportes") setReportes(await listarReportes("RECIBIDO"));
       else if (pestana === "fotos") setFotos(await listarFotosPendientes());
+      else if (pestana === "negocios") setNegocios(await listarNegociosPendientes());
       else setResenas(await listarResenasEnRevision());
     } finally {
       setCargando(false);
@@ -91,6 +107,8 @@ export default function ModeracionAdmin() {
           <ColaReportes items={reportes} onAccion={recargar} />
         ) : pestana === "fotos" ? (
           <ColaFotos items={fotos} onAccion={recargar} />
+        ) : pestana === "negocios" ? (
+          <ColaNegocios items={negocios} onAccion={recargar} />
         ) : (
           <ColaResenas items={resenas} onAccion={recargar} />
         )}
@@ -197,6 +215,51 @@ function ColaFotos({ items, onAccion }: { items: FotoModeracion[]; onAccion: () 
                 Rechazar
               </button>
             </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function ColaNegocios({ items, onAccion }: { items: NegocioModeracion[]; onAccion: () => void }) {
+  if (items.length === 0) return <Vacio texto="No hay negocios pendientes de aprobación." />;
+
+  async function accion(id: string, estado: string) {
+    await moderarNegocio(id, estado);
+    onAccion();
+  }
+
+  return (
+    <ul className="flex flex-col gap-3">
+      {items.map((n) => (
+        <li key={n.id} className="rounded-2xl border border-border p-4">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <span className="font-medium">{n.nombre}</span>
+            <span className="text-xs opacity-60">
+              {CATEGORIA_NEGOCIO[n.categoriaCodigo] ?? n.categoriaCodigo}
+            </span>
+          </div>
+          {n.descripcion && <p className="mt-2 text-sm opacity-85">{n.descripcion}</p>}
+          <p className="mt-1 text-xs opacity-60">
+            💬 {n.whatsapp}
+            {n.direccion ? ` · 📍 ${n.direccion}` : ""}
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => accion(n.id, "APROBADO")}
+              className="min-h-9 rounded-full bg-emerald-600 px-4 text-sm font-medium text-white hover:opacity-90"
+            >
+              Aprobar
+            </button>
+            <button
+              type="button"
+              onClick={() => accion(n.id, "RECHAZADO")}
+              className="min-h-9 rounded-full border border-border px-4 text-sm font-medium text-red-600 hover:bg-muted"
+            >
+              Rechazar
+            </button>
           </div>
         </li>
       ))}

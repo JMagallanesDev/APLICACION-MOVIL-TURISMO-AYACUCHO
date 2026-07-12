@@ -16,6 +16,7 @@ export interface Metricas {
   resenasEnRevision: number;
   reportesRecibidos: number;
   reportesAprobados: number;
+  negociosPendientes: number;
 }
 
 export interface FotoModeracion {
@@ -110,6 +111,33 @@ export function moderarReporte(id: string, estado: string, notas?: string): Prom
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ estado, notasAdmin: notas ?? null }),
+  }).then(() => undefined);
+}
+
+// ---- Moderación de negocios (RF-104) ----
+
+export interface NegocioModeracion {
+  id: string;
+  nombre: string;
+  categoriaCodigo: string;
+  descripcion: string | null;
+  whatsapp: string;
+  direccion: string | null;
+  estado: string;
+}
+
+export async function listarNegociosPendientes(): Promise<NegocioModeracion[]> {
+  const p = await jsonAutenticado<Pagina<NegocioModeracion>>(
+    "/admin/moderacion/negocios?estado=PENDIENTE&tamano=50",
+  );
+  return p.content;
+}
+
+export function moderarNegocio(id: string, estado: string): Promise<void> {
+  return conAutenticacion(`/admin/moderacion/negocios/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ estado }),
   }).then(() => undefined);
 }
 

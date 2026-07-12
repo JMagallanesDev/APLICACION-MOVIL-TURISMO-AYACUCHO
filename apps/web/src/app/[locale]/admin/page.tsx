@@ -39,6 +39,7 @@ export default function DashboardAdmin() {
     { etiqueta: "Reportes por revisar", valor: metricas.reportesRecibidos },
     { etiqueta: "Fotos por revisar", valor: metricas.fotosPendientes },
     { etiqueta: "Reseñas por revisar", valor: metricas.resenasEnRevision },
+    { etiqueta: "Negocios por aprobar", valor: metricas.negociosPendientes },
   ];
 
   return (
@@ -57,7 +58,7 @@ export default function DashboardAdmin() {
 
       <section>
         <h2 className="text-lg font-semibold">Pendientes de moderación</h2>
-        <div className="mt-3 grid gap-4 sm:grid-cols-3">
+        <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {colas.map((c) => (
             <Link
               key={c.etiqueta}

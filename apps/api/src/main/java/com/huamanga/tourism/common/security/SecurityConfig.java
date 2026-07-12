@@ -53,6 +53,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/reportes").permitAll()
                         // Agenda cultural pública (RF-79/80/84/84b); escribir exige ADMIN
                         .requestMatchers(HttpMethod.GET, "/eventos/**").permitAll()
+                        // Directorio de negocios: listado y categorías públicos (RF-105);
+                        // /negocios/mio y el registro exigen autenticación
+                        .requestMatchers(HttpMethod.GET, "/negocios", "/categorias-negocio").permitAll()
                         // Todo lo demás requiere autenticación
                         .anyRequest().authenticated())
                 .exceptionHandling(e -> e.authenticationEntryPoint((req, res, ex) -> {

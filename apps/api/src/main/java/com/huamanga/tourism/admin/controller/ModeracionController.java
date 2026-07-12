@@ -3,6 +3,9 @@ package com.huamanga.tourism.admin.controller;
 import com.huamanga.tourism.foto.dominio.EstadoFoto;
 import com.huamanga.tourism.foto.dto.FotoResponse;
 import com.huamanga.tourism.foto.service.FotoService;
+import com.huamanga.tourism.negocio.dominio.EstadoNegocio;
+import com.huamanga.tourism.negocio.dto.NegocioResponse;
+import com.huamanga.tourism.negocio.service.NegocioService;
 import com.huamanga.tourism.reporte.dominio.EstadoReporte;
 import com.huamanga.tourism.reporte.dto.ReporteResponse;
 import com.huamanga.tourism.reporte.service.ReporteService;
@@ -43,15 +46,20 @@ public class ModeracionController {
     public record ModeracionReporteRequest(EstadoReporte estado, String notasAdmin) {
     }
 
+    public record ModeracionNegocioRequest(EstadoNegocio estado) {
+    }
+
     private final FotoService fotoService;
     private final ResenaService resenaService;
     private final ReporteService reporteService;
+    private final NegocioService negocioService;
 
     public ModeracionController(FotoService fotoService, ResenaService resenaService,
-                                ReporteService reporteService) {
+                                ReporteService reporteService, NegocioService negocioService) {
         this.fotoService = fotoService;
         this.resenaService = resenaService;
         this.reporteService = reporteService;
+        this.negocioService = negocioService;
     }
 
     @GetMapping("/fotos")
@@ -104,6 +112,24 @@ public class ModeracionController {
     public ResponseEntity<Void> moderarReporte(@PathVariable UUID id,
                                                @RequestBody ModeracionReporteRequest request) {
         reporteService.moderar(id, request.estado(), request.notasAdmin());
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/negocios")
+    @Operation(summary = "Bandeja de negocios por estado (default PENDIENTE, RF-104)")
+    public Page<NegocioResponse> negocios(
+            @RequestParam(defaultValue = "PENDIENTE") EstadoNegocio estado,
+            @RequestParam(defaultValue = "0") int pagina,
+            @RequestParam(defaultValue = "20") int tamano) {
+        return negocioService.bandeja(estado,
+                PageRequest.of(Math.max(0, pagina), Math.min(Math.max(1, tamano), 50)));
+    }
+
+    @PatchMapping("/negocios/{id}")
+    @Operation(summary = "Aprobar, rechazar o suspender un negocio")
+    public ResponseEntity<Void> moderarNegocio(@PathVariable UUID id,
+                                               @RequestBody ModeracionNegocioRequest request) {
+        negocioService.moderar(id, request.estado());
         return ResponseEntity.noContent().build();
     }
 }

@@ -10,7 +10,8 @@
     "eventos": "Events",
     "reportar": "Report",
     "idioma": "Language",
-    "mapaIncidentes": "Incidents"
+    "mapaIncidentes": "Incidents",
+    "negocios": "Businesses"
   },
   "Home": {
     "titulo": "Discover Huamanga",
@@ -199,5 +200,48 @@
     "verLugar": "View the place",
     "organiza": "Organized by",
     "recurrente": "This event takes place every year."
+  },
+  "Negocios": {
+    "titulo": "Business directory",
+    "subtitulo": "Verified local restaurants, lodging and artisans. Contact them directly on WhatsApp.",
+    "registrarMiNegocio": "+ My business",
+    "todas": "All",
+    "sinNegocios": "No businesses in this category yet. Be the first to register yours!",
+    "categorias": {
+      "RESTAURANTES": "Restaurants",
+      "HOSPEDAJES": "Lodging",
+      "ARTESANIAS": "Handicrafts",
+      "CAFETERIAS": "Coffee shops",
+      "AGENCIAS_TURISMO": "Tour agencies",
+      "TRANSPORTE": "Transportation",
+      "ENTRETENIMIENTO": "Entertainment"
+    },
+    "contactarWhatsApp": "Contact on WhatsApp",
+    "mensajeWhatsApp": "Hi! I found you on Huamanga Tourism and would like more information.",
+    "miNegocio": "My business",
+    "miNegocioAyuda": "Register your business to appear in the directory. An administrator will review it before publishing.",
+    "iniciaSesionParaRegistrar": "Sign in to register your business →",
+    "nombreNegocio": "Business name",
+    "categoria": "Category",
+    "eligeCategoria": "Pick a category…",
+    "whatsapp": "WhatsApp",
+    "whatsappAyuda": "With country code, digits only (e.g. 51966123456).",
+    "direccion": "Address",
+    "horario": "Opening hours",
+    "horarioEjemplo": "Mon–Sun 12:00–22:00",
+    "descripcionEs": "Description (Spanish)",
+    "descripcionEn": "Description (English, optional)",
+    "registrar": "Register business",
+    "guardarCambios": "Save changes",
+    "enviando": "Submitting…",
+    "registrado": "Registered! Your business is pending approval.",
+    "actualizado": "Changes saved.",
+    "errorGuardar": "Could not save. Check the data and try again.",
+    "estados": {
+      "PENDIENTE": "⏳ Your business is pending approval.",
+      "APROBADO": "✓ Your business is published in the directory.",
+      "RECHAZADO": "✕ Your registration was rejected. Fix the data and save to resubmit.",
+      "SUSPENDIDO": "⚠ Your business was suspended. Contact the administrator."
+    }
   }
 }

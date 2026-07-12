@@ -110,6 +110,53 @@ export async function conAutenticacion(ruta: string, init: RequestInit): Promise
   return res;
 }
 
+export interface DatosNegocio {
+  categoriaNegocioId: string;
+  nombre: string;
+  whatsapp: string;
+  telefono: string;
+  direccion: string;
+  horario: string;
+  descripcionEs: string;
+  descripcionEn: string;
+}
+
+/** Respuesta de /negocios/mio (contrato NegocioResponse del backend). */
+export interface MiNegocio {
+  id: string;
+  nombre: string;
+  categoriaCodigo: string;
+  descripcion: string | null;
+  whatsapp: string;
+  telefono: string | null;
+  direccion: string | null;
+  horario: string | null;
+  estado: string;
+}
+
+/** null si el usuario aún no registró negocio. */
+export async function obtenerMiNegocio(): Promise<MiNegocio | null> {
+  const res = await conAutenticacion("/negocios/mio", { method: "GET" });
+  if (res.status === 404) return null;
+  return procesar(res);
+}
+
+export async function guardarNegocio(datos: DatosNegocio, esNuevo: boolean): Promise<void> {
+  const res = await conAutenticacion("/negocios" + (esNuevo ? "" : "/mio"), {
+    method: esNuevo ? "POST" : "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      ...datos,
+      ruc: null,
+      telefono: datos.telefono || null,
+      direccion: datos.direccion || null,
+      horario: datos.horario || null,
+      descripcionEn: datos.descripcionEn || null,
+    }),
+  });
+  await procesar(res);
+}
+
 export async function crearResena(
   slug: string,
   calificacion: number,

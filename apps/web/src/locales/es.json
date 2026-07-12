@@ -10,7 +10,8 @@
     "eventos": "Eventos",
     "reportar": "Reportar",
     "idioma": "Idioma",
-    "mapaIncidentes": "Incidentes"
+    "mapaIncidentes": "Incidentes",
+    "negocios": "Negocios"
   },
   "Home": {
     "titulo": "Descubre Huamanga",
@@ -199,5 +200,48 @@
     "verLugar": "Ver el lugar",
     "organiza": "Organiza",
     "recurrente": "Este evento se celebra cada año."
+  },
+  "Negocios": {
+    "titulo": "Directorio de negocios",
+    "subtitulo": "Restaurantes, hospedajes y artesanos locales verificados. Contáctalos directo por WhatsApp.",
+    "registrarMiNegocio": "+ Mi negocio",
+    "todas": "Todos",
+    "sinNegocios": "Aún no hay negocios en esta categoría. ¡Sé el primero en registrar el tuyo!",
+    "categorias": {
+      "RESTAURANTES": "Restaurantes",
+      "HOSPEDAJES": "Hospedajes",
+      "ARTESANIAS": "Artesanías",
+      "CAFETERIAS": "Cafeterías",
+      "AGENCIAS_TURISMO": "Agencias de turismo",
+      "TRANSPORTE": "Transporte",
+      "ENTRETENIMIENTO": "Entretenimiento"
+    },
+    "contactarWhatsApp": "Contactar por WhatsApp",
+    "mensajeWhatsApp": "Hola, los encontré en Turismo Huamanga y quisiera más información.",
+    "miNegocio": "Mi negocio",
+    "miNegocioAyuda": "Registra tu negocio para aparecer en el directorio. Un administrador lo revisará antes de publicarlo.",
+    "iniciaSesionParaRegistrar": "Inicia sesión para registrar tu negocio →",
+    "nombreNegocio": "Nombre del negocio",
+    "categoria": "Categoría",
+    "eligeCategoria": "Elige una categoría…",
+    "whatsapp": "WhatsApp",
+    "whatsappAyuda": "Con código de país, solo dígitos (ej. 51966123456).",
+    "direccion": "Dirección",
+    "horario": "Horario de atención",
+    "horarioEjemplo": "Lun–Dom 12:00–22:00",
+    "descripcionEs": "Descripción (español)",
+    "descripcionEn": "Descripción (inglés, opcional)",
+    "registrar": "Registrar negocio",
+    "guardarCambios": "Guardar cambios",
+    "enviando": "Enviando…",
+    "registrado": "¡Registrado! Tu negocio quedó pendiente de aprobación.",
+    "actualizado": "Cambios guardados.",
+    "errorGuardar": "No se pudo guardar. Revisa los datos e intenta de nuevo.",
+    "estados": {
+      "PENDIENTE": "⏳ Tu negocio está pendiente de aprobación.",
+      "APROBADO": "✓ Tu negocio está publicado en el directorio.",
+      "RECHAZADO": "✕ Tu registro fue rechazado. Corrige los datos y guarda para reenviar.",
+      "SUSPENDIDO": "⚠ Tu negocio fue suspendido. Contacta al administrador."
+    }
   }
 }

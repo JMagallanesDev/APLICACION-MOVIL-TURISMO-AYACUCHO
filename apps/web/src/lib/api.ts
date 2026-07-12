@@ -188,6 +188,46 @@ export async function obtenerEvento(id: string): Promise<EventoDetalle | null> {
   return res.ok ? res.json() : null;
 }
 
+export interface CategoriaNegocio {
+  id: string;
+  codigo: string;
+  nombre: string;
+  icono: string | null;
+}
+
+export interface Negocio {
+  id: string;
+  nombre: string;
+  categoriaCodigo: string;
+  descripcion: string | null;
+  whatsapp: string;
+  telefono: string | null;
+  direccion: string | null;
+  horario: string | null;
+  estado: string | null;
+}
+
+export async function obtenerCategoriasNegocio(idioma: string): Promise<CategoriaNegocio[]> {
+  const res = await fetchConReintento(`${API_URL}/categorias-negocio?idioma=${idioma}`, {
+    next: { revalidate: 3600 },
+  });
+  return res.ok ? res.json() : [];
+}
+
+export async function obtenerNegocios(
+  idioma: string,
+  categoriaId?: string,
+): Promise<Negocio[]> {
+  const params = new URLSearchParams({ idioma, tamano: "50" });
+  if (categoriaId) params.set("categoriaId", categoriaId);
+  const res = await fetchConReintento(`${API_URL}/negocios?${params}`, {
+    next: { revalidate: 300 },
+  });
+  if (!res.ok) return [];
+  const pagina = await res.json();
+  return pagina.content ?? [];
+}
+
 export async function obtenerTiposIncidente(idioma: string): Promise<TipoIncidente[]> {
   const res = await fetchConReintento(`${API_URL}/tipos-incidente?idioma=${idioma}`, {
     next: { revalidate: 3600 },

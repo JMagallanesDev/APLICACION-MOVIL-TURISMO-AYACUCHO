@@ -11,6 +11,7 @@ public record MetricasResponse(
         long fotosPendientes,
         long resenasEnRevision,
         long reportesRecibidos,
-        long reportesAprobados
+        long reportesAprobados,
+        long negociosPendientes
 ) {
 }
