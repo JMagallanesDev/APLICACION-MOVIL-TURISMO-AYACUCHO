@@ -83,9 +83,6 @@ public class LugarService {
     public Page<LugarResumenResponse> listar(String idioma, String categoriaCodigo,
                                              String q, Pageable pageable) {
         Page<Lugar> pagina;
-        Map<UUID, CategoriaLugar> categorias = categoriaRepository.findAll().stream()
-                .collect(Collectors.toMap(CategoriaLugar::getId, Function.identity()));
-
         if (q != null && !q.isBlank()) {
             pagina = lugarRepository.buscarPublicados(q.trim(), pageable);
         } else if (categoriaCodigo != null && !categoriaCodigo.isBlank()) {
@@ -98,9 +95,21 @@ public class LugarService {
             pagina = lugarRepository.findByEstadoAndDeletedAtIsNull(EstadoLugar.PUBLICADO, pageable);
         }
 
-        // Traducciones y estado abierto/cerrado de toda la página en una
-        // consulta cada uno (evita N+1)
-        List<UUID> ids = pagina.getContent().stream().map(Lugar::getId).toList();
+        List<LugarResumenResponse> resumenes = aResumenes(pagina.getContent(), idioma);
+        Map<UUID, LugarResumenResponse> porId = resumenes.stream()
+                .collect(Collectors.toMap(LugarResumenResponse::id, Function.identity()));
+        return pagina.map(lugar -> porId.get(lugar.getId()));
+    }
+
+    /**
+     * Mapeo por lotes a cards (una consulta por dimensión, evita N+1).
+     * Reutilizado por el listado, favoritos y recomendaciones.
+     */
+    @Transactional(readOnly = true)
+    public List<LugarResumenResponse> aResumenes(List<Lugar> lugares, String idioma) {
+        Map<UUID, CategoriaLugar> categorias = categoriaRepository.findAll().stream()
+                .collect(Collectors.toMap(CategoriaLugar::getId, Function.identity()));
+        List<UUID> ids = lugares.stream().map(Lugar::getId).toList();
         Map<UUID, LugarTraduccion> traducciones = traduccionRepository.findByLugarIdIn(ids).stream()
                 .collect(Collectors.toMap(LugarTraduccion::getLugarId, Function.identity(),
                         // preferir el idioma solicitado; fallback al que llegue primero (es en seed)
@@ -109,12 +118,12 @@ public class LugarService {
         Map<UUID, EstadisticaLugarService.Estadistica> estadisticas =
                 estadisticaService.porLugares(ids);
 
-        return pagina.map(lugar -> mapper.aResumen(
+        return lugares.stream().map(lugar -> mapper.aResumen(
                 lugar,
                 traducciones.get(lugar.getId()),
                 categorias.get(lugar.getCategoriaLugarId()).getCodigo(),
                 abiertos.get(lugar.getId()),
-                estadisticas.get(lugar.getId())));
+                estadisticas.get(lugar.getId()))).toList();
     }
 
     /** Ficha completa por slug (RF-09). */

@@ -85,7 +85,28 @@
     "tuCalificacion": "Your rating",
     "comentarioPlaceholder": "Share your experience (optional)…",
     "publicarResena": "Publish review",
-    "enviando": "Submitting…"
+    "enviando": "Submitting…",
+    "marcarFavorito": "Save to favorites",
+    "quitarFavorito": "Remove from favorites",
+    "fotosTitulo": "Visitor photos",
+    "sinFotos": "No community photos yet. Share yours!",
+    "fotoDe": "Photo by {autor}",
+    "subirFoto": "Upload photo",
+    "subiendoFoto": "Uploading…",
+    "fotoEnviada": "Thanks! Your photo is pending moderation and will appear once approved.",
+    "errorFoto": "Could not upload the photo. Make sure it is JPG/PNG/WebP up to 5 MB.",
+    "iniciaSesionParaFoto": "Sign in to share your photos →",
+    "reportarContenido": "Report",
+    "reporteEnviado": "✓ Report sent",
+    "yaReportado": "Already reported",
+    "motivos": {
+      "ofensivo": "Offensive content",
+      "spam": "Spam or advertising",
+      "noCorresponde": "Not related to this place"
+    },
+    "compartir": "Share",
+    "enlaceCopiado": "Link copied",
+    "codigoQR": "QR"
   },
   "Footer": {
     "hechoEn": "Made in Ayacucho, Peru",
@@ -125,7 +146,8 @@
     "hola": "Hi, {nombre}",
     "salir": "Sign out",
     "errorGenerico": "Could not complete the request. Please try again.",
-    "panel": "Admin"
+    "panel": "Admin",
+    "misFavoritos": "My favorites"
   },
   "Reportar": {
     "titulo": "Report heritage damage",
@@ -243,5 +265,11 @@
       "RECHAZADO": "✕ Your registration was rejected. Fix the data and save to resubmit.",
       "SUSPENDIDO": "⚠ Your business was suspended. Contact the administrator."
     }
+  },
+  "Favoritos": {
+    "titulo": "My favorites",
+    "iniciaSesion": "Sign in to save your favorite places →",
+    "vacio": "You have not saved any places yet. Tap the heart on a place to keep it here.",
+    "explorar": "Explore places"
   }
 }

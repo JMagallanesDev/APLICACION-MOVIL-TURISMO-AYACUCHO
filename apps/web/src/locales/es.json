@@ -85,7 +85,28 @@
     "tuCalificacion": "Tu calificación",
     "comentarioPlaceholder": "Cuenta tu experiencia (opcional)…",
     "publicarResena": "Publicar reseña",
-    "enviando": "Enviando…"
+    "enviando": "Enviando…",
+    "marcarFavorito": "Guardar en favoritos",
+    "quitarFavorito": "Quitar de favoritos",
+    "fotosTitulo": "Fotos de visitantes",
+    "sinFotos": "Aún no hay fotos de la comunidad. ¡Comparte la tuya!",
+    "fotoDe": "Foto de {autor}",
+    "subirFoto": "Subir foto",
+    "subiendoFoto": "Subiendo…",
+    "fotoEnviada": "¡Gracias! Tu foto quedó pendiente de moderación y aparecerá al ser aprobada.",
+    "errorFoto": "No se pudo subir la foto. Verifica que sea JPG/PNG/WebP de máximo 5 MB.",
+    "iniciaSesionParaFoto": "Inicia sesión para compartir tus fotos →",
+    "reportarContenido": "Reportar",
+    "reporteEnviado": "✓ Reporte enviado",
+    "yaReportado": "Ya lo reportaste",
+    "motivos": {
+      "ofensivo": "Contenido ofensivo",
+      "spam": "Spam o publicidad",
+      "noCorresponde": "No corresponde al lugar"
+    },
+    "compartir": "Compartir",
+    "enlaceCopiado": "Enlace copiado",
+    "codigoQR": "QR"
   },
   "Footer": {
     "hechoEn": "Hecho en Ayacucho, Perú",
@@ -125,7 +146,8 @@
     "hola": "Hola, {nombre}",
     "salir": "Salir",
     "errorGenerico": "No se pudo completar la operación. Intenta de nuevo.",
-    "panel": "Panel"
+    "panel": "Panel",
+    "misFavoritos": "Mis favoritos"
   },
   "Reportar": {
     "titulo": "Reportar un atentado al patrimonio",
@@ -243,5 +265,11 @@
       "RECHAZADO": "✕ Tu registro fue rechazado. Corrige los datos y guarda para reenviar.",
       "SUSPENDIDO": "⚠ Tu negocio fue suspendido. Contacta al administrador."
     }
+  },
+  "Favoritos": {
+    "titulo": "Mis favoritos",
+    "iniciaSesion": "Inicia sesión para guardar tus lugares favoritos →",
+    "vacio": "Aún no guardaste ningún lugar. Toca el corazón de un lugar para tenerlo aquí.",
+    "explorar": "Explorar lugares"
   }
 }

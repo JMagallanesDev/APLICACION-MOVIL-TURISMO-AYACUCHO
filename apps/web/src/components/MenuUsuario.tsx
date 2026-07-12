@@ -40,6 +40,14 @@ export default function MenuUsuario() {
 
   return (
     <div className="flex items-center gap-3">
+      <Link
+        href="/favoritos"
+        aria-label={t("misFavoritos")}
+        title={t("misFavoritos")}
+        className="text-lg text-red-500 hover:scale-110"
+      >
+        ♥
+      </Link>
       {usuario.rol === "ADMIN" && (
         <Link
           href="/admin"

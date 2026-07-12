@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { LugarResumen } from "@/lib/api";
 import BadgeAbierto from "./BadgeAbierto";
+import BotonFavorito from "./BotonFavorito";
 import Estrellas from "./Estrellas";
 
 /** Card del listado (RF-01) con badge abierto/cerrado (RF-09b). */
@@ -17,7 +18,10 @@ export default function LugarCard({ lugar }: { lugar: LugarResumen }) {
         <span className="text-xs font-medium uppercase tracking-wide text-secondary">
           {t(`categorias.${lugar.categoriaCodigo}`)}
         </span>
-        <BadgeAbierto abierto={lugar.abiertoAhora} />
+        <span className="flex items-center gap-2">
+          <BadgeAbierto abierto={lugar.abiertoAhora} />
+          <BotonFavorito slug={lugar.slug} />
+        </span>
       </div>
 
       <h3 className="text-lg font-semibold group-hover:text-primary">

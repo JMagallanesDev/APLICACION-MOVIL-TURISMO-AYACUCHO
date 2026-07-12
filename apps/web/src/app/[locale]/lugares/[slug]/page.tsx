@@ -2,12 +2,16 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { obtenerLugar, obtenerResenas, traduccionDe, type Horario } from "@/lib/api";
+import { obtenerFotos, obtenerLugar, obtenerResenas, traduccionDe, type Horario } from "@/lib/api";
 import BadgeAbierto from "@/components/BadgeAbierto";
+import BotonCompartir from "@/components/BotonCompartir";
+import BotonFavorito from "@/components/BotonFavorito";
+import BotonReportar from "@/components/BotonReportar";
 import DistanciaAPie from "@/components/DistanciaAPie";
 import Encabezado from "@/components/Encabezado";
 import Estrellas from "@/components/Estrellas";
 import FormularioResena from "@/components/FormularioResena";
+import SubirFoto from "@/components/SubirFoto";
 
 export async function generateMetadata({
   params,
@@ -53,7 +57,7 @@ export default async function PaginaLugar({
   if (!lugar) {
     notFound();
   }
-  const resenas = await obtenerResenas(slug);
+  const [resenas, fotos] = await Promise.all([obtenerResenas(slug), obtenerFotos(slug)]);
   const traduccion = traduccionDe(lugar, locale);
   const dias = turnosPorDia(lugar.horarios);
   const antesDeIr: Array<[string, boolean | null]> = [
@@ -80,6 +84,7 @@ export default async function PaginaLugar({
             {t(`categorias.${lugar.categoriaCodigo}`)}
           </span>
           <BadgeAbierto abierto={lugar.abiertoAhora} />
+          <BotonFavorito slug={lugar.slug} />
         </div>
 
         <h1 className="mt-2 text-3xl font-bold">{traduccion.nombre}</h1>
@@ -109,8 +114,9 @@ export default async function PaginaLugar({
           </a>
         </div>
 
-        <div className="mt-4">
+        <div className="mt-4 flex flex-wrap items-center gap-4">
           <DistanciaAPie latitud={lugar.latitud} longitud={lugar.longitud} />
+          <BotonCompartir titulo={traduccion.nombre} />
         </div>
 
         {traduccion.descripcion && (
@@ -180,6 +186,34 @@ export default async function PaginaLugar({
           )}
         </section>
 
+        {/* Galería de la comunidad (RF-10/RF-38): solo fotos aprobadas */}
+        <section className="mt-8">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <h2 className="text-xl font-semibold">{t("fotosTitulo")}</h2>
+            <SubirFoto slug={slug} />
+          </div>
+          {fotos.length === 0 ? (
+            <p className="mt-2 text-sm opacity-70">{t("sinFotos")}</p>
+          ) : (
+            <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
+              {fotos.map((foto) => (
+                <figure key={foto.id} className="group relative overflow-hidden rounded-xl">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={foto.url}
+                    alt={t("fotoDe", { autor: foto.autorNombre })}
+                    loading="lazy"
+                    className="h-36 w-full object-cover transition-transform group-hover:scale-105"
+                  />
+                  <figcaption className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/60 to-transparent px-2 py-1 text-xs text-white">
+                    {foto.autorNombre}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          )}
+        </section>
+
         {/* Reseñas de la comunidad (RF-37) */}
         <section className="mt-8">
           <h2 className="text-xl font-semibold">{t("resenasTitulo")}</h2>
@@ -200,6 +234,9 @@ export default async function PaginaLugar({
                   {resena.comentario && (
                     <p className="mt-2 text-sm opacity-85">{resena.comentario}</p>
                   )}
+                  <div className="mt-2 text-right">
+                    <BotonReportar resenaId={resena.id} />
+                  </div>
                 </li>
               ))}
             </ul>

@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { refrescarSesion } from "@/lib/apiCliente";
+import { obtenerFavoritosSlugs, refrescarSesion } from "@/lib/apiCliente";
+import { useFavoritos } from "@/stores/favoritos";
 import { useSesion } from "@/stores/sesion";
 
 /**
@@ -12,6 +13,22 @@ import { useSesion } from "@/stores/sesion";
 export default function ProveedorSesion({ children }: { children: React.ReactNode }) {
   const establecerSesion = useSesion((s) => s.establecerSesion);
   const terminarRestauracion = useSesion((s) => s.terminarRestauracion);
+  const usuario = useSesion((s) => s.usuario);
+
+  // Sincroniza los favoritos con la sesión (RF-35)
+  useEffect(() => {
+    if (!usuario) {
+      useFavoritos.getState().limpiar();
+      return;
+    }
+    let vivo = true;
+    obtenerFavoritosSlugs().then((slugs) => {
+      if (vivo) useFavoritos.getState().establecer(slugs);
+    });
+    return () => {
+      vivo = false;
+    };
+  }, [usuario]);
 
   useEffect(() => {
     let activo = true;

@@ -110,6 +110,52 @@ export async function conAutenticacion(ruta: string, init: RequestInit): Promise
   return res;
 }
 
+// ---- Favoritos (RF-35) ----
+
+export async function obtenerFavoritosSlugs(): Promise<string[]> {
+  const res = await conAutenticacion("/favoritos/slugs", { method: "GET" });
+  return res.ok ? res.json() : [];
+}
+
+export async function obtenerFavoritosCards(idioma: string): Promise<unknown[]> {
+  const res = await conAutenticacion(`/favoritos?idioma=${idioma}`, { method: "GET" });
+  return res.ok ? res.json() : [];
+}
+
+export async function alternarFavorito(slug: string, marcar: boolean): Promise<void> {
+  const res = await conAutenticacion(`/lugares/${encodeURIComponent(slug)}/favorito`, {
+    method: marcar ? "PUT" : "DELETE",
+  });
+  await procesar(res);
+}
+
+// ---- Fotos de lugares (RF-38) ----
+
+export async function subirFoto(slug: string, archivo: File): Promise<void> {
+  const form = new FormData();
+  form.append("archivo", archivo);
+  // sin Content-Type manual: el navegador arma el boundary del multipart
+  const res = await conAutenticacion(`/lugares/${encodeURIComponent(slug)}/fotos`, {
+    method: "POST",
+    body: form,
+  });
+  await procesar(res);
+}
+
+// ---- Reporte de contenido (RF-45) ----
+
+export async function reportarContenido(
+  objetivo: { resenaId?: string; fotoId?: string },
+  motivo: string,
+): Promise<void> {
+  const res = await conAutenticacion("/reportes-contenido", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ...objetivo, motivo }),
+  });
+  await procesar(res);
+}
+
 export interface DatosNegocio {
   categoriaNegocioId: string;
   nombre: string;

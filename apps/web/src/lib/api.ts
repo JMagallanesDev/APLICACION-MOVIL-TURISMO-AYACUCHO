@@ -103,6 +103,22 @@ export interface Resena {
   creadaEn: string;
 }
 
+export interface FotoLugar {
+  id: string;
+  url: string;
+  autorNombre: string;
+}
+
+export async function obtenerFotos(slug: string): Promise<FotoLugar[]> {
+  const res = await fetchConReintento(
+    `${API_URL}/lugares/${encodeURIComponent(slug)}/fotos?tamano=24`,
+    { next: { revalidate: 120 } },
+  );
+  if (!res.ok) return [];
+  const pagina = await res.json();
+  return pagina.content ?? [];
+}
+
 export interface TipoIncidente {
   id: string;
   codigo: string;
