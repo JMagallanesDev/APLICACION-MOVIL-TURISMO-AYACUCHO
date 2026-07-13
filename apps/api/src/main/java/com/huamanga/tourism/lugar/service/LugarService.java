@@ -126,6 +126,24 @@ public class LugarService {
                 estadisticas.get(lugar.getId()))).toList();
     }
 
+    /** Listado de gestión del admin (RF-47): todos los estados. */
+    @Transactional(readOnly = true)
+    public Page<com.huamanga.tourism.lugar.dto.LugarAdminResponse> listarParaAdmin(Pageable pageable) {
+        Page<Lugar> pagina = lugarRepository.findByDeletedAtIsNullOrderBySlugAsc(pageable);
+        List<UUID> ids = pagina.getContent().stream().map(Lugar::getId).toList();
+        Map<UUID, String> categorias = categoriaRepository.findAll().stream()
+                .collect(Collectors.toMap(CategoriaLugar::getId, CategoriaLugar::getCodigo));
+        Map<UUID, String> nombres = traduccionRepository.findByLugarIdIn(ids).stream()
+                .filter(t -> "es".equals(t.getIdioma()))
+                .collect(Collectors.toMap(LugarTraduccion::getLugarId, LugarTraduccion::getNombre,
+                        (a, b) -> a));
+        return pagina.map(l -> new com.huamanga.tourism.lugar.dto.LugarAdminResponse(
+                l.getId(), l.getSlug(),
+                nombres.getOrDefault(l.getId(), l.getSlug()),
+                categorias.get(l.getCategoriaLugarId()),
+                l.getEstado()));
+    }
+
     /** Ficha completa por slug (RF-09). */
     @Transactional(readOnly = true)
     public LugarDetalleResponse obtenerPorSlug(String slug) {

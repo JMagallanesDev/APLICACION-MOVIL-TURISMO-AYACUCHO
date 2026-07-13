@@ -24,6 +24,9 @@ public interface LugarRepository extends JpaRepository<Lugar, UUID> {
 
     Page<Lugar> findByEstadoAndDeletedAtIsNull(EstadoLugar estado, Pageable pageable);
 
+    /** Gestión del admin: todos los estados, sin eliminados. */
+    Page<Lugar> findByDeletedAtIsNullOrderBySlugAsc(Pageable pageable);
+
     Page<Lugar> findByEstadoAndCategoriaLugarIdAndDeletedAtIsNull(
             EstadoLugar estado, UUID categoriaLugarId, Pageable pageable);
 

@@ -26,6 +26,12 @@ export default async function AdminLayout({
             Resumen
           </Link>
           <Link
+            href="/admin/lugares"
+            className="rounded-full border border-border px-4 py-2 hover:bg-muted"
+          >
+            Lugares
+          </Link>
+          <Link
             href="/admin/moderacion"
             className="rounded-full border border-border px-4 py-2 hover:bg-muted"
           >

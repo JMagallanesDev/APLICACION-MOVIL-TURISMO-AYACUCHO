@@ -114,6 +114,73 @@ export function moderarReporte(id: string, estado: string, notas?: string): Prom
   }).then(() => undefined);
 }
 
+// ---- Gestión de lugares (RF-47) ----
+
+export interface LugarAdminItem {
+  id: string;
+  slug: string;
+  nombre: string;
+  categoriaCodigo: string;
+  estado: string;
+}
+
+export interface TraduccionLugarAdmin {
+  idioma: string;
+  nombre: string;
+  descripcion: string | null;
+  historia: string | null;
+  consejos: string | null;
+}
+
+export interface HorarioAdmin {
+  diaSemana: number;
+  horaApertura: string | null;
+  horaCierre: string | null;
+  cerrado: boolean;
+}
+
+export interface LugarPayload {
+  slug: string;
+  categoriaLugarId: string;
+  distritoId: string;
+  latitud: number;
+  longitud: number;
+  direccion: string | null;
+  telefono: string | null;
+  precioEntradaPen: number | null;
+  duracionVisitaMin: number | null;
+  aceptaTarjeta: boolean | null;
+  tieneBanos: boolean | null;
+  accesibleSillaRuedas: boolean | null;
+  aptoNinos: boolean | null;
+  costoTaxiDesdePlazaPen: number | null;
+  requiereGuia: boolean | null;
+  estado: string;
+  traducciones: TraduccionLugarAdmin[];
+  horarios: HorarioAdmin[];
+}
+
+export async function listarLugaresAdmin(): Promise<LugarAdminItem[]> {
+  const p = await jsonAutenticado<Pagina<LugarAdminItem>>("/admin/lugares?tamano=100");
+  return p.content;
+}
+
+export async function guardarLugar(payload: LugarPayload, id: string | null): Promise<void> {
+  const res = await conAutenticacion(id ? `/lugares/${id}` : "/lugares", {
+    method: id ? "PUT" : "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    const cuerpo = await res.json().catch(() => null);
+    throw new Error(cuerpo?.mensaje ?? `HTTP ${res.status}`);
+  }
+}
+
+export function eliminarLugar(id: string): Promise<void> {
+  return conAutenticacion(`/lugares/${id}`, { method: "DELETE" }).then(() => undefined);
+}
+
 // ---- Moderación de negocios (RF-104) ----
 
 export interface NegocioModeracion {

@@ -45,7 +45,7 @@ public class SecurityConfig {
                         // Documentación del API (Swagger UI)
                         .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
                         // Catálogo público de lugares (RF-01, RF-09); escribir exige ADMIN (@PreAuthorize)
-                        .requestMatchers(HttpMethod.GET, "/lugares/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/lugares/**", "/categorias-lugar").permitAll()
                         // Clima y recomendaciones: navegación anónima (RF-25, RF-08)
                         .requestMatchers(HttpMethod.GET, "/clima/**", "/recomendaciones/**").permitAll()
                         // Preservación ciudadana: reporte anónimo y mapa público (RF-69/72/74)
