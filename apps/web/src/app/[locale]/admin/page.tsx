@@ -50,7 +50,7 @@ export default function DashboardAdmin() {
           {tarjetas.map((c) => (
             <div key={c.etiqueta} className="rounded-2xl border border-border p-5">
               <p className="text-3xl font-bold text-primary">{c.valor}</p>
-              <p className="mt-1 text-sm opacity-70">{c.etiqueta}</p>
+              <p className="mt-1 text-sm opacity-80">{c.etiqueta}</p>
             </div>
           ))}
         </div>
@@ -68,7 +68,7 @@ export default function DashboardAdmin() {
               }`}
             >
               <p className="text-3xl font-bold">{c.valor}</p>
-              <p className="mt-1 text-sm opacity-70">{c.etiqueta}</p>
+              <p className="mt-1 text-sm opacity-80">{c.etiqueta}</p>
             </Link>
           ))}
         </div>

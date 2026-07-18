@@ -184,7 +184,7 @@ export default function GestionEventos() {
       <section>
         <h2 className="text-lg font-semibold">Próximos eventos publicados</h2>
         {eventos.length === 0 ? (
-          <p className="mt-3 text-sm opacity-70">No hay eventos próximos.</p>
+          <p className="mt-3 text-sm opacity-80">No hay eventos próximos.</p>
         ) : (
           <ul className="mt-3 flex flex-col gap-2">
             {eventos.map((e) => (
@@ -194,7 +194,7 @@ export default function GestionEventos() {
               >
                 <div>
                   <p className="font-medium">{e.nombre}</p>
-                  <p className="text-xs opacity-60">
+                  <p className="text-xs opacity-75">
                     {TIPO_LABEL[e.tipo]} · {e.fechaInicio}
                     {e.fechaFin !== e.fechaInicio ? ` – ${e.fechaFin}` : ""}
                   </p>

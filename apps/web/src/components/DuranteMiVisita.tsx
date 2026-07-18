@@ -97,7 +97,7 @@ export default function DuranteMiVisita() {
       {!cargando && eventos !== null && (
         <div className="mt-4">
           {eventos.length === 0 ? (
-            <p className="text-sm opacity-70">{t("sinEventosEnFechas")}</p>
+            <p className="text-sm opacity-80">{t("sinEventosEnFechas")}</p>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2">
               {eventos.map((e) => (

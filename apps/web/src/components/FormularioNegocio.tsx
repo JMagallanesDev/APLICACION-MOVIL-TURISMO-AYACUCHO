@@ -177,7 +177,7 @@ export default function FormularioNegocio() {
             onChange={(e) => set("whatsapp", e.target.value)}
             className="min-h-11 rounded-xl border border-border bg-background px-4 outline-none focus:border-primary"
           />
-          <span className="text-xs opacity-60">{t("whatsappAyuda")}</span>
+          <span className="text-xs opacity-75">{t("whatsappAyuda")}</span>
         </label>
 
         <label className="flex flex-col gap-1 text-sm">
@@ -230,7 +230,7 @@ export default function FormularioNegocio() {
           <button
             type="submit"
             disabled={enviando}
-            className="mt-2 min-h-12 w-full rounded-full bg-primary font-medium text-primary-foreground hover:opacity-90 disabled:opacity-60 sm:w-auto sm:px-8"
+            className="mt-2 min-h-12 w-full rounded-full bg-primary font-medium text-primary-foreground hover:opacity-90 disabled:opacity-75 sm:w-auto sm:px-8"
           >
             {enviando ? t("enviando") : esNuevo ? t("registrar") : t("guardarCambios")}
           </button>

@@ -10,7 +10,7 @@ import { useSesion } from "@/stores/sesion";
 const ESTADO_ESTILO: Record<string, string> = {
   PUBLICADO: "bg-emerald-600/15 text-emerald-700 dark:text-emerald-400",
   BORRADOR: "bg-accent/15 text-accent",
-  ARCHIVADO: "bg-muted opacity-70",
+  ARCHIVADO: "bg-muted opacity-80",
 };
 
 export default function GestionLugares() {
@@ -50,7 +50,7 @@ export default function GestionLugares() {
       {lugares === null ? (
         <div className="mt-6 h-40 animate-pulse rounded-2xl bg-muted" />
       ) : lugares.length === 0 ? (
-        <p className="mt-6 text-sm opacity-70">No hay lugares registrados.</p>
+        <p className="mt-6 text-sm opacity-80">No hay lugares registrados.</p>
       ) : (
         <ul className="mt-6 flex flex-col gap-2">
           {lugares.map((l) => (
@@ -60,7 +60,7 @@ export default function GestionLugares() {
             >
               <div>
                 <p className="font-medium">{l.nombre}</p>
-                <p className="text-xs opacity-60">
+                <p className="text-xs opacity-75">
                   {l.slug} · {l.categoriaCodigo}
                 </p>
               </div>

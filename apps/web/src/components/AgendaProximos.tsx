@@ -40,7 +40,7 @@ export default function AgendaProximos({ eventos }: { eventos: EventoResumen[] }
       </div>
 
       {filtrados.length === 0 ? (
-        <p className="mt-6 text-sm opacity-70">{t("sinEventos")}</p>
+        <p className="mt-6 text-sm opacity-80">{t("sinEventos")}</p>
       ) : (
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filtrados.map((e) => (

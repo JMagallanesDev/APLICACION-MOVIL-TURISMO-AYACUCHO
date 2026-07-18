@@ -118,7 +118,7 @@ export default function ModeracionAdmin() {
 }
 
 function Vacio({ texto }: { texto: string }) {
-  return <p className="rounded-2xl border border-border p-6 text-center text-sm opacity-70">{texto}</p>;
+  return <p className="rounded-2xl border border-border p-6 text-center text-sm opacity-80">{texto}</p>;
 }
 
 function ColaReportes({ items, onAccion }: { items: ReporteModeracion[]; onAccion: () => void }) {
@@ -137,14 +137,14 @@ function ColaReportes({ items, onAccion }: { items: ReporteModeracion[]; onAccio
             <span className="text-sm font-semibold text-secondary">
               {TIPO_INCIDENTE[r.tipoIncidenteCodigo] ?? r.tipoIncidenteCodigo}
             </span>
-            <span className="text-xs opacity-60">
+            <span className="text-xs opacity-75">
               {r.esAnonimo ? "Anónimo · " : ""}
               {new Date(r.creadoEn).toLocaleDateString("es-PE")}
             </span>
           </div>
           <p className="mt-2 text-sm">{r.descripcion}</p>
           {r.direccionReferencial && (
-            <p className="mt-1 text-xs opacity-60">📍 {r.direccionReferencial}</p>
+            <p className="mt-1 text-xs opacity-75">📍 {r.direccionReferencial}</p>
           )}
           {r.fotos.length > 0 && (
             <div className="mt-2 flex gap-2 overflow-x-auto">
@@ -198,7 +198,7 @@ function ColaFotos({ items, onAccion }: { items: FotoModeracion[]; onAccion: () 
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={f.url} alt="" className="h-40 w-full object-cover" />
           <div className="p-3">
-            <p className="text-xs opacity-60">{f.autorNombre}</p>
+            <p className="text-xs opacity-75">{f.autorNombre}</p>
             <div className="mt-2 flex gap-2">
               <button
                 type="button"
@@ -236,12 +236,12 @@ function ColaNegocios({ items, onAccion }: { items: NegocioModeracion[]; onAccio
         <li key={n.id} className="rounded-2xl border border-border p-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="font-medium">{n.nombre}</span>
-            <span className="text-xs opacity-60">
+            <span className="text-xs opacity-75">
               {CATEGORIA_NEGOCIO[n.categoriaCodigo] ?? n.categoriaCodigo}
             </span>
           </div>
           {n.descripcion && <p className="mt-2 text-sm opacity-85">{n.descripcion}</p>}
-          <p className="mt-1 text-xs opacity-60">
+          <p className="mt-1 text-xs opacity-75">
             💬 {n.whatsapp}
             {n.direccion ? ` · 📍 ${n.direccion}` : ""}
           </p>

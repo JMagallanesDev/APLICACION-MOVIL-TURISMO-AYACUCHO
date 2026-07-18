@@ -27,12 +27,12 @@ export default async function PaginaNegocios({
   const mensaje = encodeURIComponent(t("mensajeWhatsApp"));
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-6">
+    <main className="mx-auto max-w-6xl px-6 py-6">
       <Encabezado />
       <div className="mt-8 flex items-end justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold">{t("titulo")}</h1>
-          <p className="mt-1 text-sm opacity-70">{t("subtitulo")}</p>
+          <p className="mt-1 text-sm opacity-80">{t("subtitulo")}</p>
         </div>
         <Link
           href="/negocios/registrar"
@@ -68,7 +68,7 @@ export default async function PaginaNegocios({
       </div>
 
       {negocios.length === 0 ? (
-        <p className="mt-10 text-center text-sm opacity-70">{t("sinNegocios")}</p>
+        <p className="mt-10 text-center text-sm opacity-80">{t("sinNegocios")}</p>
       ) : (
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {negocios.map((n) => (
@@ -78,7 +78,7 @@ export default async function PaginaNegocios({
               </span>
               <h3 className="text-lg font-semibold">{n.nombre}</h3>
               {n.descripcion && <p className="text-sm opacity-75">{n.descripcion}</p>}
-              <div className="mt-1 space-y-1 text-sm opacity-70">
+              <div className="mt-1 space-y-1 text-sm opacity-80">
                 {n.direccion && <p>📍 {n.direccion}</p>}
                 {n.horario && <p>🕐 {n.horario}</p>}
               </div>
@@ -95,6 +95,6 @@ export default async function PaginaNegocios({
           ))}
         </div>
       )}
-    </div>
+    </main>
   );
 }

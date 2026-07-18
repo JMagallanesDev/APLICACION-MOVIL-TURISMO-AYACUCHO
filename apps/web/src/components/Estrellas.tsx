@@ -26,7 +26,7 @@ export default function Estrellas({
         <span className="opacity-30">{"★".repeat(5 - llenas)}</span>
       </span>
       <span className="font-medium">{Number(promedio).toFixed(1)}</span>
-      <span className="opacity-60">({total})</span>
+      <span className="opacity-75">({total})</span>
     </span>
   );
 }

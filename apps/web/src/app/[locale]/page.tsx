@@ -56,28 +56,28 @@ export default function Home({
         </div>
 
         <nav className="mt-6 flex flex-wrap justify-center gap-4 text-sm">
-          <Link href="/lugares" className="opacity-70 hover:opacity-100 hover:underline">
+          <Link href="/lugares" className="opacity-80 hover:opacity-100 hover:underline">
             {nav("lugares")}
           </Link>
-          <Link href="/mapa" className="opacity-70 hover:opacity-100 hover:underline">
+          <Link href="/mapa" className="opacity-80 hover:opacity-100 hover:underline">
             {nav("mapa")}
           </Link>
-          <Link href="/reportar" className="opacity-70 hover:opacity-100 hover:underline">
+          <Link href="/reportar" className="opacity-80 hover:opacity-100 hover:underline">
             {nav("reportar")}
           </Link>
-          <Link href="/eventos" className="opacity-70 hover:opacity-100 hover:underline">
+          <Link href="/eventos" className="opacity-80 hover:opacity-100 hover:underline">
             {nav("eventos")}
           </Link>
-          <Link href="/negocios" className="opacity-70 hover:opacity-100 hover:underline">
+          <Link href="/negocios" className="opacity-80 hover:opacity-100 hover:underline">
             {nav("negocios")}
           </Link>
-          <Link href="/mapa-incidentes" className="opacity-70 hover:opacity-100 hover:underline">
+          <Link href="/mapa-incidentes" className="opacity-80 hover:opacity-100 hover:underline">
             {nav("mapaIncidentes")}
           </Link>
         </nav>
       </main>
 
-      <footer className="px-6 py-4 text-center text-sm opacity-60">
+      <footer className="px-6 py-4 text-center text-sm opacity-75">
         {footer("hechoEn")} · {footer("proyecto")}
       </footer>
     </div>

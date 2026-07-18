@@ -191,7 +191,7 @@ export default function FormularioReporte({ tipos }: { tipos: TipoIncidente[] })
           ref={contenedor}
           className="mt-2 h-56 w-full overflow-hidden rounded-2xl border border-border"
         />
-        <p className="mt-1 text-xs opacity-60">{t("ayudaPin")}</p>
+        <p className="mt-1 text-xs opacity-75">{t("ayudaPin")}</p>
         <input
           type="text"
           value={direccion}
@@ -212,7 +212,7 @@ export default function FormularioReporte({ tipos }: { tipos: TipoIncidente[] })
           className="text-sm font-normal"
         />
         {fotos.length > 0 && (
-          <span className="text-xs opacity-70">{t("fotosSeleccionadas", { n: fotos.length })}</span>
+          <span className="text-xs opacity-80">{t("fotosSeleccionadas", { n: fotos.length })}</span>
         )}
       </label>
 
@@ -246,7 +246,7 @@ export default function FormularioReporte({ tipos }: { tipos: TipoIncidente[] })
       <button
         type="submit"
         disabled={enviando}
-        className="min-h-12 rounded-full bg-primary font-medium text-primary-foreground hover:opacity-90 disabled:opacity-60"
+        className="min-h-12 rounded-full bg-primary font-medium text-primary-foreground hover:opacity-90 disabled:opacity-75"
       >
         {enviando ? t("enviando") : t("enviarReporte")}
       </button>

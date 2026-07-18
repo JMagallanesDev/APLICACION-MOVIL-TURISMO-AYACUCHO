@@ -94,13 +94,13 @@ export default async function PaginaEvento({
   };
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-6">
+    <main className="mx-auto max-w-3xl px-6 py-6">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Encabezado />
-      <nav className="mt-6 text-sm opacity-70">
+      <nav className="mt-6 text-sm opacity-80">
         <Link href="/eventos" className="hover:underline">
           ← {t("volver")}
         </Link>
@@ -130,7 +130,7 @@ export default async function PaginaEvento({
         </div>
 
         {tr.organizador && (
-          <p className="mt-2 text-sm opacity-70">
+          <p className="mt-2 text-sm opacity-80">
             {t("organiza")}: {tr.organizador}
           </p>
         )}
@@ -141,6 +141,6 @@ export default async function PaginaEvento({
           <p className="mt-6 rounded-xl bg-muted px-4 py-3 text-sm">🔁 {t("recurrente")}</p>
         )}
       </article>
-    </div>
+    </main>
   );
 }

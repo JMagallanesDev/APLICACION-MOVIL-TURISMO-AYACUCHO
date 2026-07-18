@@ -44,7 +44,7 @@ export default function BotonFavorito({ slug }: { slug: string }) {
       aria-pressed={esFavorito}
       aria-label={esFavorito ? t("quitarFavorito") : t("marcarFavorito")}
       title={esFavorito ? t("quitarFavorito") : t("marcarFavorito")}
-      className={`text-xl leading-none transition-transform hover:scale-110 ${
+      className={`inline-flex h-8 w-8 items-center justify-center rounded-full text-xl leading-none transition-transform hover:scale-110 ${
         esFavorito ? "text-red-500" : "opacity-40 hover:opacity-80"
       }`}
     >

@@ -13,13 +13,13 @@ export default async function PaginaRegistrarNegocio({
   const t = await getTranslations("Negocios");
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-6">
+    <main className="mx-auto max-w-2xl px-6 py-6">
       <Encabezado />
       <main className="mt-8">
         <h1 className="text-3xl font-bold">{t("miNegocio")}</h1>
         <p className="mt-2 text-sm opacity-75">{t("miNegocioAyuda")}</p>
         <FormularioNegocio />
       </main>
-    </div>
+    </main>
   );
 }

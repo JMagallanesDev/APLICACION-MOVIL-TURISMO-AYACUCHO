@@ -80,7 +80,7 @@ export default function QueHagoAhora() {
               className="group flex items-center justify-between gap-3 rounded-xl bg-background px-4 py-3 transition-shadow hover:shadow-sm"
             >
               <span className="font-medium group-hover:text-primary">{lugar.nombre}</span>
-              <span className="shrink-0 text-xs opacity-70">
+              <span className="shrink-0 text-xs opacity-80">
                 {t(`razones.${lugar.razonClave}`)}
               </span>
             </Link>

@@ -10,6 +10,33 @@ import { useSesion, type UsuarioSesion } from "@/stores/sesion";
 
 const API = "/api/v1";
 
+/**
+ * Marca local de "hubo sesión": evita llamar a /auth/refresh en visitantes
+ * anónimos (el 401 esperado ensuciaba la consola y Lighthouse). La cookie
+ * httpOnly sigue siendo la única credencial real.
+ */
+const MARCA_SESION = "th_hubo_sesion";
+
+function marcarSesion(activa: boolean) {
+  try {
+    if (activa) {
+      localStorage.setItem(MARCA_SESION, "1");
+    } else {
+      localStorage.removeItem(MARCA_SESION);
+    }
+  } catch {
+    // almacenamiento bloqueado: solo se pierde la optimización
+  }
+}
+
+export function huboSesion(): boolean {
+  try {
+    return localStorage.getItem(MARCA_SESION) === "1";
+  } catch {
+    return false;
+  }
+}
+
 interface RespuestaTokens {
   accessToken: string;
   usuario: UsuarioSesion;
@@ -41,7 +68,9 @@ export async function iniciarSesion(email: string, password: string): Promise<Re
     credentials: "include", // recibe la cookie httpOnly del refresh
     body: JSON.stringify({ email, password }),
   });
-  return procesar(res);
+  const datos = await procesar<RespuestaTokens>(res);
+  marcarSesion(true);
+  return datos;
 }
 
 export async function registrarse(
@@ -55,7 +84,9 @@ export async function registrarse(
     credentials: "include",
     body: JSON.stringify({ email, password, nombre }),
   });
-  return procesar(res);
+  const datos = await procesar<RespuestaTokens>(res);
+  marcarSesion(true);
+  return datos;
 }
 
 /** Recupera la sesión con la cookie httpOnly; null si no hay sesión válida. */
@@ -66,15 +97,19 @@ export async function refrescarSesion(): Promise<RespuestaTokens | null> {
       credentials: "include",
     });
     if (!res.ok) {
+      marcarSesion(false);
       return null;
     }
-    return await res.json();
+    const datos: RespuestaTokens = await res.json();
+    marcarSesion(true);
+    return datos;
   } catch {
     return null;
   }
 }
 
 export async function cerrarSesion(): Promise<void> {
+  marcarSesion(false);
   try {
     await fetch(`${API}/auth/logout`, { method: "POST", credentials: "include" });
   } catch {

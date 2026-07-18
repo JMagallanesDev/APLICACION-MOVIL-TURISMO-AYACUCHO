@@ -95,7 +95,7 @@ export default function FormularioCuenta() {
             className="min-h-11 rounded-xl border border-border bg-background px-4 outline-none focus:border-primary"
           />
           {modo === "registro" && (
-            <span className="text-xs opacity-60">{t("passwordAyuda")}</span>
+            <span className="text-xs opacity-75">{t("passwordAyuda")}</span>
           )}
         </label>
 
@@ -108,7 +108,7 @@ export default function FormularioCuenta() {
         <button
           type="submit"
           disabled={enviando}
-          className="mt-2 min-h-11 rounded-full bg-primary font-medium text-primary-foreground hover:opacity-90 disabled:opacity-60"
+          className="mt-2 min-h-11 rounded-full bg-primary font-medium text-primary-foreground hover:opacity-90 disabled:opacity-75"
         >
           {enviando ? t("enviando") : t(modo === "login" ? "iniciarSesion" : "crearCuenta")}
         </button>

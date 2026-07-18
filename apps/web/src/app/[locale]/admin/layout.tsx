@@ -44,7 +44,7 @@ export default async function AdminLayout({
             Eventos
           </Link>
         </nav>
-        <div className="mt-6">{children}</div>
+        <main className="mt-6">{children}</main>
       </GuardAdmin>
     </div>
   );

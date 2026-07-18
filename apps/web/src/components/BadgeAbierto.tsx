@@ -10,8 +10,8 @@ export default function BadgeAbierto({ abierto }: { abierto: boolean | null }) {
     <span
       className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium ${
         abierto
-          ? "bg-emerald-600/15 text-emerald-700 dark:text-emerald-400"
-          : "bg-red-600/15 text-red-700 dark:text-red-400"
+          ? "bg-emerald-600/15 text-emerald-800 dark:text-emerald-400"
+          : "bg-red-600/15 text-red-800 dark:text-red-400"
       }`}
     >
       <span

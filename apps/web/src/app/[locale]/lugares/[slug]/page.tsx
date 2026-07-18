@@ -141,14 +141,14 @@ export default async function PaginaLugar({
   ];
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-6">
+    <main className="mx-auto max-w-3xl px-6 py-6">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Encabezado />
 
-      <nav className="mt-6 text-sm opacity-70">
+      <nav className="mt-6 text-sm opacity-80">
         <Link href="/lugares" className="hover:underline">
           ← {t("volverAlListado")}
         </Link>
@@ -169,7 +169,7 @@ export default async function PaginaLugar({
           <Estrellas promedio={lugar.calificacionPromedio} total={lugar.totalResenas} />
         </div>
 
-        {lugar.direccion && <p className="mt-1 text-sm opacity-70">{lugar.direccion}</p>}
+        {lugar.direccion && <p className="mt-1 text-sm opacity-80">{lugar.direccion}</p>}
 
         <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
           <span className="font-medium">
@@ -243,7 +243,7 @@ export default async function PaginaLugar({
                   className="flex items-center gap-2 rounded-xl border border-border px-4 py-2 text-sm"
                 >
                   <span aria-hidden>{valor ? "✓" : "✕"}</span>
-                  <span className={valor ? "" : "opacity-60"}>{t(`practicos.${clave}`)}</span>
+                  <span className={valor ? "" : "opacity-75"}>{t(`practicos.${clave}`)}</span>
                 </li>
               ))}
             {lugar.costoTaxiDesdePlazaPen != null && Number(lugar.costoTaxiDesdePlazaPen) > 0 && (
@@ -269,7 +269,7 @@ export default async function PaginaLugar({
             <SubirFoto slug={slug} />
           </div>
           {fotos.length === 0 ? (
-            <p className="mt-2 text-sm opacity-70">{t("sinFotos")}</p>
+            <p className="mt-2 text-sm opacity-80">{t("sinFotos")}</p>
           ) : (
             <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
               {fotos.map((foto) => (
@@ -295,7 +295,7 @@ export default async function PaginaLugar({
           <h2 className="text-xl font-semibold">{t("resenasTitulo")}</h2>
           <FormularioResena slug={slug} />
           {resenas.length === 0 ? (
-            <p className="mt-4 text-sm opacity-70">{t("sinResenas")}</p>
+            <p className="mt-4 text-sm opacity-80">{t("sinResenas")}</p>
           ) : (
             <ul className="mt-4 space-y-3">
               {resenas.map((resena) => (
@@ -319,6 +319,6 @@ export default async function PaginaLugar({
           )}
         </section>
       </article>
-    </div>
+    </main>
   );
 }

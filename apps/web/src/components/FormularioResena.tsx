@@ -104,7 +104,7 @@ export default function FormularioResena({ slug }: { slug: string }) {
       <button
         type="submit"
         disabled={enviando}
-        className="mt-2 min-h-10 rounded-full bg-primary px-6 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-60"
+        className="mt-2 min-h-10 rounded-full bg-primary px-6 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-75"
       >
         {enviando ? t("enviando") : t("publicarResena")}
       </button>

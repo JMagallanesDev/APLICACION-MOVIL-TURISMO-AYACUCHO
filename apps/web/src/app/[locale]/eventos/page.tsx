@@ -18,7 +18,7 @@ export default async function PaginaEventos({
   const proximos = await obtenerProximosEventos(locale, 30);
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-6">
+    <main className="mx-auto max-w-6xl px-6 py-6">
       <Encabezado />
       <h1 className="mt-8 text-3xl font-bold">{t("titulo")}</h1>
       <p className="mt-2 text-sm opacity-75">{t("subtitulo")}</p>
@@ -33,6 +33,6 @@ export default async function PaginaEventos({
           <AgendaProximos eventos={proximos} />
         </div>
       </section>
-    </div>
+    </main>
   );
 }

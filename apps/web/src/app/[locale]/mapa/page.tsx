@@ -23,13 +23,13 @@ export default async function PaginaMapa({
   const datos = await obtenerLugares({ idioma: locale, pagina: 0, tamano: 50 });
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-6">
+    <main className="mx-auto max-w-6xl px-6 py-6">
       <Encabezado />
 
       <div className="mt-8 flex items-end justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold">{t("titulo")}</h1>
-          <p className="mt-1 text-sm opacity-70">{t("subtitulo")}</p>
+          <p className="mt-1 text-sm opacity-80">{t("subtitulo")}</p>
         </div>
         <Link href="/lugares" className="text-sm font-medium text-secondary hover:underline">
           {t("verListado")} →
@@ -39,6 +39,6 @@ export default async function PaginaMapa({
       <div className="mt-6">
         <Mapa lugares={datos.content} />
       </div>
-    </div>
+    </main>
   );
 }

@@ -67,7 +67,7 @@ export default function DistanciaAPie({
         type="button"
         onClick={calcular}
         disabled={estado === "cargando"}
-        className="min-h-11 w-fit rounded-full border border-border px-4 text-sm font-medium hover:bg-muted disabled:opacity-60"
+        className="min-h-11 w-fit rounded-full border border-border px-4 text-sm font-medium hover:bg-muted disabled:opacity-75"
       >
         {estado === "cargando" ? t("calculando") : t("cuantoCaminando")}
       </button>

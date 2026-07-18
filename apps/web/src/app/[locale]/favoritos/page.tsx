@@ -33,7 +33,7 @@ export default function PaginaFavoritos() {
   }, [usuario, restaurando, locale, totalSlugs]);
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-6">
+    <main className="mx-auto max-w-6xl px-6 py-6">
       <Encabezado />
       <h1 className="mt-8 text-3xl font-bold">{t("titulo")}</h1>
 
@@ -56,7 +56,7 @@ export default function PaginaFavoritos() {
           <span aria-hidden className="text-4xl">
             ♡
           </span>
-          <p className="mt-3 text-sm opacity-70">{t("vacio")}</p>
+          <p className="mt-3 text-sm opacity-80">{t("vacio")}</p>
           <Link
             href="/lugares"
             className="mt-4 inline-flex min-h-11 items-center rounded-full bg-primary px-6 text-sm font-medium text-primary-foreground hover:opacity-90"
@@ -71,6 +71,6 @@ export default function PaginaFavoritos() {
           ))}
         </div>
       )}
-    </div>
+    </main>
   );
 }

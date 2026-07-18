@@ -31,7 +31,7 @@ export default function EventoCard({ evento }: { evento: EventoResumen }) {
           </span>
         )}
       </div>
-      <h3 className="text-lg font-semibold group-hover:text-primary">{evento.nombre}</h3>
+      <h2 className="text-lg font-semibold group-hover:text-primary">{evento.nombre}</h2>
       <p className="mt-auto text-sm opacity-75">
         📅{" "}
         {mismoDia

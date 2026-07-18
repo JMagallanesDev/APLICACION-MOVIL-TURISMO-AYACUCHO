@@ -24,9 +24,9 @@ export default function LugarCard({ lugar }: { lugar: LugarResumen }) {
         </span>
       </div>
 
-      <h3 className="text-lg font-semibold group-hover:text-primary">
+      <h2 className="text-lg font-semibold group-hover:text-primary">
         {lugar.nombre}
-      </h3>
+      </h2>
 
       <Estrellas promedio={lugar.calificacionPromedio} total={lugar.totalResenas} />
 

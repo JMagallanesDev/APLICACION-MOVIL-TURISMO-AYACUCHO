@@ -33,7 +33,7 @@ export default async function PaginaLugares({
   const filtrosConOrden = { ...filtros, ...(porCalificacion && { orden: "calificacion" }) };
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-6">
+    <main className="mx-auto max-w-6xl px-6 py-6">
       <Encabezado />
 
       <h1 className="mt-8 text-3xl font-bold">{t("titulo")}</h1>
@@ -73,12 +73,12 @@ export default async function PaginaLugares({
       </div>
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
-        <p className="text-sm opacity-60">{t("resultados", { total: datos.totalElements })}</p>
+        <p className="text-sm opacity-75">{t("resultados", { total: datos.totalElements })}</p>
 
         {/* Orden (RF-06) — la búsqueda ordena por relevancia, sin selector */}
         {!q && (
           <div className="flex items-center gap-2 text-sm">
-            <span className="opacity-60">{t("ordenar")}</span>
+            <span className="opacity-75">{t("ordenar")}</span>
             <Link
               href={{ pathname: "/lugares", query: filtros }}
               className={`min-h-8 rounded-full border px-3 py-1 ${
@@ -104,7 +104,7 @@ export default async function PaginaLugares({
       </div>
 
       {datos.content.length === 0 ? (
-        <p className="mt-10 text-center opacity-70">{t("sinResultados")}</p>
+        <p className="mt-10 text-center opacity-80">{t("sinResultados")}</p>
       ) : (
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {datos.content.map((lugar) => (
@@ -127,7 +127,7 @@ export default async function PaginaLugares({
               ← {t("anterior")}
             </Link>
           )}
-          <span className="opacity-70">
+          <span className="opacity-80">
             {t("paginaDe", { actual: paginaActual + 1, total: datos.totalPages })}
           </span>
           {paginaActual + 1 < datos.totalPages && (
@@ -143,6 +143,6 @@ export default async function PaginaLugares({
           )}
         </nav>
       )}
-    </div>
+    </main>
   );
 }

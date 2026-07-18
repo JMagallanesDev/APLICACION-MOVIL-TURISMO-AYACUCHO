@@ -26,7 +26,7 @@ export default function BotonReportar({
       return <span className="text-xs text-emerald-600">{t("reporteEnviado")}</span>;
     }
     if (estado === "duplicado") {
-      return <span className="text-xs opacity-60">{t("yaReportado")}</span>;
+      return <span className="text-xs opacity-75">{t("yaReportado")}</span>;
     }
     return null;
   }

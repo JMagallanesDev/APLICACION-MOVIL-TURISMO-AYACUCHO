@@ -396,7 +396,7 @@ function EditorLugar() {
 
         <fieldset className="rounded-2xl border border-border p-4">
           <legend className="px-2 text-sm font-semibold">Ubicación</legend>
-          <p className="mb-3 text-xs opacity-70">
+          <p className="mb-3 text-xs opacity-80">
             Toca el mapa o arrastra el pin hasta la ubicación exacta del lugar.
           </p>
           <MapaPin latitud={lat} longitud={lng} onCambio={(la, lo) => { setLat(la); setLng(lo); }} />
@@ -548,7 +548,7 @@ function EditorLugar() {
                       )}
                     </div>
                   ) : (
-                    <span className="text-sm opacity-60">Cerrado</span>
+                    <span className="text-sm opacity-75">Cerrado</span>
                   )}
                 </div>
               );

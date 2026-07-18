@@ -17,13 +17,13 @@ export default async function PaginaReportar({
   const tipos = await obtenerTiposIncidente(locale);
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-6">
+    <main className="mx-auto max-w-2xl px-6 py-6">
       <Encabezado />
       <main className="mt-8">
         <h1 className="text-3xl font-bold">{t("titulo")}</h1>
         <p className="mt-2 text-sm opacity-75">{t("subtitulo")}</p>
         <FormularioReporte tipos={tipos} />
       </main>
-    </div>
+    </main>
   );
 }

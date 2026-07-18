@@ -18,12 +18,12 @@ export default async function PaginaMapaIncidentes({
   const incidentes = await obtenerIncidentesMapa();
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-6">
+    <main className="mx-auto max-w-6xl px-6 py-6">
       <Encabezado />
       <div className="mt-8 flex items-end justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold">{t("titulo")}</h1>
-          <p className="mt-1 text-sm opacity-70">{t("subtitulo", { total: incidentes.length })}</p>
+          <p className="mt-1 text-sm opacity-80">{t("subtitulo", { total: incidentes.length })}</p>
         </div>
         <Link
           href="/reportar"
@@ -35,6 +35,6 @@ export default async function PaginaMapaIncidentes({
       <div className="mt-6">
         <MapaIncidentes incidentes={incidentes} />
       </div>
-    </div>
+    </main>
   );
 }

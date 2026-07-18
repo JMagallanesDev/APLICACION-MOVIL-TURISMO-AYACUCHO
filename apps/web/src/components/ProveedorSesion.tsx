@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { obtenerFavoritosSlugs, refrescarSesion } from "@/lib/apiCliente";
+import { huboSesion, obtenerFavoritosSlugs, refrescarSesion } from "@/lib/apiCliente";
 import { useFavoritos } from "@/stores/favoritos";
 import { useSesion } from "@/stores/sesion";
 
@@ -31,6 +31,11 @@ export default function ProveedorSesion({ children }: { children: React.ReactNod
   }, [usuario]);
 
   useEffect(() => {
+    // Visitante que nunca inició sesión: no hay cookie que refrescar
+    if (!huboSesion()) {
+      terminarRestauracion();
+      return;
+    }
     let activo = true;
     refrescarSesion().then((renovada) => {
       if (!activo) return;
