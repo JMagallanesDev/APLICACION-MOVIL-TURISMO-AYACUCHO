@@ -15,11 +15,13 @@
   },
   "Home": {
     "titulo": "Descubre Huamanga",
-    "subtitulo": "Iglesias coloniales, miradores, retablos y la agenda viva de Ayacucho — todo en un solo lugar.",
+    "subtitulo": "La ciudad de las 33 iglesias te espera.",
     "explorarLugares": "Explorar lugares",
     "verMapa": "Ver el mapa",
     "seccionDiferenciador": "¿Qué hago hoy, ahora, aquí?",
-    "textoDiferenciador": "Recomendaciones según la hora, el clima y lo que está abierto en este momento."
+    "textoDiferenciador": "Recomendaciones según la hora, el clima y lo que está abierto en este momento.",
+    "buscar": "Buscar",
+    "verTodos": "Ver todos"
   },
   "Lugares": {
     "titulo": "Lugares para descubrir",
@@ -134,7 +136,8 @@
       "IDEAL_NOCHE": "Ideal esta noche",
       "IDEAL_MADRUGADA": "Abierto a esta hora",
       "ABIERTO_AHORA": "Abierto ahora"
-    }
+    },
+    "subtitulo": "Según la hora, el clima y lo que está abierto"
   },
   "Cuenta": {
     "titulo": "Tu cuenta",

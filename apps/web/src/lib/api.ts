@@ -177,11 +177,15 @@ export const TIPOS_EVENTO = [
 ] as const;
 
 export async function obtenerProximosEventos(idioma: string, limite = 6): Promise<EventoResumen[]> {
-  const res = await fetchConReintento(
-    `${API_URL}/eventos/proximos?idioma=${idioma}&limite=${limite}`,
-    { next: { revalidate: 300 } },
-  );
-  return res.ok ? res.json() : [];
+  try {
+    const res = await fetchConReintento(
+      `${API_URL}/eventos/proximos?idioma=${idioma}&limite=${limite}`,
+      { next: { revalidate: 300 } },
+    );
+    return res.ok ? res.json() : [];
+  } catch {
+    return []; // sin API (p. ej. en build) el home sale sin la sección de eventos
+  }
 }
 
 export async function obtenerEventosEnRango(

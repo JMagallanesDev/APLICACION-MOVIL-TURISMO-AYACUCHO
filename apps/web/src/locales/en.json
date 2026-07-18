@@ -15,11 +15,13 @@
   },
   "Home": {
     "titulo": "Discover Huamanga",
-    "subtitulo": "Colonial churches, viewpoints, retablos and Ayacucho's living cultural agenda — all in one place.",
+    "subtitulo": "The city of 33 churches awaits you.",
     "explorarLugares": "Explore places",
     "verMapa": "View the map",
     "seccionDiferenciador": "What can I do today, right now, right here?",
-    "textoDiferenciador": "Recommendations based on the time, the weather and what is open right now."
+    "textoDiferenciador": "Recommendations based on the time, the weather and what is open right now.",
+    "buscar": "Search",
+    "verTodos": "See all"
   },
   "Lugares": {
     "titulo": "Places to discover",
@@ -134,7 +136,8 @@
       "IDEAL_NOCHE": "Great tonight",
       "IDEAL_MADRUGADA": "Open at this hour",
       "ABIERTO_AHORA": "Open now"
-    }
+    },
+    "subtitulo": "Based on the time, weather and what is open now"
   },
   "Cuenta": {
     "titulo": "Your account",
