@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { obtenerFotos, obtenerLugar, obtenerResenas, traduccionDe, type Horario } from "@/lib/api";
+import { SITIO_URL } from "@/lib/sitio";
 import BadgeAbierto from "@/components/BadgeAbierto";
 import BotonCompartir from "@/components/BotonCompartir";
 import BotonFavorito from "@/components/BotonFavorito";
@@ -24,11 +25,39 @@ export async function generateMetadata({
     return {};
   }
   const traduccion = traduccionDe(lugar, locale);
+  const fotos = await obtenerFotos(slug);
+  const titulo = `${traduccion.nombre} · Turismo Huamanga`;
+  const ruta = `/lugares/${slug}`;
   return {
-    title: `${traduccion.nombre} · Turismo Huamanga`,
+    title: titulo,
     description: traduccion.descripcion ?? undefined,
+    alternates: {
+      canonical: `/${locale}${ruta}`,
+      languages: { es: `/es${ruta}`, en: `/en${ruta}` },
+    },
+    openGraph: {
+      title: titulo,
+      description: traduccion.descripcion ?? undefined,
+      url: `/${locale}${ruta}`,
+      ...(fotos.length > 0 && { images: [{ url: fotos[0].url }] }),
+    },
+    twitter: {
+      card: fotos.length > 0 ? "summary_large_image" : "summary",
+      title: titulo,
+      description: traduccion.descripcion ?? undefined,
+    },
   };
 }
+
+const DIAS_SCHEMA = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 
 /** Agrupa turnos por día para la grilla semanal. */
 function turnosPorDia(horarios: Horario[]): Map<number, Horario[]> {
@@ -60,6 +89,49 @@ export default async function PaginaLugar({
   const [resenas, fotos] = await Promise.all([obtenerResenas(slug), obtenerFotos(slug)]);
   const traduccion = traduccionDe(lugar, locale);
   const dias = turnosPorDia(lugar.horarios);
+
+  // Datos estructurados schema.org (SEO): ficha como TouristAttraction
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    name: traduccion.nombre,
+    ...(traduccion.descripcion && { description: traduccion.descripcion }),
+    url: `${SITIO_URL}/${locale}/lugares/${lugar.slug}`,
+    address: {
+      "@type": "PostalAddress",
+      ...(lugar.direccion && { streetAddress: lugar.direccion }),
+      addressLocality: "Ayacucho",
+      addressRegion: "Ayacucho",
+      addressCountry: "PE",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: lugar.latitud,
+      longitude: lugar.longitud,
+    },
+    isAccessibleForFree:
+      lugar.precioEntradaPen == null || Number(lugar.precioEntradaPen) === 0,
+    ...(fotos.length > 0 && { image: fotos.map((f) => f.url) }),
+    ...(lugar.totalResenas != null &&
+      lugar.totalResenas > 0 &&
+      lugar.calificacionPromedio != null && {
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: Number(lugar.calificacionPromedio),
+          reviewCount: lugar.totalResenas,
+          bestRating: 5,
+          worstRating: 1,
+        },
+      }),
+    openingHoursSpecification: lugar.horarios
+      .filter((h) => !h.cerrado && h.horaApertura && h.horaCierre)
+      .map((h) => ({
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: DIAS_SCHEMA[h.diaSemana],
+        opens: hhmm(h.horaApertura!),
+        closes: hhmm(h.horaCierre!),
+      })),
+  };
   const antesDeIr: Array<[string, boolean | null]> = [
     ["aceptaTarjeta", lugar.aceptaTarjeta],
     ["tieneBanos", lugar.tieneBanos],
@@ -70,6 +142,10 @@ export default async function PaginaLugar({
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Encabezado />
 
       <nav className="mt-6 text-sm opacity-70">

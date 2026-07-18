@@ -34,10 +34,10 @@ diferenciador), 10, más RF-08, RF-09b, RF-09c. SHOULD se mantiene: clima, agend
 | 4 | 17 ago – 30 ago | Listado, detalle y búsqueda frontend + badge abierto/cerrado + distancia a pie + dark mode desde ya | S5 |
 | 5 | 31 ago – 13 sep | Mapa MapLibre 3D + clima con Resilience4j + rutas (seed) + RF-08 "¿Qué hago ahora?" + RF-19b "Estoy aquí" | S6 |
 | 6 | 14 sep – 27 sep | Reseñas + calificaciones (vista materializada) + fotos Cloudinary + moderación | S7 |
-| 7 | 28 sep – 11 oct | Preservación ciudadana completa (anti-spam Redis TTL, sin IP) + favoritos + reporte de contenido + offline básico | S8 (recortado) + S9 |
+| 7 | 28 sep – 11 oct | Preservación ciudadana completa (anti-spam Redis TTL, sin IP) + favoritos + reporte de contenido | S8 (recortado) + S9 |
 | 8 | 12 oct – 25 oct | Agenda cultural completa + vista "Durante mi visita" (RF-84b) | S10 |
 | 9 | 26 oct – 8 nov | Panel admin: dashboard Chart.js, usuarios/roles, audit log + registro de negocios (backend) | S11 (sin RF-52b) + inicio S12 |
-| 10 | 9 nov – 22 nov | Directorio de negocios completo + slider RF-11/11b + compartir + PWA + identidad visual final + **CIERRE DE ALCANCE** | S12 + S13 |
+| 10 | 9 nov – 22 nov | Directorio de negocios completo + slider RF-11/11b + compartir + identidad visual final + **CIERRE DE ALCANCE** | S12 + S13 |
 | 11 | 23 nov – 6 dic | Pulido: Lighthouse ≥ 90, JMeter local, WCAG AA, tests ≥ 70% + documentación, datos reales, video demo | S14 + S15 |
 | — | 7 dic – 13 dic | Semana de reserva: ensayos de sustentación, backup, entornos congelados. **Sin código nuevo.** | S15 |
 
@@ -50,7 +50,7 @@ diferenciador), 10, más RF-08, RF-09b, RF-09c. SHOULD se mantiene: clima, agend
 
 ## Correcciones técnicas al plan v8.0 detectadas en la revisión del 5 jul 2026
 
-1. **PWA**: `next-pwa` está sin mantenimiento e incompatible con Next.js 15 App Router → usar **Serwist** (`@serwist/next`).
+1. **PWA descartada (decisión del 18 jul 2026)**: la tesis se redefinió como **aplicación web** (no PWA). Se elimina el service worker/offline del alcance: el contenido es inherentemente en línea (mapa, clima en tiempo real, reseñas, agenda), por lo que el modo offline aportaba poco valor frente a su costo de mantenimiento. La app sigue siendo responsive y usable desde el navegador móvil.
 2. **RNF-26 / Sprint 14**: `i18next-parser` no aplica (el stack es next-intl) → validar claves con script propio en CI.
 3. **Access token 24 h** es largo → evaluar 15–60 min (el refresh de 7 d cubre la UX). Decidir en Sprint 2.
 4. **Railway** ya no tiene free tier real → presupuestar 5 USD/mes desde el inicio o validar Koyeb/Fly.io en Sprint 1 (el plan B de la sección 7.6).

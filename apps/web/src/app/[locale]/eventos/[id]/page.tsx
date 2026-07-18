@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { obtenerEvento } from "@/lib/api";
+import { SITIO_URL } from "@/lib/sitio";
 import Encabezado from "@/components/Encabezado";
 
 function traduccion(
@@ -25,7 +26,27 @@ export async function generateMetadata({
   const evento = await obtenerEvento(id);
   if (!evento) return {};
   const tr = traduccion(evento, locale);
-  return { title: `${tr.nombre} · Turismo Huamanga`, description: tr.descripcion ?? undefined };
+  const titulo = `${tr.nombre} · Turismo Huamanga`;
+  const ruta = `/eventos/${id}`;
+  return {
+    title: titulo,
+    description: tr.descripcion ?? undefined,
+    alternates: {
+      canonical: `/${locale}${ruta}`,
+      languages: { es: `/es${ruta}`, en: `/en${ruta}` },
+    },
+    openGraph: {
+      title: titulo,
+      description: tr.descripcion ?? undefined,
+      url: `/${locale}${ruta}`,
+      ...(evento.portadaUrl && { images: [{ url: evento.portadaUrl }] }),
+    },
+    twitter: {
+      card: evento.portadaUrl ? "summary_large_image" : "summary",
+      title: titulo,
+      description: tr.descripcion ?? undefined,
+    },
+  };
 }
 
 export default async function PaginaEvento({
@@ -46,8 +67,38 @@ export default async function PaginaEvento({
   const fin = new Date(evento.fechaFin + "T00:00:00");
   const mismoDia = evento.fechaInicio === evento.fechaFin;
 
+  // Datos estructurados schema.org (SEO): agenda como Event
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: tr.nombre,
+    ...(tr.descripcion && { description: tr.descripcion }),
+    startDate: evento.fechaInicio,
+    endDate: evento.fechaFin,
+    url: `${SITIO_URL}/${locale}/eventos/${evento.id}`,
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    location: {
+      "@type": "Place",
+      name: "Huamanga, Ayacucho",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Ayacucho",
+        addressRegion: "Ayacucho",
+        addressCountry: "PE",
+      },
+    },
+    ...(evento.portadaUrl && { image: [evento.portadaUrl] }),
+    ...(tr.organizador && {
+      organizer: { "@type": "Organization", name: tr.organizador },
+    }),
+  };
+
   return (
     <div className="mx-auto max-w-3xl px-6 py-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Encabezado />
       <nav className="mt-6 text-sm opacity-70">
         <Link href="/eventos" className="hover:underline">

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
+import { SITIO_URL } from "@/lib/sitio";
 import ProveedorSesion from "@/components/ProveedorSesion";
 import "../globals.css";
 
@@ -29,8 +30,24 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata" });
   return {
+    metadataBase: new URL(SITIO_URL),
     title: t("titulo"),
     description: t("descripcion"),
+    alternates: {
+      languages: { es: "/es", en: "/en" },
+    },
+    openGraph: {
+      type: "website",
+      siteName: t("titulo"),
+      title: t("titulo"),
+      description: t("descripcion"),
+      locale: locale === "es" ? "es_PE" : "en_US",
+    },
+    twitter: {
+      card: "summary",
+      title: t("titulo"),
+      description: t("descripcion"),
+    },
   };
 }
 
