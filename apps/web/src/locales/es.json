@@ -106,7 +106,10 @@
     },
     "compartir": "Compartir",
     "enlaceCopiado": "Enlace copiado",
-    "codigoQR": "QR"
+    "codigoQR": "QR",
+    "ordenar": "Ordenar:",
+    "ordenNombre": "Nombre",
+    "ordenCalificacion": "Mejor valorados"
   },
   "Footer": {
     "hechoEn": "Hecho en Ayacucho, Perú",

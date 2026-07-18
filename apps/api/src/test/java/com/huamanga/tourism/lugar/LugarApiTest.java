@@ -73,6 +73,22 @@ class LugarApiTest {
     }
 
     @Test
+    @Order(2)
+    @DisplayName("GET /lugares?orden=calificacion: ranking mejor valorados (RF-06)")
+    void ordenPorCalificacion() {
+        ResponseEntity<Map> res = rest.getForEntity("/lugares?orden=calificacion", Map.class);
+        assertThat(res.getStatusCode()).isEqualTo(HttpStatus.OK);
+        // mismo universo que el listado normal: solo cambia el orden
+        assertThat(res.getBody().get("totalElements")).isEqualTo(5);
+
+        // combinado con filtro por categoría (RF-04 + RF-06)
+        ResponseEntity<Map> filtrado =
+                rest.getForEntity("/lugares?orden=calificacion&categoria=IGLESIAS", Map.class);
+        assertThat(filtrado.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(filtrado.getBody().get("totalElements")).isEqualTo(2);
+    }
+
+    @Test
     @Order(3)
     @DisplayName("GET /lugares/{slug}: ficha con traducciones es/en y horarios")
     void detallePorSlug() {

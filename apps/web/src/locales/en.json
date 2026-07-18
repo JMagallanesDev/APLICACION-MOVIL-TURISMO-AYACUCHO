@@ -106,7 +106,10 @@
     },
     "compartir": "Share",
     "enlaceCopiado": "Link copied",
-    "codigoQR": "QR"
+    "codigoQR": "QR",
+    "ordenar": "Sort by:",
+    "ordenNombre": "Name",
+    "ordenCalificacion": "Top rated"
   },
   "Footer": {
     "hechoEn": "Made in Ayacucho, Peru",

@@ -45,18 +45,21 @@ public class LugarController {
     }
 
     @GetMapping
-    @Operation(summary = "Listado público paginado con filtro por categoría y búsqueda full-text (RF-01, RF-02, RF-04)")
+    @Operation(summary = "Listado público paginado con filtro por categoría, búsqueda full-text y orden por calificación (RF-01, RF-02, RF-04, RF-06)")
     public Page<LugarResumenResponse> listar(
             @RequestParam(defaultValue = "es") String idioma,
             @RequestParam(required = false) String categoria,
             @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "nombre") String orden,
             @RequestParam(defaultValue = "0") int pagina,
             @RequestParam(defaultValue = "12") int tamano) {
+        boolean porCalificacion = "calificacion".equals(orden);
         PageRequest pageable = PageRequest.of(
                 Math.max(0, pagina),
                 Math.min(Math.max(1, tamano), TAMANO_MAXIMO),
-                Sort.by("slug"));
-        return lugarService.listar(idioma, categoria, q, pageable);
+                // el orden por calificación vive en el ORDER BY de la query nativa
+                porCalificacion ? Sort.unsorted() : Sort.by("slug"));
+        return lugarService.listar(idioma, categoria, q, orden, pageable);
     }
 
     @GetMapping("/{slug}")

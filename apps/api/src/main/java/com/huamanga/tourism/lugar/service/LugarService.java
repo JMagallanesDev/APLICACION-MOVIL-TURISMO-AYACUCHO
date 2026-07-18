@@ -76,21 +76,30 @@ public class LugarService {
     }
 
     /**
-     * Listado público paginado (RF-01) con filtro por categoría (RF-04) y
-     * búsqueda full-text (RF-02). Cada card incluye abiertoAhora (RF-09b).
+     * Listado público paginado (RF-01) con filtro por categoría (RF-04),
+     * búsqueda full-text (RF-02) y orden "mejor valorados" (RF-06).
+     * Cada card incluye abiertoAhora (RF-09b).
      */
     @Transactional(readOnly = true)
     public Page<LugarResumenResponse> listar(String idioma, String categoriaCodigo,
-                                             String q, Pageable pageable) {
+                                             String q, String orden, Pageable pageable) {
+        UUID categoriaId = null;
+        if (categoriaCodigo != null && !categoriaCodigo.isBlank()) {
+            categoriaId = categoriaRepository.findByCodigo(categoriaCodigo)
+                    .orElseThrow(() -> new NegocioException(HttpStatus.NOT_FOUND,
+                            "CATEGORIA_NO_EXISTE", "La categoría indicada no existe."))
+                    .getId();
+        }
+
         Page<Lugar> pagina;
         if (q != null && !q.isBlank()) {
             pagina = lugarRepository.buscarPublicados(q.trim(), pageable);
-        } else if (categoriaCodigo != null && !categoriaCodigo.isBlank()) {
-            CategoriaLugar categoria = categoriaRepository.findByCodigo(categoriaCodigo)
-                    .orElseThrow(() -> new NegocioException(HttpStatus.NOT_FOUND,
-                            "CATEGORIA_NO_EXISTE", "La categoría indicada no existe."));
+        } else if ("calificacion".equals(orden)) {
+            pagina = lugarRepository.listarPublicadosPorCalificacion(
+                    categoriaId != null ? categoriaId.toString() : null, pageable);
+        } else if (categoriaId != null) {
             pagina = lugarRepository.findByEstadoAndCategoriaLugarIdAndDeletedAtIsNull(
-                    EstadoLugar.PUBLICADO, categoria.getId(), pageable);
+                    EstadoLugar.PUBLICADO, categoriaId, pageable);
         } else {
             pagina = lugarRepository.findByEstadoAndDeletedAtIsNull(EstadoLugar.PUBLICADO, pageable);
         }

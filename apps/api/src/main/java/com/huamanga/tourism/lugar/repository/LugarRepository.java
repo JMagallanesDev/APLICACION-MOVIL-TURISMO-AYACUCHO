@@ -35,6 +35,31 @@ public interface LugarRepository extends JpaRepository<Lugar, UUID> {
     long countByCategoriaLugarIdAndDeletedAtIsNull(UUID categoriaLugarId);
 
     /**
+     * Ranking "mejor valorados" (RF-06): ordena por la vista materializada
+     * estadistica_lugar; los lugares sin reseñas van al final (NULLS LAST).
+     * El Pageable debe llegar sin sort: el ORDER BY es parte de la query.
+     */
+    @Query(value = """
+            SELECT l.* FROM lugar l
+            LEFT JOIN estadistica_lugar e ON e.lugar_id = l.id
+            WHERE l.deleted_at IS NULL AND l.estado = 'PUBLICADO'
+              AND (CAST(:categoriaId AS uuid) IS NULL
+                   OR l.categoria_lugar_id = CAST(:categoriaId AS uuid))
+            ORDER BY e.calificacion_promedio DESC NULLS LAST,
+                     e.total_resenas DESC NULLS LAST,
+                     l.slug ASC
+            """,
+            countQuery = """
+            SELECT count(*) FROM lugar l
+            WHERE l.deleted_at IS NULL AND l.estado = 'PUBLICADO'
+              AND (CAST(:categoriaId AS uuid) IS NULL
+                   OR l.categoria_lugar_id = CAST(:categoriaId AS uuid))
+            """,
+            nativeQuery = true)
+    Page<Lugar> listarPublicadosPorCalificacion(
+            @Param("categoriaId") String categoriaId, Pageable pageable);
+
+    /**
      * Búsqueda full-text (RF-02) sobre nombre+descripción en cualquier idioma,
      * usando el índice GIN idx_lugartrad_fulltext (RNF-30).
      */

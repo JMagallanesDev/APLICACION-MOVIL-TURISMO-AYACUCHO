@@ -5,26 +5,32 @@ import Buscador from "@/components/Buscador";
 import Encabezado from "@/components/Encabezado";
 import LugarCard from "@/components/LugarCard";
 
-/** Listado público de lugares (RF-01) con búsqueda (RF-02) y filtros (RF-04). */
+/** Listado público de lugares (RF-01) con búsqueda (RF-02), filtros (RF-04) y ranking (RF-06). */
 export default async function PaginaLugares({
   params,
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ q?: string; categoria?: string; pagina?: string }>;
+  searchParams: Promise<{ q?: string; categoria?: string; orden?: string; pagina?: string }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const { q, categoria, pagina } = await searchParams;
+  const { q, categoria, orden, pagina } = await searchParams;
   const t = await getTranslations("Lugares");
 
   const paginaActual = Math.max(0, Number(pagina ?? 0) || 0);
+  const porCalificacion = orden === "calificacion";
   const datos = await obtenerLugares({
     idioma: locale,
     q,
     categoria,
+    orden: porCalificacion ? "calificacion" : undefined,
     pagina: paginaActual,
   });
+
+  // query base que conservan los enlaces de orden y paginación
+  const filtros = { ...(q && { q }), ...(categoria && { categoria }) };
+  const filtrosConOrden = { ...filtros, ...(porCalificacion && { orden: "calificacion" }) };
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-6">
@@ -39,7 +45,7 @@ export default async function PaginaLugares({
       {/* Filtros por categoría (RF-04) */}
       <div className="mt-4 flex flex-wrap gap-2">
         <Link
-          href="/lugares"
+          href={{ pathname: "/lugares", query: { ...(porCalificacion && { orden: "calificacion" }) } }}
           className={`min-h-8 rounded-full border px-3 py-1 text-sm ${
             !categoria && !q
               ? "border-primary bg-primary text-primary-foreground"
@@ -51,7 +57,10 @@ export default async function PaginaLugares({
         {CATEGORIAS.map((codigo) => (
           <Link
             key={codigo}
-            href={{ pathname: "/lugares", query: { categoria: codigo } }}
+            href={{
+              pathname: "/lugares",
+              query: { categoria: codigo, ...(porCalificacion && { orden: "calificacion" }) },
+            }}
             className={`min-h-8 rounded-full border px-3 py-1 text-sm ${
               categoria === codigo
                 ? "border-primary bg-primary text-primary-foreground"
@@ -63,9 +72,36 @@ export default async function PaginaLugares({
         ))}
       </div>
 
-      <p className="mt-6 text-sm opacity-60">
-        {t("resultados", { total: datos.totalElements })}
-      </p>
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+        <p className="text-sm opacity-60">{t("resultados", { total: datos.totalElements })}</p>
+
+        {/* Orden (RF-06) — la búsqueda ordena por relevancia, sin selector */}
+        {!q && (
+          <div className="flex items-center gap-2 text-sm">
+            <span className="opacity-60">{t("ordenar")}</span>
+            <Link
+              href={{ pathname: "/lugares", query: filtros }}
+              className={`min-h-8 rounded-full border px-3 py-1 ${
+                !porCalificacion
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border hover:bg-muted"
+              }`}
+            >
+              {t("ordenNombre")}
+            </Link>
+            <Link
+              href={{ pathname: "/lugares", query: { ...filtros, orden: "calificacion" } }}
+              className={`min-h-8 rounded-full border px-3 py-1 ${
+                porCalificacion
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border hover:bg-muted"
+              }`}
+            >
+              ★ {t("ordenCalificacion")}
+            </Link>
+          </div>
+        )}
+      </div>
 
       {datos.content.length === 0 ? (
         <p className="mt-10 text-center opacity-70">{t("sinResultados")}</p>
@@ -84,7 +120,7 @@ export default async function PaginaLugares({
             <Link
               href={{
                 pathname: "/lugares",
-                query: { ...(q && { q }), ...(categoria && { categoria }), pagina: paginaActual - 1 },
+                query: { ...filtrosConOrden, pagina: paginaActual - 1 },
               }}
               className="rounded-full border border-border px-4 py-2 hover:bg-muted"
             >
@@ -98,7 +134,7 @@ export default async function PaginaLugares({
             <Link
               href={{
                 pathname: "/lugares",
-                query: { ...(q && { q }), ...(categoria && { categoria }), pagina: paginaActual + 1 },
+                query: { ...filtrosConOrden, pagina: paginaActual + 1 },
               }}
               className="rounded-full border border-border px-4 py-2 hover:bg-muted"
             >

@@ -286,6 +286,7 @@ export async function obtenerLugares(opciones: {
   idioma: string;
   categoria?: string;
   q?: string;
+  orden?: string;
   pagina?: number;
   tamano?: number;
 }): Promise<PaginaLugares> {
@@ -295,6 +296,7 @@ export async function obtenerLugares(opciones: {
   });
   if (opciones.categoria) params.set("categoria", opciones.categoria);
   if (opciones.q) params.set("q", opciones.q);
+  if (opciones.orden) params.set("orden", opciones.orden);
   if (opciones.pagina) params.set("pagina", String(opciones.pagina));
 
   const res = await fetchConReintento(`${API_URL}/lugares?${params}`, {
