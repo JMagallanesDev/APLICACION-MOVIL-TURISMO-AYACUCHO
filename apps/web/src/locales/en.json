@@ -11,7 +11,12 @@
     "reportar": "Report",
     "idioma": "Language",
     "mapaIncidentes": "Incidents",
-    "negocios": "Businesses"
+    "negocios": "Businesses",
+    "rutas": "Routes",
+    "explorar": "Explore",
+    "agenda": "Agenda",
+    "perfil": "Profile",
+    "cambiarTema": "Toggle theme"
   },
   "Home": {
     "titulo": "Discover Huamanga",
@@ -21,7 +26,10 @@
     "seccionDiferenciador": "What can I do today, right now, right here?",
     "textoDiferenciador": "Recommendations based on the time, the weather and what is open right now.",
     "buscar": "Search",
-    "verTodos": "See all"
+    "verTodos": "See all",
+    "buscarPlaceholder": "Where do you want to go?",
+    "agendaTitulo": "Cultural agenda",
+    "categorias": "Categories"
   },
   "Lugares": {
     "titulo": "Places to discover",
@@ -111,7 +119,17 @@
     "codigoQR": "QR",
     "ordenar": "Sort by:",
     "ordenNombre": "Name",
-    "ordenCalificacion": "Top rated"
+    "ordenCalificacion": "Top rated",
+    "categoriasCortas": {
+      "IGLESIAS": "Churches",
+      "MIRADORES": "Viewpoints",
+      "MUSEOS": "Museums",
+      "PLAZAS": "Squares",
+      "SITIOS_ARQUEOLOGICOS": "Archaeology",
+      "CASONAS": "Manors",
+      "TALLERES_ARTESANALES": "Crafts",
+      "NATURALEZA": "Nature"
+    }
   },
   "Footer": {
     "hechoEn": "Made in Ayacucho, Peru",
@@ -137,7 +155,8 @@
       "IDEAL_MADRUGADA": "Open at this hour",
       "ABIERTO_AHORA": "Open now"
     },
-    "subtitulo": "Based on the time, weather and what is open now"
+    "subtitulo": "Based on the time, weather and what is open now",
+    "verDetalles": "View details"
   },
   "Cuenta": {
     "titulo": "Your account",
@@ -227,7 +246,8 @@
     "volver": "Back to the agenda",
     "verLugar": "View the place",
     "organiza": "Organized by",
-    "recurrente": "This event takes place every year."
+    "recurrente": "This event takes place every year.",
+    "enTiempo": "In {tiempo}"
   },
   "Negocios": {
     "titulo": "Business directory",
@@ -277,5 +297,13 @@
     "iniciaSesion": "Sign in to save your favorite places →",
     "vacio": "You have not saved any places yet. Tap the heart on a place to keep it here.",
     "explorar": "Explore places"
+  },
+  "Rutas": {
+    "titulo": "Must-see routes",
+    "subtitulo": "Suggested walks to discover Huamanga at your own pace.",
+    "verTodas": "See all",
+    "sinRutas": "No routes published yet.",
+    "horas": "~{horas} h",
+    "paradas": "{total} stops"
   }
 }

@@ -176,6 +176,37 @@ export const TIPOS_EVENTO = [
   "OTRO",
 ] as const;
 
+// ---- Rutas temáticas (RF-53, seed) ----
+
+export interface ParadaRuta {
+  slug: string;
+  nombre: string;
+  orden: number;
+}
+
+export interface Ruta {
+  id: string;
+  slug: string;
+  colorHex: string | null;
+  icono: string | null;
+  nombre: string;
+  descripcion: string | null;
+  totalLugares: number;
+  duracionEstimadaMin: number | null;
+  lugares: ParadaRuta[];
+}
+
+export async function obtenerRutas(idioma: string): Promise<Ruta[]> {
+  try {
+    const res = await fetchConReintento(`${API_URL}/rutas?idioma=${idioma}`, {
+      next: { revalidate: 300 },
+    });
+    return res.ok ? res.json() : [];
+  } catch {
+    return [];
+  }
+}
+
 export async function obtenerProximosEventos(idioma: string, limite = 6): Promise<EventoResumen[]> {
   try {
     const res = await fetchConReintento(

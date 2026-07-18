@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { ACENTO_CATEGORIA, ICONO_CATEGORIA } from "@/lib/categorias";
 
 /**
  * Bloque "¿Qué hago ahora?" (RF-08): consulta el motor de recomendaciones
@@ -14,6 +15,7 @@ interface LugarRecomendado {
   slug: string;
   nombre: string;
   categoriaCodigo: string;
+  abiertoAhora: boolean | null;
   razonClave: string;
 }
 
@@ -29,16 +31,6 @@ interface Recomendacion {
 }
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080/api/v1";
-
-/** Acento visual por categoría (gradiente del design system Ayacucho). */
-const ACENTO: Record<string, string> = {
-  IGLESIAS: "from-primary/80 to-primary/40",
-  MIRADORES: "from-secondary/80 to-secondary/40",
-  MUSEOS: "from-[#8a5a3b]/80 to-[#8a5a3b]/40",
-  PLAZAS: "from-accent/80 to-accent/40",
-  SITIOS_ARQUEOLOGICOS: "from-[#8a5a3b]/70 to-secondary/40",
-  CASONAS: "from-primary/60 to-accent/40",
-};
 
 export default function QueHagoAhora() {
   const t = useTranslations("Recomendaciones");
@@ -64,10 +56,10 @@ export default function QueHagoAhora() {
   if (estado === "cargando") {
     return (
       <section className="w-full animate-pulse">
-        <div className="h-8 w-64 rounded bg-muted" />
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
-          {[0, 1, 2].map((i) => (
-            <div key={i} className="h-48 rounded-2xl bg-muted" />
+        <div className="h-7 w-56 rounded bg-muted" />
+        <div className="mt-4 flex flex-col gap-3">
+          {[0, 1].map((i) => (
+            <div key={i} className="h-28 rounded-2xl bg-muted" />
           ))}
         </div>
       </section>
@@ -76,42 +68,45 @@ export default function QueHagoAhora() {
 
   return (
     <section className="w-full">
-      <div className="flex flex-wrap items-end justify-between gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-2xl font-bold sm:text-3xl">{t("titulo")}</h2>
-          <p className="mt-1 opacity-80">{t("subtitulo")}</p>
+          <h2 className="text-xl font-bold sm:text-2xl">{t("titulo")}</h2>
+          <p className="mt-0.5 text-sm opacity-80">{t("subtitulo")}</p>
         </div>
         {datos!.clima && (
-          <span className="flex items-center gap-2 rounded-full bg-accent/15 px-4 py-2 text-sm font-medium text-accent">
-            {datos!.clima.lluvia ? "🌧" : "☀"} {Math.round(datos!.clima.temperaturaC)}°C ·{" "}
-            {datos!.clima.descripcion}
+          <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-accent/15 px-3 py-1.5 text-sm font-medium text-accent">
+            {datos!.clima.lluvia ? "🌧" : "☀"} {Math.round(datos!.clima.temperaturaC)}°C
             {datos!.clima.esFallback && " *"}
           </span>
         )}
       </div>
 
-      <div className="mt-6 grid gap-6 md:grid-cols-3">
+      <div className="mt-4 grid gap-3 md:grid-cols-3">
         {datos!.lugares.map((lugar) => (
           <Link
             key={lugar.slug}
             href={`/lugares/${lugar.slug}`}
-            className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-background shadow-sm transition-shadow hover:shadow-md"
+            className="group flex gap-4 rounded-2xl border border-border bg-background p-3 shadow-sm transition-shadow hover:shadow-md"
           >
             <div
               aria-hidden
-              className={`flex h-28 items-end bg-linear-to-br p-4 ${
-                ACENTO[lugar.categoriaCodigo] ?? "from-primary/70 to-primary/30"
+              className={`flex h-24 w-24 shrink-0 items-center justify-center rounded-xl bg-linear-to-br text-3xl ${
+                ACENTO_CATEGORIA[lugar.categoriaCodigo] ?? "from-primary/70 to-primary/30"
               }`}
             >
-              <span className="rounded-full bg-background/90 px-3 py-1 text-xs font-medium">
-                {tLugares(`categorias.${lugar.categoriaCodigo}`)}
-              </span>
+              {ICONO_CATEGORIA[lugar.categoriaCodigo] ?? "📍"}
             </div>
-            <div className="flex flex-1 flex-col justify-between gap-2 p-5">
-              <h3 className="text-lg font-semibold leading-tight group-hover:text-primary">
+            <div className="flex min-w-0 flex-col justify-center gap-1">
+              {lugar.abiertoAhora === true && (
+                <span className="w-max rounded-full bg-emerald-600/15 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-emerald-800 dark:text-emerald-400">
+                  {tLugares("abiertoAhora")}
+                </span>
+              )}
+              <h3 className="truncate font-semibold leading-tight group-hover:text-primary">
                 {lugar.nombre}
               </h3>
-              <p className="text-sm opacity-80">{t(`razones.${lugar.razonClave}`)}</p>
+              <p className="truncate text-xs opacity-80">{t(`razones.${lugar.razonClave}`)}</p>
+              <span className="text-sm font-medium text-primary">{t("verDetalles")} →</span>
             </div>
           </Link>
         ))}

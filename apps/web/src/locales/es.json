@@ -11,7 +11,12 @@
     "reportar": "Reportar",
     "idioma": "Idioma",
     "mapaIncidentes": "Incidentes",
-    "negocios": "Negocios"
+    "negocios": "Negocios",
+    "rutas": "Rutas",
+    "explorar": "Explorar",
+    "agenda": "Agenda",
+    "perfil": "Perfil",
+    "cambiarTema": "Cambiar tema"
   },
   "Home": {
     "titulo": "Descubre Huamanga",
@@ -21,7 +26,10 @@
     "seccionDiferenciador": "¿Qué hago hoy, ahora, aquí?",
     "textoDiferenciador": "Recomendaciones según la hora, el clima y lo que está abierto en este momento.",
     "buscar": "Buscar",
-    "verTodos": "Ver todos"
+    "verTodos": "Ver todos",
+    "buscarPlaceholder": "¿A dónde quieres ir?",
+    "agendaTitulo": "Agenda cultural",
+    "categorias": "Categorías"
   },
   "Lugares": {
     "titulo": "Lugares para descubrir",
@@ -111,7 +119,17 @@
     "codigoQR": "QR",
     "ordenar": "Ordenar:",
     "ordenNombre": "Nombre",
-    "ordenCalificacion": "Mejor valorados"
+    "ordenCalificacion": "Mejor valorados",
+    "categoriasCortas": {
+      "IGLESIAS": "Iglesias",
+      "MIRADORES": "Miradores",
+      "MUSEOS": "Museos",
+      "PLAZAS": "Plazas",
+      "SITIOS_ARQUEOLOGICOS": "Arqueología",
+      "CASONAS": "Casonas",
+      "TALLERES_ARTESANALES": "Artesanía",
+      "NATURALEZA": "Naturaleza"
+    }
   },
   "Footer": {
     "hechoEn": "Hecho en Ayacucho, Perú",
@@ -137,7 +155,8 @@
       "IDEAL_MADRUGADA": "Abierto a esta hora",
       "ABIERTO_AHORA": "Abierto ahora"
     },
-    "subtitulo": "Según la hora, el clima y lo que está abierto"
+    "subtitulo": "Según la hora, el clima y lo que está abierto",
+    "verDetalles": "Ver detalles"
   },
   "Cuenta": {
     "titulo": "Tu cuenta",
@@ -227,7 +246,8 @@
     "volver": "Volver a la agenda",
     "verLugar": "Ver el lugar",
     "organiza": "Organiza",
-    "recurrente": "Este evento se celebra cada año."
+    "recurrente": "Este evento se celebra cada año.",
+    "enTiempo": "En {tiempo}"
   },
   "Negocios": {
     "titulo": "Directorio de negocios",
@@ -277,5 +297,13 @@
     "iniciaSesion": "Inicia sesión para guardar tus lugares favoritos →",
     "vacio": "Aún no guardaste ningún lugar. Toca el corazón de un lugar para tenerlo aquí.",
     "explorar": "Explorar lugares"
+  },
+  "Rutas": {
+    "titulo": "Rutas imperdibles",
+    "subtitulo": "Recorridos sugeridos para descubrir Huamanga a tu ritmo.",
+    "verTodas": "Ver todas",
+    "sinRutas": "Aún no hay rutas publicadas.",
+    "horas": "{horas} h aprox.",
+    "paradas": "{total} paradas"
   }
 }

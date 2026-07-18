@@ -30,6 +30,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...entrada("", { priority: 1, changeFrequency: "daily" }),
     ...entrada("/lugares", { priority: 0.9, changeFrequency: "daily" }),
     ...entrada("/mapa", { priority: 0.8 }),
+    ...entrada("/rutas", { priority: 0.7 }),
     ...entrada("/eventos", { priority: 0.8, changeFrequency: "daily" }),
     ...entrada("/negocios", { priority: 0.7 }),
     ...entrada("/mapa-incidentes", { priority: 0.5 }),

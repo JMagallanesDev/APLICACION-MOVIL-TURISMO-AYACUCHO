@@ -5,6 +5,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { SITIO_URL } from "@/lib/sitio";
+import BarraInferior from "@/components/BarraInferior";
 import ProveedorSesion from "@/components/ProveedorSesion";
 import "../globals.css";
 
@@ -68,8 +69,20 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {/* Aplica el tema guardado antes del primer pintado (evita FOUC) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              'try{var t=localStorage.getItem("tema");if(t==="dark"||t==="light"){document.documentElement.dataset.theme=t}}catch(e){}',
+          }}
+        />
         <NextIntlClientProvider>
-          <ProveedorSesion>{children}</ProveedorSesion>
+          <ProveedorSesion>
+            {children}
+            {/* Espacio para la barra inferior fija en móvil */}
+            <div aria-hidden className="h-14 md:hidden" />
+            <BarraInferior />
+          </ProveedorSesion>
         </NextIntlClientProvider>
       </body>
     </html>

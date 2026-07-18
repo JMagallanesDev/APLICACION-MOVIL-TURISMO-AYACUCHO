@@ -48,6 +48,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/lugares/**", "/categorias-lugar").permitAll()
                         // Clima y recomendaciones: navegación anónima (RF-25, RF-08)
                         .requestMatchers(HttpMethod.GET, "/clima/**", "/recomendaciones/**").permitAll()
+                        // Rutas temáticas públicas (RF-53)
+                        .requestMatchers(HttpMethod.GET, "/rutas/**").permitAll()
                         // Preservación ciudadana: reporte anónimo y mapa público (RF-69/72/74)
                         .requestMatchers(HttpMethod.GET, "/tipos-incidente", "/reportes/mapa").permitAll()
                         .requestMatchers(HttpMethod.POST, "/reportes").permitAll()
